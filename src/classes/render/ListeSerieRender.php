@@ -1,5 +1,9 @@
 <?php
 
+namespace netvod\render;
+
+use netvod\video\lists\ListeSerie;
+
 /**
  * classe ListeSerieRender
  * qui permet le rendu d'une liste de série

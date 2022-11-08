@@ -1,5 +1,7 @@
 <?php
 
+namespace netvod\render;
+
 /**
  * classe EpisodesRender
  * qui permet le rendu d'un tableau d'épisode

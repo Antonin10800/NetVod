@@ -1,5 +1,7 @@
 <?php
 
+namespace netvod\render;
+
 /**
  * interface Render
  * permet de faire un rendu

@@ -1,5 +1,9 @@
 <?php
 
+namespace netvod\render;
+
+use netvod\video\episode\Serie;
+
 /**
  * classe SerieRender
  * qui permet le rendu d'une série et de ses épisodes
