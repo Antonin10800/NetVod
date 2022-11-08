@@ -10,12 +10,10 @@ session_start();
 
 ConnectionFactory::setConfig();
 
-session_start();
-
 $html = '';
 $dispatch = new Dispatcher();
 $html .= $dispatch->dispatch();
 
-$user = unserialize($_SESSION['user']);
+//$user = unserialize($_SESSION['user']);
 
 echo $html;

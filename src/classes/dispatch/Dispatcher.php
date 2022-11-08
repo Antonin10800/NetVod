@@ -5,7 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\AfficherSerie;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
-use netvod\user\Utilisateur;
+use netvod\action\Inscription;
 
 class Dispatcher
 {
@@ -39,7 +39,6 @@ class Dispatcher
                 $afficherSerie = new AfficherSerie();
                 $html = $afficherSerie->execute();
                 break;
-
         }
         return $html;
     }

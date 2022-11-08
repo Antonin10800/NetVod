@@ -36,8 +36,6 @@ class Auth
     {
         if (strlen($pass) < 10) throw new \Exception('mot de passe trop court');
 
-
-
         // encode le mot de passe
         $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
         if (filter_var($email, FILTER_VALIDATE_EMAIL))

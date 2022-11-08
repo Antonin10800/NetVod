@@ -2,6 +2,8 @@
 
 namespace netvod\action;
 
+use netvod\auth\Auth;
+
 class Inscription implements Action
 {
     public function execute(): string
@@ -14,12 +16,16 @@ class Inscription implements Action
             $html .= '<input type="password" name="password2"  placeholder="Mot de passe">';
             $html .= '<input type="text" name="nom"  placeholder="Nom">';
             $html .= '<input type="text" name="prenom"  placeholder="Prenom">';
-            $html .= '<input type="radio" name="Genre" value="Femme">Femme';
-            $html .= '<input type="radio" name="Genre" value="Homme">Homme<br>';
+            $html .= '<input type="radio" name="genre" value="Femme">Femme';
+            $html .= '<input type="radio" name="genre" value="Homme">Homme<br>';
             $html .= '<button type="submit">Connexion</button>';
             $html .= '</form>';
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-            //TODO
+            if($_POST['password'] != $_POST['password2']) {
+                $html = "mot de passe different";
+            }else {
+                Auth::register($_POST['email'], $_POST['password'], $_POST['nom'], $_POST['prenom'], $_POST['genre']);
+            }
         }
         return $html;
     }
