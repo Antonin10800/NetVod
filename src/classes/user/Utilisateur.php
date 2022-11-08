@@ -58,4 +58,9 @@ class Utilisateur
     {
         return $this->$name;
     }
+
+    public function __toString()
+    {
+        return $this->nom . " " . $this->prenom;
+    }
 }
