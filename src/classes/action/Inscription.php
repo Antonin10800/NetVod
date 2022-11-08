@@ -14,9 +14,8 @@ class Inscription implements Action
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
-        $html .= '<link rel="stylesheet" href="css/Inscription.css">';
-        
-        $html .= '</head><body background="../images/css/netfix_background.jpeg">';
+        $html .= '<link rel="stylesheet" href="src/classes/css/Inscription.css">';
+        $html .= '</head><body background="src/classes/images/css/netfix_background.jpeg">';
         
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= '<form method="post" action="?action=inscription">';
@@ -28,7 +27,7 @@ class Inscription implements Action
             $html .= '<div class="part"><p>prenom</p><input type="text" name="prenom"  placeholder="Prenom"></div></div>';
             $html .= '<div class="gender"><input type="radio" name="genre" value="Femme">Femme';
             $html .= '<input type="radio" name="genre" value="Homme">Homme<br></div>';
-            $html .= '<button type="submit">Connexion</button>';
+            $html .= '<button type="submit">Inscription</button>';
             $html .= '</form>';
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             if($_POST['password'] != $_POST['password2']) {
