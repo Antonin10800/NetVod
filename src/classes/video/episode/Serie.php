@@ -4,20 +4,21 @@ namespace netvod\video\episode;
 
 class Serie 
 {
-    private string $titre;
     private int $IDserie;
+    private string $titre;
     private string $resume;
     private string $genre;
     private string $public;
-    private string $dateAjout;
+    private Date $dateAjout;
     private int $nbEpisode;
+    private Date $dateSortie;
     private array $avis = array();
 
     /**
      * constructeur de la class Serie qui prends en paramètre 
      * tout les attributs de la class
      */
-    public function __construct(string $titre, int $IDserie, string $resume, string $genre, string $public, string $dateAjout, int $nbEpisode)
+    public function __construct(string $titre, int $IDserie, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie)
     {
         $this->titre = $titre;
         $this->IDserie = $IDserie;
@@ -26,6 +27,7 @@ class Serie
         $this->public = $public;
         $this->dateAjout = $dateAjout;
         $this->nbEpisode = $nbEpisode;
+        $this->dateSortie = $dateSortie;
     }
 
     /**
