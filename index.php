@@ -8,13 +8,7 @@ use netvod\dispatch\Dispatcher;
 
 ConnectionFactory::setConfig();
 
-if (isset($_SESSION['utilisateur'])) {
-
-}
-else
-{
-    $_SESSION['utilisateur'] = null;
-}
+session_start();
 
 $html = '';
 $dispatch = new Dispatcher();

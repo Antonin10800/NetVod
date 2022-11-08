@@ -5,6 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\AfficherSerie;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
+use netvod\user\Utilisateur;
 
 class Dispatcher
 {
@@ -40,12 +41,14 @@ class Dispatcher
                 <h1>Page d'accueil</h1> 
                 <a href="index.php?action=connexion">Connexion<br></a>
                 HTML;
-                if(is_null($_SESSION['utilisateur'])){
+                if(!isset($_SESSION['user'])){
                     $html .= "pas connecté <br>";
                 } else {
-                    $html .= "connecté <br>";
-                    $user = unserialize($_SESSION['utilisateur']);
-                    $html .= $user;
+                    $user = unserialize($_SESSION['user']);
+                    if($user != null) {
+                        $html .= $user->__get('email');
+                        $html .= "connecté <br>";
+                    }
                 }
 
         }
