@@ -13,6 +13,7 @@ class Episode
     /**
      * constructeur de la class Episode qui prends en paramètre 
      * tout les attributs de la class
+     * @param int $IDepisode, int $duree, string $titre, string $image, int $numeroEp
      */
     public function __construct(int $IDepisode, int $duree, string $titre, string $image, int $numeroEp)
     {
@@ -23,6 +24,11 @@ class Episode
         $this->numeroEp = $numeroEp;
     }
 
+
+    /**
+     * getter Magique
+     * @param string $attribut
+     */
     public function __get($name)
     {
         return $this->$name;
