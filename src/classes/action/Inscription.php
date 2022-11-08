@@ -8,16 +8,26 @@ class Inscription implements Action
 {
     public function execute(): string
     {
-        $html = '';
+        $html = '<!DOCTYPE html>';
+        $html .= '<html lang="fr"> <head>';
+        $html .= '<meta charset="UTF-8">';
+        $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+        $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        $html .= '<title>Inscription</title>';
+        $html .= '<link rel="stylesheet" href="css/Inscription.css">';
+        
+        $html .= '</head><body background="../images/css/netfix_background.jpeg">';
+        
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= '<form method="post" action="?action=inscription">';
-            $html .= '<input type="email" name="email"  placeholder="Email">';
-            $html .= '<input type="password" name="password"  placeholder="Mot de passe">';
-            $html .= '<input type="password" name="password2"  placeholder="Mot de passe">';
-            $html .= '<input type="text" name="nom"  placeholder="Nom">';
-            $html .= '<input type="text" name="prenom"  placeholder="Prenom">';
-            $html .= '<input type="radio" name="genre" value="Femme">Femme';
-            $html .= '<input type="radio" name="genre" value="Homme">Homme<br>';
+            $html .= '<div class="title"><h1>Inscription</h1></div>';
+            $html .= '<p>email</p><input type="email" name="email"  placeholder="Email">';
+            $html .= '<p>password</p><input type="password" name="password"  placeholder="Mot de passe">';
+            $html .= '<p>password confirmation</p><input type="password" name="password2"  placeholder="Mot de passe">';
+            $html .= '<div class="name"><div class="part"><p>nom</p><input type="text" name="nom"  placeholder="Nom"></div>';
+            $html .= '<div class="part"><p>prenom</p><input type="text" name="prenom"  placeholder="Prenom"></div></div>';
+            $html .= '<div class="gender"><input type="radio" name="genre" value="Femme">Femme';
+            $html .= '<input type="radio" name="genre" value="Homme">Homme<br></div>';
             $html .= '<button type="submit">Connexion</button>';
             $html .= '</form>';
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
@@ -27,6 +37,7 @@ class Inscription implements Action
                 Auth::register($_POST['email'], $_POST['password'], $_POST['nom'], $_POST['prenom'], $_POST['genre']);
             }
         }
+        $html .= '</body></html>';
         return $html;
     }
 }

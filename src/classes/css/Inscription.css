@@ -1,0 +1,102 @@
+html {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+a, h1, h2, h3, p, ul, li, ol, dl, dt, dd, blockquote, pre, form, fieldset, input, textarea, th, td {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #f3f3f3;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    background-color: #333;
+    align-items: center;
+    justify-content: center;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(0, 0, 0, 0.79);
+    height: 70%;
+    padding: 1em 0;
+} 
+
+.form p {
+    margin: 0 6%;
+    font-size: 81%;
+}
+
+.form input {   
+    margin: 0.5em 1em;
+    height: 15%;
+    background-color: #333;
+    color: #f3f3f3;
+    border: none;
+    border-radius: 5px;
+}
+
+.form button {
+    margin: 0.5em 1em;
+    height: 15%;
+    background-color: red;
+    border: none;
+    color: #f3f3f3;
+    font-size: 150%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border-radius: 5px;
+}
+
+.title {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+
+.name {
+    height: 15%;
+    display: flex;
+    margin-bottom: 7%;
+}
+
+.name p {
+    margin-left: 12%;
+}
+
+.name input {
+    margin: 0.5em 1em;
+    height: 100%;
+}
+
+.gender {
+    display: flex;
+    align-items: center;
+}
+
+.gender input {
+    height: 100%;
+}
