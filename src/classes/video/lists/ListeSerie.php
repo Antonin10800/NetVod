@@ -1,5 +1,7 @@
 <?php
 
+namespace netvod\video\lists;
+
 use netvod\db\ConnectionFactory;
 
 class ListeSerie

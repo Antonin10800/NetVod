@@ -1,5 +1,7 @@
 <?php
 
+namespace netvod\video\episode;
+
 class Serie 
 {
     private string $titre;
