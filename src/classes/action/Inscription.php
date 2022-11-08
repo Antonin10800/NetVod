@@ -33,7 +33,12 @@ class Inscription implements Action
             if($_POST['password'] != $_POST['password2']) {
                 $html = "mot de passe different";
             }else {
-                Auth::register($_POST['email'], $_POST['password'], $_POST['nom'], $_POST['prenom'], $_POST['genre']);
+                $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+                $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+                $nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
+                $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
+                $genre = filter_var($_POST['genre'],FILTER_SANITIZE_STRING);
+                Auth::register($email, $pass, $nom, $prenom, $genre);
             }
         }
         $html .= '</body></html>';

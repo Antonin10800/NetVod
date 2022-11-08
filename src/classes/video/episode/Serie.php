@@ -2,7 +2,7 @@
 
 namespace netvod\video\episode;
 
-use netvod\Date;
+use netvod\utilitaire\Date;
 
 class Serie
 {
