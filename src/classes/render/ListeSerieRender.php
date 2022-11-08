@@ -1,7 +1,8 @@
 <?php
 
-namespace netvod\render;
 
+namespace netvod\render;
+require_once 'classes/render/Render.php';
 use netvod\video\lists\ListeSerie;
 
 /**
@@ -11,16 +12,16 @@ use netvod\video\lists\ListeSerie;
 class ListeSerieRender implements Render {
 
     /**
-     * @var ListeSerie liste de série que l'on souhaite rendre
+     * @var array liste de série que l'on souhaite rendre
      */
-    private ListeSerie $listeSerie;
+    private array $listeSerie;
 
     /**
      * constructeur de la classe ListeSerieRender
      * initialise la variable listeSerie
-     * @param ListeSerie $listeSerie liste de série que l'on souhaite ajouter à la variable
+     * @param array $listeSerie liste de série que l'on souhaite ajouter à la variable
      */
-    public function __construct(ListeSerie $listeSerie){
+    public function __construct(array $listeSerie){
         $this->listeSerie = $listeSerie;
     }
 
@@ -29,11 +30,10 @@ class ListeSerieRender implements Render {
      * @return string le rendu de la liste de série
      */
     public function render() : string {
-        $listeDesSeries = $this->listeSerie->getSeries();
         $res = "";
-        for($i = 0 ; count($listeDesSeries) ; $i++){
-            $res .= "<div> {$listeDesSeries[$i]->titre}<br>"
-                . "{$listeDesSeries[$i]->image}<br><br> </div>";
+        foreach ($this->listeSerie as $serie) {
+
+            $res .= $serie->__get('titre') . '<br>';
         }
         return $res;
     }

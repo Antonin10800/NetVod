@@ -1,6 +1,6 @@
 # CakePHP 3
 
-/vendor/*
+/src/vendor/*
 /config/app.php
 
 /tmp/cache/models/*
@@ -234,3 +234,4 @@ fabric.properties
 .iml
 .xml
 *.xml
+*.json

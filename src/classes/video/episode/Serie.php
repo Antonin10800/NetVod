@@ -2,7 +2,9 @@
 
 namespace netvod\video\episode;
 
-class Serie 
+use Date;
+
+class Serie
 {
     private int $IDserie;
     private string $titre;
@@ -18,7 +20,7 @@ class Serie
      * constructeur de la class Serie qui prends en paramètre 
      * tout les attributs de la class
      */
-    public function __construct(string $titre, int $IDserie, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie)
+    public function __construct(int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie)
     {
         $this->titre = $titre;
         $this->IDserie = $IDserie;
