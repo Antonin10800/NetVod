@@ -1,7 +1,16 @@
 {
+    "name": "arthur/sae-dev-app-secu",
     "autoload": {
         "psr-4": {
-            "netvod\\" : "./src/classes"
+            "netvod\\": "src/classes"
         }
-    }
+    },
+    "authors": [
+        {
+            "name": "ArturoDelMadrazo",
+            "email": "33378667+Ischyrosmilus@users.noreply.github.com",
+            
+        }
+    ],
+    "require": {}
 }

@@ -234,4 +234,4 @@ fabric.properties
 .iml
 .xml
 *.xml
-*.json
+/vendor/

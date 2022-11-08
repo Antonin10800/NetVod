@@ -2,7 +2,7 @@
 
 namespace netvod\video\lists;
 
-use Date;
+use netvod\Date;
 use netvod\db\ConnectionFactory;
 use netvod\video\episode\Serie;
 

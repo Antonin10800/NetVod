@@ -2,7 +2,6 @@
 
 
 namespace netvod\render;
-require_once 'classes/render/Render.php';
 use netvod\video\lists\ListeSerie;
 
 /**
