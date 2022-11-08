@@ -5,3 +5,4 @@ require_once 'vendor/autoload.php';
 
 use netvod\db\ConnectionFactory;
 
+ConnectionFactory::setConfig('db.config.ini');
