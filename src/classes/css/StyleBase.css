@@ -1,0 +1,16 @@
+html {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+a, h1, h2, h3, p, ul, li, ol, dl, dt, dd, blockquote, pre, form, fieldset, input, textarea, th, td {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
