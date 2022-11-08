@@ -1,4 +1,7 @@
 <?php
+
+namespace netvod\user;
+
 class Utilisateur 
 {
     private int $IDuser;
