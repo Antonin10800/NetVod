@@ -1,10 +1,10 @@
 <?php
 
 /**
- * interface SerieRender
+ * interface RenderListe
  * permet le rendu d'une série
  */
-interface SerieRender {
+interface RenderListe {
 
     /** fonction render qui permet le rendu d'une série
      * @param Serie $serie la série à retourner

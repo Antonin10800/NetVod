@@ -1,10 +1,10 @@
 <?php
 
 /**
- * interface EpisodeRender
+ * interface Render
  * permet le rendu d'un épisode
  */
-interface EpisodeRender {
+interface Render {
 
     /** fonction render qui permet le rendu d'un épisode
      * @param Episode $episode l'épisode à retourner
