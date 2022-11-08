@@ -8,8 +8,8 @@ interface Render {
 
     /** fonction render qui permet le rendu d'un épisode
      * @param Episode $episode l'épisode à retourner
-     * @return void
+     * @return string le rendu de l'épisode
      */
-    public function render(Episode $episode) : void;
+    public function render(Episode $episode) : string;
 
 }
