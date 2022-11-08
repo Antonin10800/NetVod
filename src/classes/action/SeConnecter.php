@@ -11,7 +11,7 @@ class SeConnecter implements Action
     {
         $html = '';
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $html .= '<form method="post" action="?action=signin">';
+            $html .= '<form method="post" action="?action=connexion">';
             $html .= '<input type="email" name="email"  placeholder="Email">';
             $html .= '<input type="password" name="password"  placeholder="Mot de passe">';
             $html .= '<button type="submit">Connexion</button>';
@@ -19,7 +19,12 @@ class SeConnecter implements Action
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             $user = Auth::authentificate($_POST['email'], $_POST['password']);
-            $_SESSION['utilisateur'] = serialize($user);
+            if($user != null){
+                $_SESSION['utilisateur'] = serialize($user);
+                $html = "connecte";
+            }else{
+                $html = "non connecte";
+            }
         }
 
         return $html;

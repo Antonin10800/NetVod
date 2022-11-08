@@ -6,6 +6,8 @@ require_once 'vendor/autoload.php';
 use netvod\db\ConnectionFactory;
 use netvod\dispatch\Dispatcher;
 
+session_start();
+
 ConnectionFactory::setConfig();
 
 if (isset($_SESSION['utilisateur'])) {

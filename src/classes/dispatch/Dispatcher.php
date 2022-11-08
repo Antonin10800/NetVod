@@ -5,6 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\AfficherSerie;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
+use netvod\action\Inscription;
 
 class Dispatcher
 {
@@ -39,6 +40,7 @@ class Dispatcher
                 $html .= <<<HTML
                 <h1>Page d'accueil</h1> 
                 <a href="index.php?action=connexion">Connexion<br></a>
+                <a href="index.php?action=inscription">inscription<br></a>
                 HTML;
                 if(is_null($_SESSION['utilisateur'])){
                     $html .= "pas connecté <br>";
