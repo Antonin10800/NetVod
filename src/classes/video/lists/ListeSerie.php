@@ -10,18 +10,22 @@ class ListeSerie
     {
     }
 
-    public static function getInstance(): ListeSerie
+    public static function getInstance(): array
     {
-        static $instance = [];
         if (self::$listeSeries === null) {
-            $instance = new ListeSerie();
             $db = ConnectionFactory::makeConnection();
+            $req = $db->prepare("SELECT * FROM Serie");
+            $req->execute();
+            $result = $req->fetchAll();
+            foreach ($result as $item)
+            {
+                $dateAjout = new Date($item['dateAjout']);
+                $dateSortie = new Date($item['dateSortie']);
+                $serie = new Serie($item['IDserie'], $item['titre'], $item['resume'], $item['genre'], $item['public'], $dateAjout, $item['nbEpisode'], $dateSortie);
+                self::$listeSeries[] = $serie;
+            }
         }
-        else
-        {
-            $instance = self::$listeSeries;
-        }
-        return $instance;
+        return self::$listeSeries;
     }
 
     public static function ajouterSerie(Serie $serie)
