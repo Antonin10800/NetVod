@@ -2,79 +2,46 @@
 
 namespace netvod\video\lists;
 
+use Date;
 use netvod\db\ConnectionFactory;
+use netvod\video\episode\Serie;
 
 class ListeSerie
 {
-    private static array $listeSeries = [];
+    private array $listeSeries = [];
+
+    private static ?ListeSerie $instance = null;
 
     public function __construct()
     {
     }
 
-    public static function getInstance(): array
+    public static function getInstance(): ?ListeSerie
     {
-        if (self::$listeSeries === null) {
-            $db = ConnectionFactory::makeConnection();
-            $req = $db->prepare("SELECT * FROM Serie");
-            $req->execute();
-            $result = $req->fetchAll();
-            foreach ($result as $item)
-            {
-                $dateAjout = new Date($item['dateAjout']);
-                $dateSortie = new Date($item['dateSortie']);
-                $serie = new Serie($item['IDserie'], $item['titre'], $item['resume'], $item['genre'], $item['public'], $dateAjout, $item['nbEpisode'], $dateSortie);
-                self::$listeSeries[] = $serie;
-            }
+        if (is_null(self::$instance)) {
+            self::$instance = new ListeSerie();
         }
-        return self::$listeSeries;
+        return self::$instance;
     }
 
-    public static function ajouterSerie(Serie $serie)
+    public function getSeries(): array
     {
-        // pour ajouter en fin d'un tableau on met crochet vide :-)
-        self::$listeSeries[] = $serie;
-    }
-
-    public static function supprimerSerie(Serie $serie)
-    {
-        // on cherche l'index de la série dans le tableau
-        $index = array_search($serie, self::$listeSeries);
-        // on supprime l'élément du tableau
-        unset(self::$listeSeries[$index]);
-    }
-
-    public static function getNbSeries(): int
-    {
-        return count(self::$listeSeries);
-    }
-
-    public static function getSeries(): array
-    {
-        return self::$listeSeries;
-    }
-
-    public static function getSeriesByGenre(string $genre): array
-    {
-        $series = [];
-        foreach (self::$listeSeries as $serie) {
-            if ($serie->genre === $genre) {
-                $series[] = $serie;
-            }
+        $db = ConnectionFactory::makeConnection();
+        $req = $db->prepare("SELECT * FROM Serie");
+        $req->execute();
+        $result = $req->fetchAll();
+        foreach ($result as $item)
+        {
+            $dateAjout = new Date($item['dateAjout']);
+            $dateSortie = new Date($item['dateSortie']);
+            $idSerie = intval($item['IDserie']);
+            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie);
+            $this->listeSeries[] = $serie;
         }
-        return $series;
+        return $this->listeSeries;
     }
 
-    public static function getSeriesByPublic(string $public): array
-    {
-        $series = [];
-        foreach (self::$listeSeries as $serie) {
-            if ($serie->public === $public) {
-                $series[] = $serie;
-            }
-        }
-        return $series;
-    }
+
 
 
 }
