@@ -20,12 +20,16 @@ class Dispatcher
         $html = '';
         switch ($action) {
             case 'inscription':
-                $inscription = new Inscription();
-                $html = $inscription->execute();
+                if(!isset($_SESSION['user'])) {
+                    $inscription = new Inscription();
+                    $html = $inscription->execute();
+                }
                 break;
             case 'connexion':
-                $connexion = new SeConnecter();
-                $html = $connexion->execute();
+                if(!isset($_SESSION['user'])) {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
                 break;
             case 'lobby':
                 $lobby = new Lobby();
@@ -35,21 +39,6 @@ class Dispatcher
                 $afficherSerie = new AfficherSerie();
                 $html = $afficherSerie->execute();
                 break;
-
-            default:
-                $html .= <<<HTML
-                <h1>Page d'accueil</h1> 
-                <a href="index.php?action=connexion">Connexion<br></a>
-                HTML;
-                if(!isset($_SESSION['user'])){
-                    $html .= "pas connecté <br>";
-                } else {
-                    $user = unserialize($_SESSION['user']);
-                    if($user != null) {
-                        $html .= $user->__get('email');
-                        $html .= "connecté <br>";
-                    }
-                }
 
         }
         return $html;

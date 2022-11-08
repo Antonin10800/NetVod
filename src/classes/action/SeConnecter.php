@@ -22,11 +22,6 @@ class SeConnecter implements Action
             if($user != null)
             {
                 $_SESSION['user'] = serialize($user);
-                $html .= 'Vous êtes connecté';
-            }
-            else
-            {
-                $html .= 'Utilisateur non trouvé';
             }
 
         }
