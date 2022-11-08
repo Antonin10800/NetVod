@@ -41,8 +41,10 @@ class SerieRender implements Render {
                 . "{$this->serie->dateAjout}<br>"
                 . "{$this->serie->nbEpisode}<br><br> </div>";
 
-        $renderEpisodes = new EpisodesRender($this->episodes);
-        $res .= $renderEpisodes->render();
+        $renderEpisode = new EpisodeRender($this->episodes);
+        foreach ($this->episodes as $episode) {
+            $res .= $renderEpisode->render();
+        }
 
         return $res;
     }
