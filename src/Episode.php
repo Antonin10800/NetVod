@@ -20,4 +20,9 @@ class Episode
         $this->image = $image;
         $this->numeroEp = $numeroEp;
     }
+
+    public function __get($name)
+    {
+        return $this->$name;
+    }
 }
