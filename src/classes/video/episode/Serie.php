@@ -19,6 +19,7 @@ class Serie
     /**
      * constructeur de la class Serie qui prends en paramètre 
      * tout les attributs de la class
+     * @param int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie
      */
     public function __construct(int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie)
     {
@@ -34,7 +35,7 @@ class Serie
 
     /**
      * méthode ajouterAvis
-     * @param Avis $avis
+     * @param avis $avis
      */
     public function ajouterAvis(Avis $avis)
     {
@@ -44,6 +45,7 @@ class Serie
 
     /**
      * getter Magique
+     * @param string $attribut
      */
     public function __get($name)
     {
