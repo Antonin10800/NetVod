@@ -2,14 +2,13 @@
 
 /**
  * interface Render
- * permet le rendu d'un épisode
+ * permet de faire un rendu
  */
 interface Render {
 
-    /** fonction render qui permet le rendu d'un épisode
-     * @param Episode $episode l'épisode à retourner
-     * @return string le rendu de l'épisode
+    /** fonction render qui permet un rendu
+     * @return string le rendu
      */
-    public function render(Episode $episode) : string;
+    public function render() : string;
 
 }
