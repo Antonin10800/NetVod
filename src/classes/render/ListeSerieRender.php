@@ -32,7 +32,7 @@ class ListeSerieRender implements Render {
         $res = "";
         foreach ($this->listeSerie as $serie) {
 
-            $res .= $serie->__get('titre') . '<br>';
+            $res .= $serie->render();
         }
         return $res;
     }
