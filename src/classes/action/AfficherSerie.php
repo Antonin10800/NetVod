@@ -16,7 +16,6 @@ class AfficherSerie implements Action
 
     public function execute(): string
     {
-        $html = '';
 
         $this->chargerEpisode();
 
@@ -29,7 +28,6 @@ class AfficherSerie implements Action
 
     public function chargerEpisode()
     {
-        $html = '';
         $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
 
         $listeSerie = ListeSerie::getInstance();
@@ -43,7 +41,7 @@ class AfficherSerie implements Action
                 break;
             }
         }
-        if ($serieTrouve->__get('listeEpisode') == null) {
+        if ($this->serieCourante->__get('listeEpisode') == null) {
             $query = "select E.idEpisode, titre, duree, image,numEp from Serie2Episode inner join 
                             Episode E on Serie2Episode.IDEpisode = E.idEpisode
                             where Serie2Episode.IDSerie = ?";
@@ -56,7 +54,7 @@ class AfficherSerie implements Action
                 $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
                 $listeEpisode[] = $episode;
             }
-            $serieTrouve->__set('listeEpisode', $listeEpisode);
+            $this->serieCourante->__set('listeEpisode', $listeEpisode);
 
         }
     }

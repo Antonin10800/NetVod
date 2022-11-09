@@ -17,10 +17,21 @@ class AffichageEpisode
         $episodeAffiche = null;
 
         foreach ($series as $serie) {
+            echo $serie->__get('IDserie');
             if ($serie->__get('IDserie') == $idSerie)
             {
                 $episodes = $serie->getEpisodes();
-                $episodeAffiche = $episodes[$numEpisode];
+                echo sizeof($episodes);
+                break;
+            }
+        }
+        foreach ($episodes as $episode) {
+            echo $episode->__get('numeroEp');
+            if ($episode->__get('numeroEp') == $numEpisode)
+            {
+                echo $episode->__get('numeroEp');
+                $episodeAffiche = $episode;
+                break;
             }
         }
         $render = new EpisodeRender($episodeAffiche);
