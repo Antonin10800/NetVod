@@ -34,7 +34,7 @@ class SerieRender implements Render {
      * @return string le rendu de la série
      */
     public function render() : string {
-        $res = "<div class=\"image\"> <img class=\"image-serie\" src=\"{$this->serie->image}\"></div>";
+        $res = "<div href=\"?action=afficher-serie&ID={$this->serie->IDserie}\" class=\"image\"> <img class=\"image-serie\" src=\"{$this->serie->image}\"></div>";
 
 
         foreach ($this->episodes as $episode) {
