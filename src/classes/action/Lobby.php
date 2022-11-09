@@ -27,7 +27,7 @@ class Lobby implements Action
         $html .= '<h1>NetVod</h1>';
         $html .= '</div>';
         $html .= '<div class="headerRight">';
-        $html .= '<a><i class="fa-solid fa-user"></i></a>';
+        $html .= '<a><i href="?action=profile" class="fa-solid fa-user"></i></a>';
 
         $html .= '</div>';
         $html .= '</header>';
