@@ -3,6 +3,7 @@
 namespace netvod\action;
 
 use netvod\db\ConnectionFactory;
+use netvod\video\lists\ListeSerie;
 
 class PageUtilisateur implements Action {
 
@@ -17,8 +18,11 @@ class PageUtilisateur implements Action {
         $query->execute();
 
         $html = "";
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
         while($data = $query->fetch()){
-            // afficher la photo de chaque serie
+            $serieFav = $series[$data["IDSerie"]-1];
+            echo $serieFav->titre;
         }
 
         return $html;

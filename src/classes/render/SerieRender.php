@@ -38,7 +38,6 @@ class SerieRender implements Render {
                 . "{$this->serie->resume}<br>"
                 . "{$this->serie->genre}<br>"
                 . "{$this->serie->genre}<br>"
-                . "{$this->serie->dateAjout}<br>"
                 . "{$this->serie->nbEpisode}<br>"
                 . "{$this->serie->image}<br>"
                 . "<br> </div>";
