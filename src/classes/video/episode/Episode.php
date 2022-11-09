@@ -29,8 +29,12 @@ class Episode
      * getter Magique
      * @param string $attribut
      */
-    public function __get($name)
+    public function __get($name): mixed
     {
-        return $this->$name;
+        if(property_exists($this,$name))
+        {
+            return $this->$name;
+        }
+        else throw new \Exception("la propriete n'existe pas");
     }
 }

@@ -30,7 +30,9 @@ class SeConnecter implements Action
             $html .= '</form>';
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-            $user = Auth::authentificate($_POST['email'], $_POST['password']);
+            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+            $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+            $user = Auth::authentificate($email,$pass);
             if($user != null)
             {
                 $_SESSION['user'] = serialize($user);
