@@ -2,10 +2,11 @@
 
 namespace netvod\action;
 
-use Action;
+use netvod\action\Action;
 use netvod\db\ConnectionFactory;
-use netvod\render\SerieRender;
+use netvod\render\RenderInfoSerie;
 use netvod\video\episode\Serie;
+use netvod\video\lists\ListeSerie;
 
 class AfficherSerie implements Action
 {
@@ -15,18 +16,11 @@ class AfficherSerie implements Action
     public function execute(): string
     {
         $html = '';
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            //TODO
-        } else if (($_SERVER['REQUEST_METHOD'] == 'POST'))
-        {
-            $this->chargerEpisode();
-            //TODO
 
-            $serieRender = new SerieRender($this->serieCourante);
-            $html = $serieRender->render();
+        $this->chargerEpisode();
 
-
-        }
+        $serieRender = new RenderInfoSerie($this->serieCourante);
+        $html = $serieRender->render();
 
         return $html;
     }
@@ -35,7 +29,7 @@ class AfficherSerie implements Action
     public function chargerEpisode()
     {
         $html = '';
-        $idSerie = filter_var($_POST['idSerie'],FILTER_SANITIZE_NUMBER_INT);
+        $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
 
         $listeSerie = ListeSerie::getInstance();
         $series = $listeSerie->getSeries();
