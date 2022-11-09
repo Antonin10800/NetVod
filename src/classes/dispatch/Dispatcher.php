@@ -7,6 +7,7 @@ use netvod\action\AffichageEpisode;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
+use netvod\action\PageUtilisateur;
 
 use netvod\user\Utilisateur;
 
@@ -53,6 +54,10 @@ class Dispatcher
             case 'afficher-episode':
                 $afficherEpisode = new AffichageEpisode();
                 $html = $afficherEpisode->execute($IDepisode);
+                break;
+            case 'utilisateur':
+                $afficherUtilisateur = new PageUtilisateur();
+                $html = $afficherUtilisateur->execute();
                 break;
 
             default:
