@@ -2,15 +2,19 @@
 
 namespace netvod\action;
 
-use Action;
+
+
+use netvod\video\lists\ListeSerie;
 
 class Lobby implements Action
 {
     public function execute(): string
     {
         $html = '';
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            //TODO
+        if ($_SERVER['REQUEST_METHOD'] == 'GET')
+        {
+            $listeSerie = new ListeSerie();
+            echo "lobby";
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             //TODO

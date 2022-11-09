@@ -7,6 +7,7 @@ use netvod\action\AffichageEpisode;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
+use netvod\action\PageUtilisateur;
 
 use netvod\user\Utilisateur;
 
@@ -54,10 +55,22 @@ class Dispatcher
                 $afficherEpisode = new AffichageEpisode();
                 $html = $afficherEpisode->execute($IDepisode);
                 break;
+            case 'utilisateur':
+                $afficherUtilisateur = new PageUtilisateur();
+                $html = $afficherUtilisateur->execute();
+                break;
 
             default:
-                $connexion = new SeConnecter();
-                $html = $connexion->execute();
+                if(isset($_SESSION['user']))
+                {
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
+                }
+                else
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
 
         }
         return $html;

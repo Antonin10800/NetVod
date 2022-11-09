@@ -31,6 +31,7 @@ class SeConnecter implements Action
             $html .= '</form>';
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+
             if(empty($_POST['email']) || empty($_POST['password'])) {
                 $html .= '<form method="post" action="?action=connexion">';
                 $html .=  '<div class="title"><h1>Inscription</h1></div>';
@@ -51,6 +52,7 @@ class SeConnecter implements Action
                     $_SESSION['user'] = ($user);
                 }
             }
+
 
         }
 
