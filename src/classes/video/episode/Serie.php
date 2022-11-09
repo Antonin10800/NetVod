@@ -5,6 +5,7 @@ namespace netvod\video\episode;
 use netvod\db\ConnectionFactory;
 use netvod\utilitaire\Date;
 use netvod\video\lists\ListeSerie;
+use netvod\utilitaire\Avis;
 
 class Serie
 {
