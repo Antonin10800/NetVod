@@ -8,7 +8,7 @@ namespace netvod\video\episode;
 class Episode
 {
     /**
-     * @var int $idEpisode l'identifiant de l'episode
+     * @var int $IDepisode l'identifiant de l'episode
      * @var int $duree la duree de l'episode
      * @var string $nom le titre de l'episode
      * @var string $image la position de l'image de l'episode
