@@ -45,7 +45,7 @@ class RenderInfoSerie implements Render
 
         foreach ($this->episodes as $episode) {
             $res .= <<<END
-                <div> <a href="?action=afficher-serie&idSerie={$this->serie->IDserie}&numEp={$episode->numeroEp}">
+                <div> <a href="?action=afficher-episode&idSerie={$this->serie->IDserie}&numEp={$episode->numeroEp}">
                 <img src='{$episode->image}'>
                 {$episode->numeroEp}
                 {$episode->titre}</a></div>
