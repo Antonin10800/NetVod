@@ -27,4 +27,8 @@ class Date
     {
         return $this->$name;
     }
+
+    public function toString() : string {
+        return $this->jour . "/" . $this->mois . "/" . $this->annee;
+    }
 }
