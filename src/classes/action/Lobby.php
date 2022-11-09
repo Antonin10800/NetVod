@@ -52,7 +52,7 @@ class Lobby implements Action
         $html .= '<a>Prenom : ' . unserialize($_SESSION['user'])->__get('prenom') . '</a><br>';
         $html .= '<a>Sexe : ' . unserialize($_SESSION['user'])->__get('sexe') . '</a><br>';
         // bouton de déconnexion
-        $html .= '<a class="btn-deconnexion" href="?action=deconnexion">Déconnexion</a>';
+        $html .= '<a class="btn-deconnexion" href="?action=deconnexion"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Déconnexion</a>';
         $html .= '</div>';
 
         $html .= '</body></html>';
