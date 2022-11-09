@@ -47,7 +47,7 @@ header {
 }
 
 .headerRight {
-    margin-right: 2em;
+    margin-right: 15%;
 }
 
 .headerRight i {
@@ -93,4 +93,34 @@ header {
     font-size: 1.5em;
     font-weight: bold;
     margin: 0 2em;
+}
+
+
+
+/* Path: src/css/loby.css */
+
+.profile {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 15%;
+    top: 0;
+    flex-direction: column;
+    right: 0;
+    padding: 3em;
+    background-color: rgba(15, 15, 15, 0.8);
+}
+
+.profile a {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 1em;
+}
+
+.profile i {
+    font-size: 3em;
+}
+
+.profile i:hover {
+    color: gold;
 }

@@ -2,7 +2,10 @@
 
 namespace netvod\video\episode;
 
+use netvod\db\ConnectionFactory;
 use netvod\utilitaire\Date;
+use netvod\video\lists\ListeSerie;
+use netvod\utilitaire\Avis;
 
 class Serie
 {
@@ -34,6 +37,7 @@ class Serie
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
         $this->image = 'src/classes/images/series/image.jpeg';
+        $this->setEpisodes();
     }
 
     /**
@@ -60,8 +64,29 @@ class Serie
         $this->$name = $value;
     }
 
-    public function getEpisodes()
+    public function getEpisodes(): array
     {
         return $this->listeEpisode;
+    }
+
+    public function setEpisodes(): void
+    {
+
+
+        if ($this->listeEpisode == null) //si la série a une liste null:
+        {
+            //on récupére la liste des épisodes de la série:
+            $query = "select E.idEpisode, titre, duree, image,numEp from Serie2Episode inner join 
+                            Episode E on Serie2Episode.IDEpisode = E.idEpisode
+                            where Serie2Episode.IDSerie = ?";
+            $db = ConnectionFactory::makeConnection();
+            $stmt = $db->prepare($query);
+            $stmt->execute([$this->IDserie]);
+            $result = $stmt->fetchAll();
+            foreach ($result as $row) {
+                $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
+                $this->listeEpisode[] = $episode;
+            }
+        }
     }
 }

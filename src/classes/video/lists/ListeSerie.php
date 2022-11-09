@@ -5,6 +5,7 @@ namespace netvod\video\lists;
 use netvod\db\ConnectionFactory;
 use netvod\video\episode\Serie;
 use netvod\utilitaire\Date;
+use netvod\utilitaire\Avis;
 
 class ListeSerie
 {
@@ -46,6 +47,10 @@ class ListeSerie
             $dateSortie = new Date($item['dateSortie']);
             $idSerie = intval($item['IDserie']);
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
+
+            $query = $db->prepare("SELECT  FROM Serie");
+            $req->execute();
+
             $this->listeSeries[] = $serie;
         }
     }

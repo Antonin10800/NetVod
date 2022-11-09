@@ -18,6 +18,7 @@ class Lobby implements Action
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
+        $html .= '<script src="src/js/profile.js"></script>';
         $html .= '<link rel="stylesheet" href="src/css/loby.css">';
         $html .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />';
         $html .= '</head><body>';
@@ -27,7 +28,9 @@ class Lobby implements Action
         $html .= '<h1>NetVod</h1>';
         $html .= '</div>';
         $html .= '<div class="headerRight">';
-        $html .= '<a href="?action=profile"><i  class="fa-solid fa-user"></i></a>';
+        //$html .= '<a href="?action=profile"><i  class="fa-solid fa-user"></i></a>';
+        $html .= '<a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>';
+
 
         $html .= '</div>';
         $html .= '</header>';
@@ -41,6 +44,14 @@ class Lobby implements Action
         $html .= $listeSerieRender->renderGenre("Thriller");
         $html .= $listeSerieRender->renderGenre("Divertissement");
         $html .= "</div>";
+
+        $html .= '<div class="profile">';
+        $html .= '<a onclick="hideProfilePage()"><i class="fa-solid fa-xmark"></i></a>';
+        $html .= '<a>Email : ' . unserialize($_SESSION['user'])->__get('email') . '</a><br>';
+        $html .= '<a>Nom : ' . unserialize($_SESSION['user'])->__get('nom') . '</a><br>';
+        $html .= '<a>Prenom : ' . unserialize($_SESSION['user'])->__get('prenom') . '</a><br>';
+        $html .= '<a>Sexe : ' . unserialize($_SESSION['user'])->__get('sexe') . '</a><br>';
+        $html .= '</div>';
 
         $html .= '</body></html>';
         return $html;

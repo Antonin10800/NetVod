@@ -41,6 +41,7 @@ class RenderInfoSerie implements Render
         $res = <<<END
             <img class="image-serie" src="{$this->serie->image}">
             <a href="?action=favoris&idSerie={$this->serie->IDserie}">Ajouter au favoris</a>
+            <a href="?action=commentaires&idSerie={$this->serie->IDserie}">Commentaire</a>
             <p>{$this->serie->titre}<br>
             {$this->serie->resume}<br>
             {$this->serie->genre}<br>
