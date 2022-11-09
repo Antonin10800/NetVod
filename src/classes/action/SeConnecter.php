@@ -9,11 +9,23 @@ class SeConnecter implements Action
 {
     public function execute(): string
     {
-        $html = '';
+
+        $html = '<!DOCTYPE html>';
+        $html .= '<html lang="fr"> <head>';
+        $html .= '<meta charset="UTF-8">';
+        $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+        $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        $html .= '<title>Inscription</title>';
+        $html .= '<link rel="stylesheet" href="src/classes/css/connexion.css">';
+        $html .= '</head><body background="src/classes/images/css/netfix_background.jpeg">';
+
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= '<form method="post" action="?action=connexion">';
-            $html .= '<input type="email" name="email"  placeholder="Email">';
-            $html .= '<input type="password" name="password"  placeholder="Mot de passe">';
+            $html .=  '<div class="title"><h1>Inscription</h1></div>';
+            $html .=    '<p>email</p>';
+            $html .= '<input type="email" name="email">';
+            $html .= '<p>passeword</p>';
+            $html .= '<input type="password" name="password" >';
             $html .= '<button type="submit">Connexion</button>';
             $html .= '</form>';
 
