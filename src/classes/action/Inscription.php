@@ -1,8 +1,7 @@
 <?php
 
-namespace netvod\dispatch;
+namespace netvod\action;
 
-use Action;
 
 class Inscription implements Action
 {

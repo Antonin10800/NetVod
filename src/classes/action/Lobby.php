@@ -11,6 +11,7 @@ class Lobby implements Action
         $html = '';
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             //TODO
+
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             //TODO
         }
