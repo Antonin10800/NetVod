@@ -17,7 +17,7 @@ class Auth
             $query->bindParam(1, $email);
             $query->execute();
             $row = $query->fetch(PDO::FETCH_ASSOC);
-            if($row === null)
+            if($row === false)
             {
                 return null;
             }
