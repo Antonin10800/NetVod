@@ -4,7 +4,6 @@ html {
 }
 
 body {
-    margin: 0%;
     padding: 0%;
 }
 
@@ -29,10 +28,12 @@ html {
 body {
     height: 100%;
     width: 100%;
-    background-color: rgb(31, 31, 31);
+    background-color: black;
 }
 
 .headerInfo {
+    background: rgb(97,97,97);
+background: linear-gradient(180deg, rgba(97,97,97,1) 0%, rgba(97,97,97,0) 40%);
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -40,6 +41,8 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 1em;
+    margin-left: 4em;
+    margin-right: 4em;
 }
 
 .headerTop {
@@ -66,6 +69,14 @@ body {
 
 .titre {
     height: 25%;
+    margin-bottom: 4em;
+}
+
+.titre hr {
+    width: 100%;
+    height: 1px;
+    background-color: #f3f3f3;
+    border: none;
 }
 
 .titre h1 {
@@ -107,12 +118,40 @@ body {
     font-size: 2em;
 }
 
-.episodes-serie {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.episodes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 1em 6em;
 }
 
+.episodes-serie {
+    height: 10em;
+    width: 20em;
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    height: 8em;
+}
+
+
 .img-episode {
-    height: 5em;
+    height: 8em;
+}
+
+.duree {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.titre-episode {
+    margin-left: 2em;
+}
+
+.titre-episode h1 {
+    font-size: 1.5em;
 }

@@ -58,6 +58,7 @@ class RenderInfoSerie implements Render
                     <div class="headerRight">
                         <div class="titre">
                             <h1>{$this->serie->titre}</h1>
+                            <hr>
                         </div>
                         <div class="resume">
                             <p>{$this->serie->resume}</p>
@@ -82,19 +83,27 @@ class RenderInfoSerie implements Render
             END;
         }
         $res .= "</div>";
-        $res .= "<a href=\"?action=commentaires&idSerie={$this->serie->IDserie}\">Commentaire</a>";
 
         $res .= '</div></div>';
+        $res .= '<div class="episodes">';
         foreach ($this->episodes as $episode) {
             $res .= <<<END
-                <div class="episodes-serie"> <a href="?action=afficher-episode&idSerie={$this->serie->IDserie}&numEp={$episode->numeroEp}">
-                <img class="img-episode" src='{$episode->image}'>
-                {$episode->numeroEp}<br>
-                {$episode->titre}<br>
-                {$episode->duree}</a></div>
+                <div class="episodes-serie">
+                    <div class="img">
+                        <a href="?action=afficher-episode&idSerie={$this->serie->IDserie}&numEp={$episode->numeroEp}"><img class="img-episode" src='{$episode->image}'></a>
+                        <p class="duree"> {$episode->duree} </p>
+                    </div>
+                    <div class="titre-episode">
+                        <h1>{$episode->numeroEp} - {$episode->titre}</h1>
+                    </div>
+                </div>
                 END;
-
         }
+
+        $res .= "<a href=\"?action=commentaires&idSerie={$this->serie->IDserie}\">Commentaire</a>";
+
+        $res .= '</div>';
+        $res .= '</body></html>';
         return $res;
     }
 
