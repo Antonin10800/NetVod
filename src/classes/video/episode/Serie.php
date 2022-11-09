@@ -3,6 +3,7 @@
 namespace netvod\video\episode;
 
 use netvod\utilitaire\Date;
+use netvod\utilitaire\Avis;
 
 class Serie
 {
