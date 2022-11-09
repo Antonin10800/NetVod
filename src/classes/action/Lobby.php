@@ -17,7 +17,7 @@ class Lobby implements Action
         $html .= '<meta charset="UTF-8">';
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        $html .= '<title>Inscription</title>';
+        $html .= '<title>NetVod</title>';
         $html .= '<script src="src/js/profile.js"></script>';
         $html .= '<link rel="stylesheet" href="src/css/loby.css">';
         $html .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />';
@@ -35,7 +35,6 @@ class Lobby implements Action
         $html .= '</div>';
         $html .= '</header>';
         $listeSerie = new ListeSerie();
-        $listeSerie->remplirListe();
         $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
         //$html .= $listeSerieRender->render();
         $html .= "<div class=\"content\">";

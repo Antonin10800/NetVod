@@ -59,7 +59,6 @@ class Dispatcher
                 break;
 
             case 'afficher-serie':
-
                 $afficherSerie = new AfficherSerie();
                 $html = $afficherSerie->execute();
                 break;
@@ -97,7 +96,7 @@ class Dispatcher
                     $favoris = new Favoris();
                     $html = $favoris->execute();
                 }
-
+            break;
 
             case 'deconnexion':
                 $deconnexion = new Deconnexion();

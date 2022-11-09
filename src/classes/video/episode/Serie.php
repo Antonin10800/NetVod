@@ -71,8 +71,6 @@ class Serie
 
     public function setEpisodes(): void
     {
-
-
         if ($this->listeEpisode == null) //si la série a une liste null:
         {
             //on récupére la liste des épisodes de la série:
@@ -89,4 +87,35 @@ class Serie
             }
         }
     }
+
+    public function getSerie(int $idSerie):Serie
+    {
+        $db = ConnectionFactory::makeConnection();
+        $req = $db->prepare("SELECT * FROM Serie WHERE IDserie = ?");
+        $req->bindParam(1, $idSerie);
+        $req->execute();
+        $result = $req->fetchAll();
+        foreach ($result as $item) {
+            //on ajoute toute les variables
+            $dateAjout = new Date($item['dateAjout']);
+            $dateSortie = new Date($item['dateSortie']);
+            $idSerie = intval($item['IDserie']);
+            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
+
+            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
+            $req->execute([$idSerie]);
+            $res = $req->fetchAll();
+
+            foreach ($res as $item) {
+                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
+                $req2->execute([$item['IDUser']]);
+
+                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
+                $serie->ajouterAvis($avis);
+
+            }
+            return $serie;
+        }
+    }
+
 }
