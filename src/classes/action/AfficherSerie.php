@@ -33,7 +33,7 @@ class AfficherSerie implements Action
     {
         //on récupere l'id série
         $html = '';
-        $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
+        $idSerie = filter_var($_GET['idSerie'], FILTER_SANITIZE_NUMBER_INT);
 
         //on récupere la liste des séries:
         $listeSerie = ListeSerie::getInstance();
@@ -42,8 +42,7 @@ class AfficherSerie implements Action
         //on parcours toute les séries
         foreach ($series as $s) {
             //si l'id de la série est égal a la l'id série du GET:
-            if ($s->__get('IDserie') == $idSerie)
-            {
+            if ($s->__get('IDserie') == $idSerie) {
                 //on mets la série trouve dans une variable
                 $serieTrouve = $s;
                 //on trouve la série qu'on cherche
@@ -53,28 +52,28 @@ class AfficherSerie implements Action
             }
         }
         if ($this->serieCourante->__get('listeEpisode') == null) {
-        //si la série a une liste null:
-        if ($this->serieCourante->__get('listeEpisode') == null) {
-            //on récupére
-            $query = "select E.idEpisode, titre, duree, image,numEp from Serie2Episode inner join 
+            //si la série a une liste null:
+            if ($this->serieCourante->__get('listeEpisode') == null) {
+                //on récupére
+                $query = "select E.idEpisode, titre, duree, image,numEp from Serie2Episode inner join 
                             Episode E on Serie2Episode.IDEpisode = E.idEpisode
                             where Serie2Episode.IDSerie = ?";
-            $db = ConnectionFactory::makeConnection();
-            $stmt = $db->prepare($query);
-            $stmt->execute([$idSerie]);
-            $result = $stmt->fetchAll();
-            $listeEpisode = array();
-            foreach ($result as $row) {
-                $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
-                $listeEpisode[] = $episode;
+                $db = ConnectionFactory::makeConnection();
+                $stmt = $db->prepare($query);
+                $stmt->execute([$idSerie]);
+                $result = $stmt->fetchAll();
+                $listeEpisode = array();
+                foreach ($result as $row) {
+                    $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
+                    $listeEpisode[] = $episode;
+                }
+                $this->serieCourante->__set('listeEpisode', $listeEpisode);
+
             }
-            $this->serieCourante->__set('listeEpisode', $listeEpisode);
-
         }
+
+
     }
-
-
-
 }
 
 
