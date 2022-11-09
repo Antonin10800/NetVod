@@ -48,9 +48,6 @@ class ListeSerie
             $idSerie = intval($item['IDserie']);
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
 
-            $query = $db->prepare("SELECT  FROM Serie");
-            $req->execute();
-
             $this->listeSeries[] = $serie;
         }
     }
