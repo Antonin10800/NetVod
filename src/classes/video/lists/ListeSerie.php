@@ -2,9 +2,9 @@
 
 namespace netvod\video\lists;
 
-use netvod\Date;
 use netvod\db\ConnectionFactory;
 use netvod\video\episode\Serie;
+use netvod\utilitaire\Date;
 
 class ListeSerie
 {
