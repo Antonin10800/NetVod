@@ -9,6 +9,7 @@ use netvod\action\SeConnecter;
 use netvod\action\Inscription;
 use netvod\action\PageUtilisateur;
 
+use netvod\Auth\Auth;
 use netvod\user\Utilisateur;
 
 
@@ -28,7 +29,7 @@ class Dispatcher
         $html = '';
         switch ($action) {
             case 'inscription':
-                if(!isset($_SESSION['user'])) {
+                if(!Auth::verification()) {
                     $inscription = new Inscription();
                     $html = $inscription->execute();
                 }
@@ -39,7 +40,7 @@ class Dispatcher
                 }
                 break;
             case 'connexion':
-                if(!isset($_SESSION['user'])) {
+                if(!Auth::verification()) {
                     $connexion = new SeConnecter();
                     $html = $connexion->execute();
                 }
@@ -50,7 +51,7 @@ class Dispatcher
                 }
                 break;
             case 'lobby':
-                if(isset($_SESSIO['user']))
+                if(Auth::verification())
                 {
                     $lobby = new Lobby();
                     $html = $lobby->execute();
@@ -73,7 +74,7 @@ class Dispatcher
                 break;
 
             default:
-                if(isset($_SESSION['user']))
+                if(Auth::verification())
                 {
                     $lobby = new Lobby();
                     $html = $lobby->execute();
