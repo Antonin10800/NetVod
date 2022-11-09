@@ -38,4 +38,22 @@ class ListeSerieRender implements Render {
         return $res;
     }
 
+
+    /**
+     * fonction renderGenre qui fait le rendu en fonction du genre
+     * @param string $genre le genre de la série
+     */
+    public function renderGenre(string $genre) : string {
+        $res = "<div class=\"genre-serie\">";
+        $res .= "<h2>{$genre}</h2>";
+        $res .= "<div class=\"liste-series\">";
+        foreach ($this->listeSerie as $series) {
+            if($series->genre == $genre) {
+                $serie = new SerieRender($series);
+                $res .= $serie->render();
+            }
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
 }

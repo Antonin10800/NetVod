@@ -24,7 +24,11 @@ class Lobby implements Action
         $listeSerie = new ListeSerie();
         $listeSerie->remplirListe();
         $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
-        $html .= $listeSerieRender->render();
+        //$html .= $listeSerieRender->render();
+        $html .= "<div class=\"content\">";
+        $html .= $listeSerieRender->renderGenre("Horreur");
+        $html .= $listeSerieRender->renderGenre("Comédie");
+        $html .= "</div>";
 
         $html .= '</body></html>';
         return $html;

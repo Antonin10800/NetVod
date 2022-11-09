@@ -45,4 +45,5 @@ class SerieRender implements Render {
         return $res;
     }
 
+
 }
