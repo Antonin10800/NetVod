@@ -15,8 +15,10 @@ class EnCours
     public static function enCours(int $IDserie, int $user): bool
     {
         $db = ConnectionFactory::makeConnection();
+
         $stmt = $db->prepare("SELECT * FROM enCours WHERE IDserie = $IDserie and IDuser = $user");
         $stmt->execute();
+
         $result = $stmt->fetchAll();
         echo "resultat: " . sizeof($result);
 
@@ -33,7 +35,7 @@ class EnCours
     public static function ajouterEnCours($IDserie)
     {
 
-        $user = unserialize($_SESSION['user']);
+$user = unserialize($_SESSION['user']);
         $userId = $user->IDuser;
         if (!self::enCours($IDserie, $userId)) {
             $query = "INSERT INTO enCours  VALUES (?,?)";
@@ -42,11 +44,13 @@ class EnCours
             $stmt->execute([$userId, $IDserie]);
 
 
+
         }
     }
 
-    public function supprimerEnCours($IDserie)
+    public static function supprimerEnCours($IDserie)
     {
+
         $user = unserialize($_SESSION['user']);
         $userId = $user->IDuser;
         if (self::enCours($IDserie, $userId)) {

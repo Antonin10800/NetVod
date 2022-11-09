@@ -51,10 +51,15 @@ class ListeSerie
             $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
             $req->execute([$idSerie]);
             $result = $req->fetchAll();
+
             foreach ($result as $item)
             {
-                $avis = new Avis($item['note'], $item['commentaire'], $item['IDUser']);
+                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
+                $req2->execute([$item['IDUser']]);
+
+                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
                 $serie->ajouterAvis($avis);
+
             }
 
             $this->listeSeries[] = $serie;

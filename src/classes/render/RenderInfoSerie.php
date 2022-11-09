@@ -3,6 +3,7 @@
 
 namespace netvod\render;
 
+use netvod\action\Favoris;
 use netvod\video\episode\Serie;
 
 /**
@@ -40,7 +41,21 @@ class RenderInfoSerie implements Render
     {
         $res = <<<END
             <img class="image-serie" src="{$this->serie->image}">
-            <a href="?action=favoris&idSerie={$this->serie->IDserie}">Ajouter au favoris</a>
+            
+        END;
+        if(Favoris::pasDeFavoris())
+        {
+            $res .= <<<END
+                <a href="?action=favoris&idSerie={$this->serie->IDserie}">Ajouter au favoris</a>
+            END;
+        }
+        else
+        {
+            $res .= <<<END
+                <a href="?action=favoris&idSerie={$this->serie->IDserie}">Supprimer des favoris</a>
+            END;
+        }
+        $res .= <<<END
             <a href="?action=commentaires&idSerie={$this->serie->IDserie}">Commentaire</a>
             <p>{$this->serie->titre}<br>
             {$this->serie->resume}<br>
