@@ -34,9 +34,9 @@ class Auth
         return $user;
     }
 
-    public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe)
+    public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe): int
     {
-        if (strlen($pass) < 10) throw new \Exception('mot de passe trop court');
+        if (strlen($pass) < 10) return -1;
 
         // encode le mot de passe
         $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
@@ -59,13 +59,14 @@ class Auth
                 $query->bindParam(5, $sexe);
                 $query->execute();
                 $query->closeCursor();
-                echo "Inscription réussie";
+                return 1;
             }
             else
             {
-                echo "Email déjà utilisé";
+                return 0;
             }
         }
+        return 0;
 
 
     }

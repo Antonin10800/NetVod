@@ -32,11 +32,19 @@ class Dispatcher
                     $inscription = new Inscription();
                     $html = $inscription->execute();
                 }
+                else
+                {
+                    $html = "Vous êtes déjà connecté";
+                }
                 break;
             case 'connexion':
                 if(!isset($_SESSION['user'])) {
                     $connexion = new SeConnecter();
                     $html = $connexion->execute();
+                }
+                else
+                {
+                    $html = "Vous êtes déjà connecté";
                 }
                 break;
             case 'lobby':
@@ -64,8 +72,9 @@ class Dispatcher
             default:
                 if(isset($_SESSION['user']))
                 {
-                    $lobby = new Lobby();
-                    $html = $lobby->execute();
+                    $html .= 'connecté';
+                    //$lobby = new Lobby();
+                    //$html = $lobby->execute();
                 }
                 else
                 {

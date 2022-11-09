@@ -43,8 +43,9 @@ class SerieRender implements Render {
                 . "{$this->serie->image}<br>"
                 . "<br> </div>";
 
-        $renderEpisode = new EpisodeRender($this->episodes);
+
         foreach ($this->episodes as $episode) {
+            $renderEpisode = new EpisodeRender($episode);
             $res .= $renderEpisode->render();
         }
 
