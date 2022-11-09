@@ -4,11 +4,10 @@ namespace netvod\dispatch;
 
 use netvod\action\AfficherSerie;
 use netvod\action\AffichageEpisode;
+use netvod\action\Commentaire;
 use netvod\action\Lobby;
-use netvod\action\Profil;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
-use netvod\action\PageUtilisateur;
 
 use netvod\Auth\Auth;
 use netvod\user\Utilisateur;
@@ -66,6 +65,11 @@ class Dispatcher
             case 'afficher-episode':
                 $afficherEpisode = new AffichageEpisode();
                 $html = $afficherEpisode->execute($numEp, $idSerie);
+                break;
+
+            case 'commentaires':
+                $commentaire = new Commentaire();
+                $html = $commentaire->execute();
                 break;
 
             case 'profile':
