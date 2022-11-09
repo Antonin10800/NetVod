@@ -34,7 +34,8 @@ class Dispatcher
                 }
                 else
                 {
-                    $html = "Vous êtes déjà connecté";
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
                 }
                 break;
             case 'connexion':
@@ -49,16 +50,22 @@ class Dispatcher
                 }
                 break;
             case 'lobby':
-                $lobby = new Lobby();
-                $html = $lobby->execute();
+                if(isset($_SESSIO['user']))
+                {
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
+                }
+                else
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
+
                 break;
             case 'afficher-serie':
                 $afficherSerie = new AfficherSerie();
                 $html = $afficherSerie->execute();
                 break;
-
-
-
 
             case 'afficher-episode':
                 $afficherEpisode = new AffichageEpisode();
