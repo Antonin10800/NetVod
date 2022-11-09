@@ -3,6 +3,7 @@
 namespace netvod\video\Etat;
 
 use netvod\auth\Auth;
+use netvod\db\ConnectionFactory;
 
 class EnCours
 {
@@ -11,12 +12,12 @@ class EnCours
      */
 
 
-    public function enCours($IDserie): bool
+    public static function enCours($IDserie): bool
     {
         $query = "SELECT * FROM enCours WHERE IDserie = ?";
         $db = ConnectionFactory::makeConnection();
         $stmt = $db->prepare($query);
-        $stmt->execute([$this->IDserie]);
+        $stmt->execute($IDserie);
         $result = $stmt->fetchAll();
         if (count($result) > 0) {
             return true;
@@ -25,23 +26,23 @@ class EnCours
         }
     }
 
-    public function ajouterEnCours($IDserie)
+    public static function ajouterEnCours($IDserie)
     {
-        if (!$this->enCours()) {
+        if (!self::enCours()) {
             $query = "INSERT INTO enCours (IDserie) VALUES (?)";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$this->IDserie]);
+            $stmt->execute($IDserie);
         }
     }
 
     public function supprimerEnCours($IDserie)
     {
-        if ($this->enCours()) {
+        if (self::enCours()) {
             $query = "DELETE FROM enCours WHERE IDserie = ?";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$this->IDserie]);
+            $stmt->execute($IDserie);
         }
     }
 

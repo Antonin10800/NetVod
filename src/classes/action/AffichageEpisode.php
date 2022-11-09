@@ -19,7 +19,7 @@ class AffichageEpisode
         foreach ($series as $serie) {
             if ($serie->IDserie == $idSerie)
             {
-                $Idserie = serie->__get('IDserie');
+                $Idserie = $serie->__get('IDserie');
                 $episodes = $serie->getEpisodes();
                 EnCours::ajouterEnCours($Idserie);
                 echo sizeof($episodes);
