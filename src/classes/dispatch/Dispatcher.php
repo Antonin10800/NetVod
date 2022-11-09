@@ -5,6 +5,7 @@ namespace netvod\dispatch;
 use netvod\action\AfficherSerie;
 use netvod\action\AffichageEpisode;
 use netvod\action\Lobby;
+use netvod\action\Profil;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
 use netvod\action\PageUtilisateur;
@@ -40,6 +41,7 @@ class Dispatcher
                 }
                 break;
             case 'connexion':
+            case 'lobby':
                 if(!Auth::verification()) {
                     $connexion = new SeConnecter();
                     $html = $connexion->execute();
@@ -50,27 +52,29 @@ class Dispatcher
                     $html = $lobby->execute();
                 }
                 break;
-            case 'lobby':
-                if(Auth::verification())
-                {
-                    $lobby = new Lobby();
-                    $html = $lobby->execute();
-                }
-                else
-                {
-                    $connexion = new SeConnecter();
-                    $html = $connexion->execute();
-                }
 
-                break;
             case 'afficher-serie':
+
                 $afficherSerie = new AfficherSerie();
                 $html = $afficherSerie->execute();
                 break;
 
             case 'afficher-episode':
                 $afficherEpisode = new AffichageEpisode();
-                $html = $afficherEpisode->execute($IDepisode);
+                $html = $afficherEpisode->execute($IDepisode, $idSerie);
+                break;
+
+            case 'profile':
+                if(!Auth::verification())
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
+                else
+                {
+                    $profil = new Profil();
+                    $html = $profil->execute();
+                }
                 break;
 
             default:
@@ -84,6 +88,7 @@ class Dispatcher
                     $connexion = new SeConnecter();
                     $html = $connexion->execute();
                 }
+                break;
 
         }
         return $html;
