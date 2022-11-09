@@ -13,6 +13,40 @@ class Commentaire implements Action {
         $idSerie = $_GET['idSerie'];
         $moy = 0;
 
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            $html .= <<<END
+                <form method="post" action="?action=commentaires&idSerie=$idSerie">
+                <input type="radio" name="note" value=1>1
+                <input type="radio" name="note" value=2>2
+                <input type="radio" name="note" value=3>3
+                <input type="radio" name="note" value=4>4
+                <input type="radio" name="note" value=5>5
+                <input type="commentaire" name="commentaire"  placeholder="commentaire">
+                <button type="submit">ajouter</button></form>
+            END;
+        } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $db = ConnectionFactory::makeConnection();
+
+            $utilisateur = unserialize($_SESSION['user'])->IDuser;
+            $note = filter_var($_POST['note'],FILTER_SANITIZE_NUMBER_FLOAT);
+            $commentaire = filter_var($_POST['commentaire'],FILTER_SANITIZE_STRING);
+
+            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
+            $req->execute([$idSerie]);
+            $count = $req->rowCount();
+
+            if($count == 0){
+                $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
+                $req->bindParam(1, $utilisateur);
+                $req->bindParam(2, $idSerie);
+                $req->bindParam(3, $commentaire);
+                $req->bindParam(4, $note);
+                $req->execute();
+            }else{
+                $html .= "Vous avez déjà commenté cette série";
+            }
+        }
+
         $listeSerie = ListeSerie::getInstance();
         $series = $listeSerie->getSeries();
         $serieEnCour = $series[$idSerie-1];
@@ -28,36 +62,11 @@ class Commentaire implements Action {
             $moy += $avi->note;
         }
 
-        if($html == ''){
-            $html = 'Aucun commentaire';
+        if(count($avis) == 0 ){
+            $html .= 'Aucun commentaire';
         }else{
             $moy = $moy / count($avis);
             $html .= "Moyenne : " . $moy;
-        }
-
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $html .= <<<END
-                <form method="post" action="?action=commentaires&idSerie=$idSerie">
-                <input type="radio" name="note" value=1>1
-                <input type="radio" name="note" value=2>2
-                <input type="radio" name="note" value=3>3
-                <input type="radio" name="note" value=4>4
-                <input type="radio" name="note" value=5>5
-                <input type="commentaire" name="commentaire"  placeholder="commentaire">
-                <button type="submit">ajouter</button></form>
-            END;
-        } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $utilisateur = unserialize($_SESSION['user'])->IDuser;
-            $note = filter_var($_POST['note'],FILTER_SANITIZE_NUMBER_FLOAT);
-            $commentaire = filter_var($_POST['commentaire'],FILTER_SANITIZE_STRING);
-
-            $db = ConnectionFactory::makeConnection();
-            $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES ('?', '?', '?', '?');");
-            $req->bindParam(1, $utilisateur);
-            $req->bindParam(2, $idSerie);
-            $req->bindParam(3, $commentaire);
-            $req->bindParam(4, $note);
-            $req->execute();
         }
 
         return $html;
