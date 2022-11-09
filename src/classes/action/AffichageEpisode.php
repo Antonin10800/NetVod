@@ -6,6 +6,7 @@ use netvod\db\ConnectionFactory;
 use netvod\render\EpisodeRender;
 use netvod\video\episode\Episode;
 use netvod\video\lists\ListeSerie;
+use netvod\video\Etat\EnCours;
 
 class AffichageEpisode
 {
@@ -18,9 +19,10 @@ class AffichageEpisode
         foreach ($series as $serie) {
             if ($serie->IDserie == $idSerie)
             {
-                $serieCourante = $serie;
-
-                $episodes = $serieCourante->getEpisodes();
+                $Idserie = serie->__get('IDserie');
+                $episodes = $serie->getEpisodes();
+                EnCours::ajouterEnCours($Idserie);
+                echo sizeof($episodes);
                 break;
             }
         }
@@ -28,9 +30,14 @@ class AffichageEpisode
             if ($episode->__get('numeroEp') == $numEpisode)
             {
                 $episodeAffiche = $episode;
+                if($episode->__get('numeroEp') == sizeof($episodes))
+                {
+                    EnCours::supprimerEnCours($Idserie);
+                }
                 break;
             }
         }
+
         $render = new EpisodeRender($episodeAffiche);
         return $render->render();
     }
