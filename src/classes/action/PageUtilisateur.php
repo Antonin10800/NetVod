@@ -18,7 +18,7 @@ class PageUtilisateur implements Action {
 
         $html = "";
         while($data = $query->fetch()){
-            // afficher chaque serie
+            // afficher la photo de chaque serie
         }
 
         return $html;
