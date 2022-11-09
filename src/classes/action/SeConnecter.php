@@ -39,9 +39,9 @@ class SeConnecter implements Action
                 $html .= '<input type="email" name="email">';
                 $html .= '<p>Password :</p>';
                 $html .= '<input type="password" name="password" >';
+                $html .= '<div class="error"><p>Veuillez remplir tous les champs !</p></div>';
                 $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
-                $html .= '<div class="error">Veuillez remplir tous les champs !</div>';
-                $html .= '<button type="submit">Connexion</button>';
+                $html .= '<button id="disable" type="submit">Connexion</button>';
                 $html .= '</form>';
             }else{
                 $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
