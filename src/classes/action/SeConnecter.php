@@ -49,7 +49,8 @@ class SeConnecter implements Action
                 $user = Auth::authentificate($email,$pass);
                 if($user != null)
                 {
-                    $_SESSION['user'] = ($user);
+                    $_SESSION['user'] = serialize($user);
+                    return '';
                 }
             }
 

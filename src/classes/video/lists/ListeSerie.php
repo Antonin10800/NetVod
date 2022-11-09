@@ -26,6 +26,16 @@ class ListeSerie
 
     public function getSeries(): array
     {
+        if(empty($this->listeSeries))
+        {
+            $this->remplirListe();
+        }
+
+        return $this->listeSeries;
+    }
+
+    public function remplirListe()
+    {
         $db = ConnectionFactory::makeConnection();
         $req = $db->prepare("SELECT * FROM Serie");
         $req->execute();
@@ -38,7 +48,6 @@ class ListeSerie
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
             $this->listeSeries[] = $serie;
         }
-        return $this->listeSeries;
     }
 
 

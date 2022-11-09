@@ -5,6 +5,7 @@ namespace netvod\action;
 
 
 use netvod\auth\Auth;
+use netvod\dispatch\Dispatcher;
 
 
 class Inscription implements Action
@@ -80,7 +81,12 @@ class Inscription implements Action
                 $nom = filter_var($_POST['nom'],FILTER_SANITIZE_STRING);
                 $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
                 $genre = filter_var($_POST['genre'],FILTER_SANITIZE_STRING);
-                Auth::register($email, $pass, $nom, $prenom, $genre);
+                $res = Auth::register($email, $pass, $nom, $prenom, $genre);
+                if($res == 1)
+                {
+                    Auth::authentificate($email, $pass);
+                    return '';
+                }
             }
         }
         $html .= '</body></html>';
