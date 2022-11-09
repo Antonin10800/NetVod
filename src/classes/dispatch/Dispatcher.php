@@ -5,11 +5,11 @@ namespace netvod\dispatch;
 use netvod\action\AfficherSerie;
 use netvod\action\AffichageEpisode;
 use netvod\action\Deconnexion;
+use netvod\action\Commentaire;
+use netvod\action\Favoris;
 use netvod\action\Lobby;
-use netvod\action\Profil;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
-use netvod\action\PageUtilisateur;
 
 use netvod\Auth\Auth;
 use netvod\user\Utilisateur;
@@ -69,6 +69,11 @@ class Dispatcher
                 $html = $afficherEpisode->execute($numEp, $idSerie);
                 break;
 
+            case 'commentaires':
+                $commentaire = new Commentaire();
+                $html = $commentaire->execute();
+                break;
+
             case 'profile':
                 if(!Auth::verification())
                 {
@@ -81,6 +86,17 @@ class Dispatcher
                     $html = $profil->execute();
                 }
                 break;
+            case 'favoris':
+                if(!Auth::verification())
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
+                else
+                {
+                    $favoris = new Favoris();
+                    $html = $favoris->execute();
+                }
 
 
             case 'deconnexion':

@@ -48,6 +48,20 @@ class ListeSerie
             $idSerie = intval($item['IDserie']);
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
 
+            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
+            $req->execute([$idSerie]);
+            $result = $req->fetchAll();
+
+            foreach ($result as $item)
+            {
+                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
+                $req2->execute([$item['IDUser']]);
+
+                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
+                $serie->ajouterAvis($avis);
+
+            }
+
             $this->listeSeries[] = $serie;
         }
     }
