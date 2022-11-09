@@ -32,7 +32,7 @@ class AffichageEpisode
                 $episodeAffiche = $episode;
                 if($episode->__get('numeroEp') == sizeof($episodes))
                 {
-                    //EnCours::supprimerEnCours($Idserie);
+                    EnCours::supprimerEnCours($Idserie);
                 }
                 break;
             }

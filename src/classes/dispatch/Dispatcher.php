@@ -4,6 +4,7 @@ namespace netvod\dispatch;
 
 use netvod\action\AfficherSerie;
 use netvod\action\AffichageEpisode;
+use netvod\action\Deconnexion;
 use netvod\action\Lobby;
 use netvod\action\Profil;
 use netvod\action\SeConnecter;
@@ -81,6 +82,11 @@ class Dispatcher
                 }
                 break;
 
+
+            case 'deconnexion':
+                $deconnexion = new Deconnexion();
+                $html = $deconnexion->execute();
+                break;
             default:
                 if(Auth::verification())
                 {
