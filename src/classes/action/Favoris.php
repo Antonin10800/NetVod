@@ -9,6 +9,7 @@ class Favoris implements Action
 {
     public function execute(): string
     {
+
         $html = "";
         //on récupere l'utilisateur
         $utilisateur = unserialize($_SESSION['user']);
@@ -31,6 +32,7 @@ class Favoris implements Action
         $statement->bindParam(2,$idSerie);
         $statement->execute();
         //on redirige vers notre série:
+
         header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
         return $html;
     }
