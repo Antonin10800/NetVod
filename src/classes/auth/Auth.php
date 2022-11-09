@@ -69,7 +69,6 @@ class Auth
         return 0;
 
     }
-
     public static function verification():bool
     {
         if(isset($_SESSION['user'])) return true;
