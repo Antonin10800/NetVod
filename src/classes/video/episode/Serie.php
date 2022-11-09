@@ -88,8 +88,9 @@ class Serie
         }
     }
 
-    public function getSerie(int $idSerie):Serie
+    public static function getSerie(int $idSerie):Serie
     {
+        $serie = null;
         $db = ConnectionFactory::makeConnection();
         $req = $db->prepare("SELECT * FROM Serie WHERE IDserie = ?");
         $req->bindParam(1, $idSerie);
@@ -99,7 +100,6 @@ class Serie
             //on ajoute toute les variables
             $dateAjout = new Date($item['dateAjout']);
             $dateSortie = new Date($item['dateSortie']);
-            $idSerie = intval($item['IDserie']);
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
 
             $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
@@ -114,8 +114,8 @@ class Serie
                 $serie->ajouterAvis($avis);
 
             }
-            return $serie;
         }
+        return $serie;
     }
 
 }

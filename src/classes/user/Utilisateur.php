@@ -1,6 +1,7 @@
 <?php
 
 namespace netvod\user;
+use netvod\video\episode\Serie;
 
 class Utilisateur 
 {

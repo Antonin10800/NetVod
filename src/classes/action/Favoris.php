@@ -4,6 +4,7 @@ namespace netvod\action;
 
 use netvod\Auth\Auth;
 use netvod\db\ConnectionFactory;
+use netvod\video\episode\Serie;
 
 class Favoris implements Action
 {
@@ -19,17 +20,26 @@ class Favoris implements Action
         if(self::pasDeFavoris())
         {
             $query = "INSERT INTO Favoris VALUES(?,?)";
+            //on execute la query
+            $db = ConnectionFactory::makeConnection();
+            $statement = $db->prepare($query);
+            $statement->bindParam(1,$idUser);
+            $statement->bindParam(2,$idSerie);
+            $statement->execute();
+            $serie = Serie::getSerie($idSerie);
+            $utilisateur->ajouterFavoris($serie);
+            $_SESSION['user'] = serialize($utilisateur);
         }
         else
         {
             $query = "DELETE FROM Favoris WHERE IDUser = ? AND IDSerie= ?";
+            //on execute la query
+            $db = ConnectionFactory::makeConnection();
+            $statement = $db->prepare($query);
+            $statement->bindParam(1,$idUser);
+            $statement->bindParam(2,$idSerie);
+            $statement->execute();
         }
-        //on execute la query
-        $db = ConnectionFactory::makeConnection();
-        $statement = $db->prepare($query);
-        $statement->bindParam(1,$idUser);
-        $statement->bindParam(2,$idSerie);
-        $statement->execute();
         //on redirige vers notre série:
         header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
         return $html;
