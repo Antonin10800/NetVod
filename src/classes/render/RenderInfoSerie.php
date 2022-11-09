@@ -39,6 +39,7 @@ class RenderInfoSerie implements Render
     public function render(): string
     {
         $res = "<img class=\"image-serie\" src=\"{$this->serie->image}\">"
+            . "<a href=\"?action=favoris&idSerie={$this->serie->IDserie}\">Ajouter au favoris</a>"
             . "<p>{$this->serie->titre}<br>"
             . "{$this->serie->resume}</p>";
 
