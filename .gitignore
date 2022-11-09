@@ -235,3 +235,4 @@ fabric.properties
 .xml
 *.xml
 /vendor/
+.DS_Store

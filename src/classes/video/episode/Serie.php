@@ -14,6 +14,7 @@ class Serie
     private Date $dateAjout;
     private int $nbEpisode;
     private Date $dateSortie;
+    private string $image;
     private array $avis = array();
 
     /**
@@ -21,7 +22,7 @@ class Serie
      * tout les attributs de la class
      * @param int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie
      */
-    public function __construct(int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie)
+    public function __construct(int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie, string $image)
     {
         $this->titre = $titre;
         $this->IDserie = $IDserie;
@@ -31,6 +32,7 @@ class Serie
         $this->dateAjout = $dateAjout;
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
+        $this->image = $image;
     }
 
     /**

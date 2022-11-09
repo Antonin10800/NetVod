@@ -66,3 +66,8 @@ form p {
     margin: 0 6%;
     font-size: 81%;
 }
+
+#createCompte {
+    border-bottom: solid 1px cornflowerblue;
+    color: cornflowerblue;
+}
