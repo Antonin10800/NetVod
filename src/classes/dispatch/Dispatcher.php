@@ -65,17 +65,11 @@ class Dispatcher
                 $html = $afficherEpisode->execute($IDepisode);
                 break;
 
-            case 'utilisateur':
-                $afficherUtilisateur = new PageUtilisateur();
-                $html = $afficherUtilisateur->execute();
-                break;
-
             default:
                 if(isset($_SESSION['user']))
                 {
-                    $html .= 'connecté';
-                    //$lobby = new Lobby();
-                    //$html = $lobby->execute();
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
                 }
                 else
                 {
