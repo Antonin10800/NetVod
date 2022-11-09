@@ -44,7 +44,8 @@ class Dispatcher
                 }
                 else
                 {
-                    $html = "Vous êtes déjà connecté";
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
                 }
                 break;
             case 'lobby':
