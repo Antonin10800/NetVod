@@ -13,7 +13,7 @@ class EpisodeRender implements Render {
     }
 
     public function render() : string {
-        return "<div> {$this->episode->titre}<br>"
+        return "<div class=\"idEpisode\"> {$this->episode->titre}<br>"
              . "{$this->episode->duree}<br>"
              . "{$this->episode->image}<br>"
              . "{$this->episode->numeroEp}<br><br> </div>";

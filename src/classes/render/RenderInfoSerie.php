@@ -39,13 +39,19 @@ class RenderInfoSerie implements Render
     public function render(): string
     {
         $res = "<img class=\"image-serie\" src=\"{$this->serie->image}\">"
+            . "<a href=\"?action=favoris&idSerie={$this->serie->IDserie}\">Ajouter au favoris</a>"
             . "<p>{$this->serie->titre}<br>"
             . "{$this->serie->resume}</p>";
 
 
         foreach ($this->episodes as $episode) {
-            $renderEpisode = new EpisodeRender($episode);
-            $res .= $renderEpisode->render();
+            $res .= <<<END
+                <div> <a href="?action=afficher-episode&idSerie={$this->serie->IDserie}&numEp={$episode->numeroEp}">
+                <img src='{$episode->image}'>
+                {$episode->numeroEp}
+                {$episode->titre}</a></div>
+                END;
+
         }
 
         return $res;
