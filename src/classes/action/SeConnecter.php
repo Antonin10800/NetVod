@@ -31,13 +31,15 @@ class SeConnecter implements Action
             $html .= '</form>';
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
+            echo "test";
             $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
-            $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
+            $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);;
             $user = Auth::authentificate($email,$pass);
             if($user != null)
             {
-                $_SESSION['user'] = ($user);
+                $_SESSION['user'] = serialize($user);
             }
+            var_dump($_SESSION['user']);
         }
 
         return $html;

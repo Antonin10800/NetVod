@@ -61,8 +61,16 @@ class Dispatcher
                 break;
 
             default:
-                $connexion = new SeConnecter();
-                $html = $connexion->execute();
+                if(isset($_SESSION['user']))
+                {
+                    $lobby = new Lobby();
+                    $html = $lobby->execute();
+                }
+                else
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
 
         }
         return $html;
