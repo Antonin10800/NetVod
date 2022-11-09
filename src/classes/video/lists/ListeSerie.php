@@ -35,7 +35,7 @@ class ListeSerie
             $dateAjout = new Date($item['dateAjout']);
             $dateSortie = new Date($item['dateSortie']);
             $idSerie = intval($item['IDserie']);
-            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie);
+            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
             $this->listeSeries[] = $serie;
         }
         return $this->listeSeries;

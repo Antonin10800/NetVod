@@ -16,7 +16,7 @@ class SeConnecter implements Action
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
-        $html .= '<link rel="stylesheet" href="src/classes/css/connexion.css">';
+        $html .= '<link rel="stylesheet" href="src/css/connexion.css">';
         $html .= '</head><body background="src/classes/images/css/netfix_background.jpeg">';
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -26,6 +26,7 @@ class SeConnecter implements Action
             $html .= '<input type="email" name="email">';
             $html .= '<p>passeword</p>';
             $html .= '<input type="password" name="password" >';
+            $html .= '<p>Vous ne possèdez pas de comptre <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
             $html .= '<button type="submit">Connexion</button>';
             $html .= '</form>';
 

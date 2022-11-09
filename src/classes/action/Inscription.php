@@ -14,7 +14,7 @@ class Inscription implements Action
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
-        $html .= '<link rel="stylesheet" href="src/classes/css/Inscription.css">';
+        $html .= '<link rel="stylesheet" href="src/css/Inscription.css">';
         $html .= '</head><body background="src/classes/images/css/netfix_background.jpeg">';
         
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
