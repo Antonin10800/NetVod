@@ -1,6 +1,7 @@
 <?php
 
-namespace netvod;
+namespace netvod\utilitaire;
+
 class Date
 {
     private int $jour;
