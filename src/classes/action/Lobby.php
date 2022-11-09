@@ -4,6 +4,8 @@ namespace netvod\action;
 
 
 
+use netvod\render\ListeSerieRender;
+use netvod\render\SerieRender;
 use netvod\video\lists\ListeSerie;
 
 class Lobby implements Action
@@ -14,7 +16,9 @@ class Lobby implements Action
         if ($_SERVER['REQUEST_METHOD'] == 'GET')
         {
             $listeSerie = new ListeSerie();
-            echo "lobby";
+            $listeSerie->remplirListe();
+            $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
+            echo $listeSerieRender->render();
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
             //TODO

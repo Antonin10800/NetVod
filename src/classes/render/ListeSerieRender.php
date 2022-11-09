@@ -30,8 +30,8 @@ class ListeSerieRender implements Render {
      */
     public function render() : string {
         $res = "";
-        foreach ($this->listeSerie as $serie) {
-
+        foreach ($this->listeSerie as $series) {
+            $serie = new SerieRender($series);
             $res .= $serie->render();
         }
         return $res;
