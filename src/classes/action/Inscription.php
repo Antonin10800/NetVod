@@ -67,6 +67,7 @@ class Inscription implements Action
                 $genre = filter_var($_POST['genre'], FILTER_SANITIZE_STRING);
                 $res = Auth::register($email, $pass, $nom, $prenom, $genre);
                 if ($res == 1) {
+                    Auth::authentificate($email, $pass);
                     header("Location: ?action=lobby");
                     return '';
                 } elseif ($res == -1) {
