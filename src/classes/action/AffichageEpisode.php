@@ -9,7 +9,7 @@ use netvod\video\lists\ListeSerie;
 
 class AffichageEpisode
 {
-    public function execute(int $numEpisode, int $idSerie): string
+    public function execute(): string
     {
 
         $listeSerie = ListeSerie::getInstance();
@@ -18,7 +18,7 @@ class AffichageEpisode
 
         foreach ($series as $serie) {
             echo $serie->__get('IDserie');
-            if ($serie->__get('IDserie') == $idSerie)
+            if ($serie->IDserie == $idSerie)
             {
                 $episodes = $serie->getEpisodes();
                 echo sizeof($episodes);
