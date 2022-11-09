@@ -2,7 +2,7 @@
 
 namespace netvod\video\Etat;
 
-namespace netvod\auth\Auth;
+use netvod\auth\Auth;
 
 class EnCours
 {
@@ -10,12 +10,8 @@ class EnCours
      * Serie en cours de visionnage
      */
 
-    public function __construct($IDserie)
-    {
-        $this->IDserie = $IDserie;
-    }
 
-    public function enCours(): bool
+    public function enCours($IDserie): bool
     {
         $query = "SELECT * FROM enCours WHERE IDserie = ?";
         $db = ConnectionFactory::makeConnection();
@@ -29,7 +25,7 @@ class EnCours
         }
     }
 
-    public function ajouterEnCours()
+    public function ajouterEnCours($IDserie)
     {
         if (!$this->enCours()) {
             $query = "INSERT INTO enCours (IDserie) VALUES (?)";
@@ -39,7 +35,7 @@ class EnCours
         }
     }
 
-    public function supprimerEnCours()
+    public function supprimerEnCours($IDserie)
     {
         if ($this->enCours()) {
             $query = "DELETE FROM enCours WHERE IDserie = ?";
