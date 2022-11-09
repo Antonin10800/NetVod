@@ -12,17 +12,21 @@ class Lobby implements Action
 {
     public function execute(): string
     {
-        $html = '';
-        if ($_SERVER['REQUEST_METHOD'] == 'GET')
-        {
-            $listeSerie = new ListeSerie();
-            $listeSerie->remplirListe();
-            $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
-            echo $listeSerieRender->render();
+        $html = '<!DOCTYPE html>';
+        $html .= '<html lang="fr"> <head>';
+        $html .= '<meta charset="UTF-8">';
+        $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
+        $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
+        $html .= '<title>Inscription</title>';
+        $html .= '<link rel="stylesheet" href="src/css/loby.css">';
+        $html .= '</head><body>';
 
-        } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-            //TODO
-        }
+        $listeSerie = new ListeSerie();
+        $listeSerie->remplirListe();
+        $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
+        $html .= $listeSerieRender->render();
+
+        $html .= '</body></html>';
         return $html;
     }
 }

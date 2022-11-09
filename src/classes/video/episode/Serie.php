@@ -33,7 +33,7 @@ class Serie
         $this->dateAjout = $dateAjout;
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
-        $this->image = $image;
+        $this->image = 'src/classes/images/series/image.jpeg';
     }
 
     /**

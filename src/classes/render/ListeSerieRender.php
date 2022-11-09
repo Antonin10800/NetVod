@@ -29,11 +29,12 @@ class ListeSerieRender implements Render {
      * @return string le rendu de la liste de série
      */
     public function render() : string {
-        $res = "";
+        $res = "<div class=\"liste-series\">";
         foreach ($this->listeSerie as $series) {
             $serie = new SerieRender($series);
             $res .= $serie->render();
         }
+        $res .= "</div>";
         return $res;
     }
 
