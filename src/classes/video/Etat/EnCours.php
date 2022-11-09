@@ -16,7 +16,7 @@ class EnCours
         $query = "SELECT * FROM enCours WHERE IDserie = ?";
         $db = ConnectionFactory::makeConnection();
         $stmt = $db->prepare($query);
-        $stmt->execute([$this->IDserie]);
+        $stmt->execute([$IDserie]);
         $result = $stmt->fetchAll();
         if (count($result) > 0) {
             return true;
@@ -28,20 +28,22 @@ class EnCours
     public function ajouterEnCours($IDserie)
     {
         if (!$this->enCours()) {
-            $query = "INSERT INTO enCours (IDserie) VALUES (?)";
+            $query = "INSERT INTO enCours (IDserie) VALUES (?,?)";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$this->IDserie]);
+            $user = unserialize($_SESSION['user']);
+            $stmt->execute($user,[$IDserie]);
         }
     }
 
     public function supprimerEnCours($IDserie)
     {
         if ($this->enCours()) {
-            $query = "DELETE FROM enCours WHERE IDserie = ?";
+            $query = "DELETE FROM enCours WHERE IDuser = ? AND IDserie = ?";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$this->IDserie]);
+            $user = unserialize($_SESSION['user']);
+            $stmt->execute($user,[$IDserie]);
         }
     }
 
