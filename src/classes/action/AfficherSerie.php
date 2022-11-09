@@ -17,7 +17,6 @@ class AfficherSerie implements Action
 
     public function execute(): string
     {
-        $html = '';
 
         //on charge les épisode de la série:
         $this->chargerEpisode();
@@ -53,6 +52,7 @@ class AfficherSerie implements Action
                 break;
             }
         }
+        if ($this->serieCourante->__get('listeEpisode') == null) {
         //si la série a une liste null:
         if ($this->serieCourante->__get('listeEpisode') == null) {
             //on récupére

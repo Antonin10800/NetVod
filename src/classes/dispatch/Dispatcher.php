@@ -26,6 +26,10 @@ class Dispatcher
     {
         $action = (isset($_GET['action'])) ? $_GET['action'] : null;
         $IDepisode = (isset($_GET['IDepisode'])) ? $_GET['IDepisode'] : null;
+        $idSerie = (isset($_GET['idSerie'])) ? $_GET['idSerie'] : null;
+        $numEp = (isset($_GET['numEp'])) ? $_GET['numEp'] : null;
+
+
 
         $html = '';
         switch ($action) {
@@ -61,7 +65,7 @@ class Dispatcher
 
             case 'afficher-episode':
                 $afficherEpisode = new AffichageEpisode();
-                $html = $afficherEpisode->execute($IDepisode, $idSerie);
+                $html = $afficherEpisode->execute($numEp, $idSerie);
                 break;
 
             case 'profile':
