@@ -7,6 +7,7 @@ use netvod\db\ConnectionFactory;
 use netvod\render\RenderInfoSerie;
 use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
+use netvod\video\episode\Episode;
 
 class AfficherSerie implements Action
 {
@@ -52,7 +53,7 @@ class AfficherSerie implements Action
             $result = $stmt->fetchAll();
             $listeEpisode = array();
             foreach ($result as $row) {
-                $episode = new Episode($row['idEpisode'], $row['titre'], $row['duree'], $row['image'], $row['numEp']);
+                $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
                 $listeEpisode[] = $episode;
             }
             $serieTrouve->__set('listeEpisode', $listeEpisode);
