@@ -21,7 +21,7 @@ class SeConnecter implements Action
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= '<form method="post" action="?action=connexion">';
-            $html .=  '<div class="title"><h1><Connexion></Connexion></h1></div>';
+            $html .=  '<div class="title"><h1>Connexion</h1></div>';
             $html .=    '<p>Email :</p>';
             $html .= '<input type="email" name="email">';
             $html .= '<p>Password :</p>';
