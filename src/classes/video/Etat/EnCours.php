@@ -12,16 +12,20 @@ class EnCours
      */
 
 
-    public static function enCours($IDserie): bool
+    public static function enCours(int $IDserie, int $user): bool
     {
-        $query = "SELECT * FROM enCours WHERE IDserie = ?";
         $db = ConnectionFactory::makeConnection();
-        $stmt = $db->prepare($query);
-        $stmt->execute([$IDserie]);
 
+        $stmt = $db->prepare("SELECT * FROM enCours WHERE IDserie = $IDserie and IDuser = $user");
+        $stmt->execute();
 
         $result = $stmt->fetchAll();
-        if (count($result) > 0) {
+        echo "resultat: " . sizeof($result);
+
+        echo $IDserie;
+        echo $user;
+        echo sizeof($result);
+        if (sizeof($result) > 0) {
             return true;
         } else {
             return false;
@@ -31,11 +35,15 @@ class EnCours
     public static function ajouterEnCours($IDserie)
     {
 
-        if (!self::enCours()) {
-            $query = "INSERT INTO enCours (IDserie) VALUES (?)";
+$user = unserialize($_SESSION['user']);
+        $userId = $user->IDuser;
+        if (!self::enCours($IDserie, $userId)) {
+            $query = "INSERT INTO enCours  VALUES (?,?)";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute($IDserie);
+            $stmt->execute([$userId, $IDserie]);
+
+
 
         }
     }
@@ -43,12 +51,13 @@ class EnCours
     public function supprimerEnCours($IDserie)
     {
 
-        if (self::enCours()) {
+        $user = unserialize($_SESSION['user']);
+        $userId = $user->IDuser;
+        if (self::enCours($IDserie, $userId)) {
             $query = "DELETE FROM enCours WHERE IDserie = ?";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute($IDserie);
-
+            $stmt->execute([$IDserie]);
         }
     }
 

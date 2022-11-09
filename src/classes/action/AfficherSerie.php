@@ -12,12 +12,21 @@ use netvod\video\lists\ListeSerie;
 class AfficherSerie implements Action
 {
 
-    private Serie $serieCourante;
 
     public function execute(): string
     {
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
+
+        foreach ($series as $serie) {
+            if ($serie->IDserie == $_GET['idSerie'])
+            {
+                $serieAffiche = $serie;
+                break;
+            }
+        }
         //on crée un série render Info:
-        $serieRender = new RenderInfoSerie($this->serieCourante);
+        $serieRender = new RenderInfoSerie($serieAffiche);
         $html = $serieRender->render();
 
         return $html;
