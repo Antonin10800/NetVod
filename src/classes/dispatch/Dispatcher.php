@@ -4,7 +4,9 @@ namespace netvod\dispatch;
 
 use netvod\action\AfficherSerie;
 use netvod\action\AffichageEpisode;
+use netvod\action\Deconnexion;
 use netvod\action\Commentaire;
+use netvod\action\Favoris;
 use netvod\action\Lobby;
 use netvod\action\SeConnecter;
 use netvod\action\Inscription;
@@ -84,7 +86,23 @@ class Dispatcher
                     $html = $profil->execute();
                 }
                 break;
+            case 'favoris':
+                if(!Auth::verification())
+                {
+                    $connexion = new SeConnecter();
+                    $html = $connexion->execute();
+                }
+                else
+                {
+                    $favoris = new Favoris();
+                    $html = $favoris->execute();
+                }
 
+
+            case 'deconnexion':
+                $deconnexion = new Deconnexion();
+                $html = $deconnexion->execute();
+                break;
             default:
                 if(Auth::verification())
                 {

@@ -2,7 +2,6 @@
 
 namespace netvod\video\Etat;
 
-use netvod\auth\Auth;
 use netvod\db\ConnectionFactory;
 
 class EnCours
@@ -15,8 +14,10 @@ class EnCours
     public static function enCours(int $IDserie, int $user): bool
     {
         $db = ConnectionFactory::makeConnection();
+
         $stmt = $db->prepare("SELECT * FROM enCours WHERE IDserie = $IDserie and IDuser = $user");
         $stmt->execute();
+
         $result = $stmt->fetchAll();
         echo "resultat: " . sizeof($result);
 
@@ -30,7 +31,7 @@ class EnCours
         }
     }
 
-    public static function ajouterEnCours($IDserie)
+    public static function ajouterEnCours($IDserie):void
     {
 
         $user = unserialize($_SESSION['user']);
@@ -40,13 +41,13 @@ class EnCours
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
             $stmt->execute([$userId, $IDserie]);
-
-
         }
     }
 
-    public function supprimerEnCours($IDserie)
+
+    public static function supprimerEnCours($IDserie)
     {
+
         $user = unserialize($_SESSION['user']);
         $userId = $user->IDuser;
         if (self::enCours($IDserie, $userId)) {
