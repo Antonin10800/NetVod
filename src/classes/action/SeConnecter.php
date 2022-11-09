@@ -50,6 +50,7 @@ class SeConnecter implements Action
                 if($user != null)
                 {
                     $_SESSION['user'] = serialize($user);
+                    header("Location: ?action=lobby");
                     return '';
                 }
             }
