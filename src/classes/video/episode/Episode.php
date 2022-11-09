@@ -29,7 +29,7 @@ class Episode
      * getter Magique
      * @param string $attribut
      */
-    public function __get($name): mixed
+    public function __get($name) : mixed
     {
         if(property_exists($this,$name))
         {
