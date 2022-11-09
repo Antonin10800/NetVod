@@ -35,14 +35,16 @@ class ListeSerie
         return $this->listeSeries;
     }
 
-    public function remplirListe()
+    private function remplirListe()
     {
+        //on recupere toute les série
         $db = ConnectionFactory::makeConnection();
         $req = $db->prepare("SELECT * FROM Serie");
         $req->execute();
         $result = $req->fetchAll();
         foreach ($result as $item)
         {
+            //on ajoute toute les variables
             $dateAjout = new Date($item['dateAjout']);
             $dateSortie = new Date($item['dateSortie']);
             $idSerie = intval($item['IDserie']);
