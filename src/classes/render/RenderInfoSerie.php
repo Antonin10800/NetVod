@@ -1,5 +1,6 @@
 <?php
 
+
 namespace netvod\render;
 
 use netvod\video\episode\Serie;
@@ -8,7 +9,8 @@ use netvod\video\episode\Serie;
  * classe SerieRender
  * qui permet le rendu d'une série et de ses épisodes
  */
-class SerieRender implements Render {
+class RenderInfoSerie implements Render
+{
 
     /**
      * @var Serie série que l'on souhaite rendre
@@ -24,7 +26,8 @@ class SerieRender implements Render {
      * initialise la variable série
      * @param Serie $serie série que l'on souhaite ajouter à la variable
      */
-    public function __construct(Serie $serie){
+    public function __construct(Serie $serie)
+    {
         $this->serie = $serie;
         $this->episodes = $this->serie->getEpisodes();
     }
@@ -33,8 +36,11 @@ class SerieRender implements Render {
      * @param Serie $serie la série à retourner
      * @return string le rendu de la série
      */
-    public function render() : string {
-        $res = "<div class=\"image\"> <a href=\"?action=afficher-serie&idSerie={$this->serie->IDserie}\"><img class=\"image-serie\" src=\"{$this->serie->image}\"></a></div>";
+    public function render(): string
+    {
+        $res = "<img class=\"image-serie\" src=\"{$this->serie->image}\">"
+            . "<p>{$this->serie->titre}<br>"
+            . "{$this->serie->resume}</p>";
 
 
         foreach ($this->episodes as $episode) {
@@ -44,6 +50,5 @@ class SerieRender implements Render {
 
         return $res;
     }
-
 
 }
