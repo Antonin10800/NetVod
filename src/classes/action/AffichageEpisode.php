@@ -23,6 +23,7 @@ class AffichageEpisode
                 $episodeAffiche = $episodes[$numEpisode];
             }
         }
+        $Idserie = serie->__get('IDserie');
         $render = new EpisodeRender($episodeAffiche);
         return $render->render();
     }
