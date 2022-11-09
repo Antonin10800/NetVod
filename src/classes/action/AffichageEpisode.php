@@ -21,7 +21,7 @@ class AffichageEpisode
             {
                 $Idserie = $serie->__get('IDserie');
                 $episodes = $serie->getEpisodes();
-                //EnCours::ajouterEnCours($Idserie);
+                EnCours::ajouterEnCours($Idserie);
                 echo sizeof($episodes);
                 break;
             }
