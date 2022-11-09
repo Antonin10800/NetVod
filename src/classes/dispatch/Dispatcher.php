@@ -55,6 +55,7 @@ class Dispatcher
                 $afficherEpisode = new AffichageEpisode();
                 $html = $afficherEpisode->execute($IDepisode);
                 break;
+
             case 'utilisateur':
                 $afficherUtilisateur = new PageUtilisateur();
                 $html = $afficherUtilisateur->execute();

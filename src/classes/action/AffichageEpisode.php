@@ -5,18 +5,25 @@ namespace netvod\action;
 use netvod\db\ConnectionFactory;
 use netvod\render\EpisodeRender;
 use netvod\video\episode\Episode;
+use netvod\video\lists\ListeSerie;
 
 class AffichageEpisode
 {
-    public function execute(int $episode): string
+    public function execute(int $numEpisode, int $idSerie): string
     {
-        $db = ConnectionFactory::makeConnection();
-        $query = $db->prepare("select * from Episode where idEpisode = ?;");
-        $query->bindParam(1, $episode);
-        $query->execute();
-        $row = $query->fetch();
 
-        $render = new EpisodeRender(new Episode($row['idEpisode'],$row['duree'],$row['titre'],$row['image'],$row['numEp']));
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
+        $episodeAffiche = null;
+
+        foreach ($series as $serie) {
+            if ($serie->__get('IDserie') == $idSerie)
+            {
+                $episodes = $serie->getEpisodes();
+                $episodeAffiche = $episodes[$numEpisode];
+            }
+        }
+        $render = new EpisodeRender($episodeAffiche);
         return $render->render();
     }
 }
