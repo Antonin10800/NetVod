@@ -49,6 +49,14 @@ input {
     color: #f3f3f3;
     border: none;
     border-radius: 5px;
+    padding-left: 1em;
+}
+
+input:focus {
+    background-color: rgb(70, 69, 69);
+    border: 0px;
+    box-shadow: none;
+    outline: none;
 }
 
 form button {
