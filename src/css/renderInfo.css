@@ -1,0 +1,118 @@
+html {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
+}
+
+a, h1, h2, h3, p, ul, li, ol, dl, dt, dd, blockquote, pre, form, fieldset, input, textarea, th, td {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #f3f3f3;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: rgb(31, 31, 31);
+}
+
+.headerInfo {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 25em;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.headerTop {
+    display: flex;
+}
+
+.image-serie {
+    height: 20em;
+}
+
+.headerLeft {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerRight {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titre {
+    height: 25%;
+}
+
+.titre h1 {
+    font-size: 5em;
+}
+
+.resume {
+    height: 40%;
+}
+
+.resume p {
+    font-size: 1.5em;
+}
+
+.genre {
+    display: flex;
+    height: 25%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerBot {
+    display: flex;
+    margin-bottom: 1em;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.headerBot h1 {
+    margin-left: 5em;
+}
+
+.headerBot a {
+    margin-right: 5em;
+}
+
+.headerBot a i {
+    font-size: 2em;
+}
+
+.episodes-serie {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.img-episode {
+    height: 5em;
+}
