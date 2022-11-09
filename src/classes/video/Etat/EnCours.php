@@ -48,7 +48,7 @@ $user = unserialize($_SESSION['user']);
         }
     }
 
-    public function supprimerEnCours($IDserie)
+    public static function supprimerEnCours($IDserie)
     {
 
         $user = unserialize($_SESSION['user']);
