@@ -8,6 +8,7 @@ use netvod\render\RenderInfoSerie;
 use netvod\video\episode\Episode;
 use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
+use netvod\video\episode\Episode;
 
 class AfficherSerie implements Action
 {
