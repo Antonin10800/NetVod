@@ -11,27 +11,27 @@ class Auth
 
     public static function authentificate(string $email, string $passwd2check): ?Utilisateur
     {
-        $db = ConnectionFactory::makeConnection();
-        $query = $db->prepare("select * from Utilisateur where email = ?;");
-        $query->bindParam(1, $email);
-        $query->execute();
-        $row = $query->fetch(PDO::FETCH_ASSOC);
-        if($row === null)
-        {
-            return null;
-        }
-        else {
-            $id = $row['IDUser'];
-            $hash = $row['motDePasse'];
-            $role = $row['role'];
-            $nom = $row['nom'];
-            $prenom = $row['prenom'];
-            $sexe = $row['sexe'];
-            if (!password_verify($passwd2check, $hash)) return null;
-        }
-        $user = new Utilisateur($id, $email, $hash, $nom, $prenom, $role, $sexe);
-        $_SESSION['user'] = serialize($user);
-        return $user;
+
+            $db = ConnectionFactory::makeConnection();
+            $query = $db->prepare("select * from Utilisateur where email = ?;");
+            $query->bindParam(1, $email);
+            $query->execute();
+            $row = $query->fetch(PDO::FETCH_ASSOC);
+            if($row === null)
+            {
+                return null;
+            }
+            else {
+                $id = $row['IDUser'];
+                $hash = $row['motDePasse'];
+                $role = $row['role'];
+                $nom = $row['nom'];
+                $prenom = $row['prenom'];
+                $sexe = $row['sexe'];
+                if (!password_verify($passwd2check, $hash)) return null;
+            }
+            return new Utilisateur($id, $email, $hash, $nom, $prenom, $role, $sexe);
+
     }
 
     public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe): int
@@ -68,6 +68,10 @@ class Auth
         }
         return 0;
 
-
+    }
+    public static function verification():bool
+    {
+        if(isset($_SESSION['user'])) return true;
+        return false;
     }
 }
