@@ -39,6 +39,7 @@ class Inscription implements Action
                 $prenom = filter_var($_POST['prenom'],FILTER_SANITIZE_STRING);
                 $genre = filter_var($_POST['genre'],FILTER_SANITIZE_STRING);
                 Auth::register($email, $pass, $nom, $prenom, $genre);
+                Auth::authentificate($email, $pass);
             }
         }
         $html .= '</body></html>';

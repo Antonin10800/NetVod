@@ -46,6 +46,9 @@ class Dispatcher
                 $afficherEpisode = new AffichageEpisode();
                 $html = $afficherEpisode->execute($IDepisode);
                 break;
+
+            default:
+                $html .= 't es connecte mon reuf';
         }
         return $html;
     }

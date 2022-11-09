@@ -16,6 +16,7 @@ class Serie
     private Date $dateSortie;
     private string $image;
     private array $avis = array();
+    private array $listeEpisode = array();
 
     /**
      * constructeur de la class Serie qui prends en paramètre 
@@ -52,5 +53,15 @@ class Serie
     public function __get($name)
     {
         return $this->$name;
+    }
+
+    public function __set($name, $value)
+    {
+        $this->$name = $value;
+    }
+
+    public function getEpisodes()
+    {
+        return $this->listeEpisode;
     }
 }

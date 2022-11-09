@@ -29,7 +29,9 @@ class Auth
             $sexe = $row['sexe'];
             if (!password_verify($passwd2check, $hash)) return null;
         }
-        return new Utilisateur($id, $email, $hash, $nom, $prenom, $role, $sexe);
+        $user = new Utilisateur($id, $email, $hash, $nom, $prenom, $role, $sexe);
+        $_SESSION['user'] = serialize($user);
+        return $user;
     }
 
     public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe)
