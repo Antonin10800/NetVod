@@ -5,14 +5,22 @@ namespace netvod\action;
 use netvod\video\lists\ListeSerie;
 use netvod\db\ConnectionFactory;
 
+/**
+ * class Commentaire
+ * qui permet de gerer les commentaires
+ */
 class Commentaire implements Action {
 
+    /**
+     * fonction execute qui permet d'executer l'action
+     */
     public function execute(): string {
 
         $html = '';
         $idSerie = $_GET['idSerie'];
         $moy = 0;
 
+        // si la requte est de type get on affiche le formulaire pour ajouter un commentaire
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= <<<END
                 <form method="post" action="?action=commentaires&idSerie=$idSerie">
@@ -25,6 +33,7 @@ class Commentaire implements Action {
                 <button type="submit">ajouter</button></form>
             END;
         } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
+
             $db = ConnectionFactory::makeConnection();
 
             $utilisateur = unserialize($_SESSION['user'])->IDuser;
@@ -71,11 +80,6 @@ class Commentaire implements Action {
 
         return $html;
     }
-
-
-
-
-
 
 }
 
