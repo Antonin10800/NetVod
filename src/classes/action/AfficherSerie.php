@@ -2,17 +2,19 @@
 
 namespace netvod\action;
 
-use netvod\video\episode\Episode;
-use netvod\db\ConnectionFactory;
 use netvod\render\RenderInfoSerie;
-
-use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 
+/**
+ * classe AfficherSerie
+ * qui permet d'afficher une série
+ */
 class AfficherSerie implements Action
 {
-
-
+    /**
+     * methode execute qui permet d'afficher une série
+     * @return string le rendu de la série
+     */
     public function execute(): string
     {
         $listeSerie = ListeSerie::getInstance();
@@ -32,11 +34,4 @@ class AfficherSerie implements Action
         return $html;
     }
 
-
-
-
-
-
 }
-
-
