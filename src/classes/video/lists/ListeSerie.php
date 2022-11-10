@@ -95,8 +95,13 @@ class ListeSerie
                 if($serie->IDserie == $item['IDSerie'])
                 {
                     $serie->ajouterAvis($avis);
+                    break;
                 }
             }
+        }
+        foreach ($this->listeSeries as $serie)
+        {
+            $serie->calculerMoyenne();
         }
 
     }
