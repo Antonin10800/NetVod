@@ -49,12 +49,12 @@ class SeConnecter implements Action
                 $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
                 $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
                 $user = Auth::authentificate($email,$pass);
-                if($user != null)
+                if($user != null && Auth::etreActiverCompte($_POST['email']) == 1)
                 {
                     $_SESSION['user'] = serialize($user);
                     header("Location: ?action=lobby");
                     return '';
-                }else{
+                }else if($user == null){
                     $html .= '<form method="post" action="?action=connexion">';
                     $html .=  '<div class="title"><h1>Connexion</h1></div>';
                     $html .=    '<p>Email :</p>';
@@ -62,6 +62,19 @@ class SeConnecter implements Action
                     $html .= '<p>Password :</p>';
                     $html .= '<input type="password" name="password" >';
                     $html .= '<div class="error"><p>Email ou mot de passe incorrect !</p></div>';
+                    $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
+                    $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
+                    $html .= '<button id="disable" type="submit">Connexion</button></form>';
+                }else if(1 != Auth::etreActiverCompte($_POST['email'])){
+                    $token = Auth::genererToken($email);
+
+                    $html .= '<form method="post" action="?action=connexion">';
+                    $html .=  '<div class="title"><h1>Connexion</h1></div>';
+                    $html .=    '<p>Email :</p>';
+                    $html .= '<input type="email" name="email">';
+                    $html .= '<p>Password :</p>';
+                    $html .= '<input type="password" name="password" >';
+                    $html .= "<div class=\"error\"><a href=\"?action=activation&token=$token\">Votre compte n\'a pas été activé, cliquez pour activer le compte</a></div>";
                     $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
                     $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
                     $html .= '<button id="disable" type="submit">Connexion</button></form>';

@@ -199,4 +199,15 @@ class Auth
         $query->execute();
         $query->closeCursor();
     }
+
+    public static function etreActiverCompte(string $email) : bool {
+        $db = ConnectionFactory::makeConnection();
+        $sql = "select activer from Utilisateur where email = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $email);
+        $query->execute();
+        $row = $query->fetch();
+        $query->closeCursor();
+        return $row['activer'] == 1;
+    }
 }
