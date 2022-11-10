@@ -20,9 +20,11 @@ class Favoris implements Action
         $idUser = $utilisateur->IDuser;
         $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
 
+        //on récupere la liste des séries
         $listeSerie = ListeSerie::getInstance();
         $series = $listeSerie->getSeries();
 
+        //on parcours les séries et si la série est la même c'est celle la:
         foreach ($series as $a) {
             if($a->IDserie == $idSerie){
                 $serie = $a;
@@ -36,16 +38,13 @@ class Favoris implements Action
             $query = "INSERT INTO Favoris VALUES(?,?)";
 
             $utilisateur->ajouterFavoris($serie);
-            $_SESSION['user'] = serialize($utilisateur);
         }
         else
         {
             $query = "DELETE FROM Favoris WHERE IDUser = ? AND IDSerie= ?";
             $utilisateur->supprimerFavoris($serie);
-            $_SESSION['user'] = serialize($utilisateur);
         }
-        echo "<pre>";
-        var_dump($utilisateur);
+        $_SESSION['user'] = serialize($utilisateur);
         //on redirige vers notre série:
         //on execute la query
         $db = ConnectionFactory::makeConnection();
@@ -53,7 +52,7 @@ class Favoris implements Action
         $statement->bindParam(1,$idUser);
         $statement->bindParam(2,$idSerie);
         $statement->execute();
-        //header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
+        header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
         return $html;
     }
 
@@ -86,16 +85,27 @@ class Favoris implements Action
 
     public static function remplirFavoris(Utilisateur $user): Utilisateur
     {
+        //on récupere l'id User
         $idUser = $user->IDuser;
+        //on recupere les favoris de l'utilisateur
         $query = "SELECT * FROM Favoris WHERE IDUser = ?";
         $db = ConnectionFactory::makeConnection();
         $statement = $db->prepare($query);
         $statement->bindParam(1,$idUser);
         $statement->execute();
+        //on recupere les séries :
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
+        //on fetch les favoris
         $row = $statement->fetchAll();
         foreach ($row as $item)
         {
-            $serie = Serie::getSerie($item['IDSerie']);
+            foreach ($series as $a) {
+                if($a->IDserie == $item['IDSerie']){
+                    $serie = $a;
+                    break;
+                }
+            }
             $user->ajouterFavoris($serie);
         }
         return $user;

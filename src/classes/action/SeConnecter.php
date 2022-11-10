@@ -35,7 +35,7 @@ class SeConnecter implements Action
 
             if(empty($_POST['email']) || empty($_POST['password'])) {
                 $html .= '<form method="post" action="?action=connexion">';
-                $html .=  '<div class="title"><h1>Inscription</h1></div>';
+                $html .=  '<div class="title"><h1>Connexion</h1></div>';
                 $html .=    '<p>Email :</p>';
                 $html .= '<input type="email" name="email">';
                 $html .= '<p>Password :</p>';
