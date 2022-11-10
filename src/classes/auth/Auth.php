@@ -111,6 +111,7 @@ class Auth
         $query->bindParam(1, $email);
         $query->execute();
         $row = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
         // on retourne true si l'utilisateur existe, false sinon
         return $row != false;
     }
@@ -130,5 +131,21 @@ class Auth
         $query->closeCursor();
 
         return $token;
+    }
+
+    public static function changerMotDePasse(string $pass, string $token) {
+
+        // on encode le mot de passe
+        $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
+
+        // on modifie le mot de passe dans la base de données
+        $db = ConnectionFactory::makeConnection();
+        $sql = "update Utilisateur set motDePasse = ? where token = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $hash);
+        $query->bindParam(2, $token);
+        $query->execute();
+        $query->closeCursor();
+
     }
 }
