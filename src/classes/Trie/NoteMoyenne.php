@@ -8,28 +8,30 @@ use netvod\db\ConnectionFactory;
 class NoteMoyenne
 {
 
-
+    /**
+     * @param $listeSerie liste à trier
+     * @return array liste triée par les moyennes des séries
+     */
     public static function trieNoteMoyenne($listeSerie): array
     {
+        $listeSeriesTrieMoy = [];
         foreach ($listeSerie as $serie) {
-            $IDserie = $serie->__get('IDserie');
-            $db = ConnectionFactory::makeConnection();
-            $stmt = $db->prepare("SELECT AVG(note) as moyenne FROM Avis WHERE IDserie = $IDserie");
-            $stmt->execute();
-            $result = $stmt->fetchAll();
-
-            $listeSeriesTrieMoy = array();
-            if (sizeof($listeSeriesTrieMoy) == 0) {
+            if($serie->noteMoyenne !=0){
+            if ($listeSeriesTrieMoy == null) {
                 $listeSeriesTrieMoy[] = $serie;
             } else {
                 $i = 0;
-                while ($i < sizeof($listeSeriesTrieMoy) && $result[0]['moyenne'] < $listeSeriesTrieMoy[$i]->__get('noteMoyenne')) {
+                $moyenne = $serie->noteMoyenne;
+                while ($i < count($listeSeriesTrieMoy) && $moyenne < $listeSeriesTrieMoy[$i]->noteMoyenne) {
                     $i++;
                 }
-                $listeSeriesTrieMoy = array_merge(array_slice($listeSeriesTrieMoy, 0, $i), array($serie), array_slice($listeSeriesTrieMoy, $i));
-            }
+                $p1 = array_slice($listeSeriesTrieMoy, 0, $i);
+                $p2 = array_slice($listeSeriesTrieMoy, $i);
+                $listeSeriesTrieMoy = array_merge($p1, [$serie], $p2);
 
-        }
+
+            }
+        }}
         return $listeSeriesTrieMoy;
     }
 }
