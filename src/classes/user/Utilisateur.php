@@ -89,4 +89,9 @@ class Utilisateur
     {
         return $this->nom . " " . $this->prenom;
     }
+
+    public function getIdUser():int
+    {
+        return $this->IDuser;
+    }
 }

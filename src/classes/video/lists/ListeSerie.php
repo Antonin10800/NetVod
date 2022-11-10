@@ -89,7 +89,7 @@ class ListeSerie
         }
         foreach ($result as $item)
         {
-            $avis = new Avis($item['note'], $item['commentaire'], $item['nom'] , $item['IDUser']);
+            $avis = new Avis($item['note'], $item['commentaire'], $item['nom'] , $item['IDUser'], $item['IDSerie']);
             foreach ($this->listeSeries as $serie)
             {
                 if($serie->IDserie == $item['IDSerie'])
