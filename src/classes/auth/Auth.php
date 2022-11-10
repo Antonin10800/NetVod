@@ -97,12 +97,18 @@ class Auth
         return 0;
 
     }
+
     public static function verification():bool
     {
         if(isset($_SESSION['user'])) return true;
         return false;
     }
 
+    /**
+     * methode possedeCOmpte qui permet de savoir si un utilisateur possede un compte
+     * @param string $email l'email que l'utilisateur a entré
+     * @return bool true si l'utilisateur possede un compte, false sinon
+     */
     public static function possedeCompte(string $email): bool
     {
         // on récupere l'utilisateur dans la base de données grace a son email
@@ -111,10 +117,16 @@ class Auth
         $query->bindParam(1, $email);
         $query->execute();
         $row = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
         // on retourne true si l'utilisateur existe, false sinon
         return $row != false;
     }
 
+    /**
+     * methode genererToken qui permet de generer un token pour l'oubli de mot de passe
+     * @param string $email l'email que l'utilisateur a entré
+     * @return string le token
+     */
     public static function genererToken(string $email): string
     {
         // on génère un token
@@ -130,5 +142,27 @@ class Auth
         $query->closeCursor();
 
         return $token;
+    }
+
+    /**
+     * methode changerMotDePasse qui permet de changer le mot de passe d'un utilisateur
+     * @param string $pass le mot de passe que l'utilisateur a entré
+     * @param string $token le token que l'utilisateur a entré
+     * @return void ne retourne rien
+     */
+    public static function changerMotDePasse(string $pass, string $token) : void {
+
+        // on encode le mot de passe
+        $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
+
+        // on modifie le mot de passe dans la base de données
+        $db = ConnectionFactory::makeConnection();
+        $sql = "update Utilisateur set motDePasse = ? where token = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $hash);
+        $query->bindParam(2, $token);
+        $query->execute();
+        $query->closeCursor();
+
     }
 }
