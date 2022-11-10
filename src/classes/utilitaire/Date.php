@@ -44,4 +44,27 @@ class Date
     public function toString() : string {
         return $this->jour . "/" . $this->mois . "/" . $this->annee;
     }
+
+    public static function comparerDate(Date $d1, Date $d2):int
+    {
+        $date1 = "$d1->jour-$d1->mois-$d1->annee";
+        $date2 = "$d2->jour-$d2->mois-$d2->annee";
+        $time1 = strtotime($date1);
+        $time2 = strtotime($date2);
+        if($time1>$time2)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+
+        //comparer date parmis année, mois et jour
+
+
+
+    }
+
+
 }

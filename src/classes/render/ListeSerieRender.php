@@ -3,6 +3,7 @@
 
 namespace netvod\render;
 use netvod\Trie\NoteMoyenne;
+use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 
 /**
@@ -151,4 +152,60 @@ class ListeSerieRender implements Render {
         $res .= "</div></div>";
         return $res;
     }
+
+    /**
+     * Fonction triant par nombre d'épisode
+     * @return string
+     */
+    public function renderPlusLongPlusPlusCourt(): string
+    {
+        //Récupération de la liste de série
+        $listeSerie = ListeSerie::getInstance();
+        $tabSerie = $listeSerie->getSeries();
+
+        //Affiche du titre de la section
+        $res = "<div class=\"genre-serie\">";
+        $res .= "<h2>Filtre par nombre d'épisode, du plus grand au plus court</h2>";
+        $res .= '<div class="liste-series">';
+        $tabTrie = $tabSerie;
+        usort($tabTrie,[Serie::class, "comparerTaille"]);
+
+        //J'affiche les séries
+        foreach ($tabTrie as $t)
+        {
+            $render = new SerieRender($t);
+            $res .= $render->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
+
+    /**
+     * Fonction triant par date de sortie
+     * @return string
+     */
+    public function renderDateSortie(): string
+    {
+        //Je récupère la liste de série du singleton
+        $listeSerie = ListeSerie::getInstance();
+        $tabSerie = $listeSerie->getSeries();
+
+        $res = "<div class=\"genre-serie\">";
+        $res .= '<h2>Filtre date de sortie</h2>';
+        $res .= '<div class="liste-series">';
+        $tabTrie = $tabSerie;
+        //appelle de la methode sort pour trier.
+        usort($tabTrie,[Serie::class, "comparerDateSortie"]);
+
+        //J'affiche les series
+        foreach ($tabTrie as $t)
+        {
+            $render = new SerieRender($t);
+            $res .= $render->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
+
+
 }
