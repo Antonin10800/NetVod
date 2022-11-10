@@ -159,7 +159,7 @@ class ListeSerieRender implements Render {
         $tabSerie = $listeSerie->getSeries();
 
         $res = "<div class=\"genre-serie\">";
-        $res .= '<h2>Filtre par nombre d épisode, du plus grand au plus court</h2>';
+        $res .= "<h2>Filtre par nombre d'épisode, du plus grand au plus court</h2>";
         $res .= '<div class="liste-series">';
         $tabTrie = $tabSerie;
         usort($tabTrie,[Serie::class, "comparerTaille"]);
