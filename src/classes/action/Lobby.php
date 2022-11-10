@@ -26,12 +26,12 @@ class Lobby implements Action
             </head><body>
 
             <header>
-            <div class="headerLeft">
-            <h1>NETVOD</h1>
-            </div>
-            <div class="headerRight">
-            <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
-            </div>
+                <div class="headerLeft">
+                    <h1>NETVOD</h1>
+                </div>
+                <div class="headerRight">
+                    <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
+                </div>
             </header>
             END;
 
@@ -41,8 +41,8 @@ class Lobby implements Action
         //$html .= $listeSerieRender->render();
         $html .= "<div class=\"content\">";
         $html .= $listeSerieRender->renderFavoris();
-        $html .= $listeSerieRender->renderGenre("Horreur");
         $html .= $listeSerieRender->renderGenre("Comédie");
+        $html .= $listeSerieRender->renderGenre("Horreur");
         $html .= $listeSerieRender->renderGenre("Thriller");
         $html .= $listeSerieRender->renderGenre("Divertissement");
         $html .= $listeSerieRender->renderParClassement();

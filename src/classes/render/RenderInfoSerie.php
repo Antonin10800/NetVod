@@ -53,6 +53,11 @@ class RenderInfoSerie implements Render
         $res .= '</head><body>';
 
         $res .= <<<END
+            <header>
+                <div class="headerLeft">
+                    <a href="?action=lobby">NETVOD</a>
+                </div>
+            </header>
             <div class="headerInfo">
                 <div class="headerTop">
                     <div class="headerLeft">
