@@ -22,6 +22,7 @@ class Inscription implements Action
         $html .= '</head><body background="src/images/css/netfix_background.jpeg">';
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
             $html .= '<form class="form" method="post" action="?action=inscription">';
             $html .= '<div class="title"><h1>Inscription</h1></div>';
             $html .= '<p>Email</p><input class="input" type="email" name="email" >';
@@ -33,8 +34,10 @@ class Inscription implements Action
             $html .= '<input type="radio" class="input" name="genre" value="Homme">Homme<br></div>';
             $html .= '<button type="submit">Inscription</button>';
             $html .= '</form>';
+
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {     
-            if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['nom']) || empty($_POST['prenom'])) {
+            if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['nom'])
+            || empty($_POST['prenom'])) {
                 $html .= '<form class="form" method="post" action="?action=inscription">';
                 $html .= '<div class="title"><h1>Inscription</h1></div>';
                 $html .= '<p>Email</p><input class="input" type="email" name="email" >';
@@ -69,7 +72,8 @@ class Inscription implements Action
                 $res = Auth::register($email, $pass, $nom, $prenom, $genre);
                 if ($res == 1) {
                     Auth::authentificate($email, $pass);
-                    header("Location: ?action=lobby");
+                    $token = Auth::genererToken($email);
+                    header("Location: ?action=activation&token=$token");
                     return '';
                 } elseif ($res == -1) {
                     $html .= '<form class="form" method="post" action="?action=inscription">';
