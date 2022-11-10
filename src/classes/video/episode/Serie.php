@@ -157,5 +157,17 @@ class Serie
         }
     }
 
+    public static function trouverSerie(array $s, int $id): Serie
+    {
+        $res = null;
+        foreach ($s as $serie) {
+            if ($serie->IDserie == $id) {
+                $res = $serie;
+                break;
+            }
+        }
+        return $res;
+    }
+
 
 }

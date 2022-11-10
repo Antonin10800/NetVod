@@ -7,10 +7,14 @@ class SerieVisionne
 {
     public static function Visionne($IDUser, $IDSerie): bool
     {
-        $query = "SELECT * FROM SerieVisionne WHERE IDUser = ? and $IDSerie = ?";
+        //on selection dans la bd
+        $query = "SELECT * FROM SerieVisionne WHERE IDUser = ? AND IDSerie = ?";
         $db = ConnectionFactory::makeConnection();
+
         $stmt = $db->prepare($query);
-        $stmt->execute([$IDUser, $IDSerie]);
+        $stmt->bindParam(1,$IDUser);
+        $stmt->bindParam(2,$IDSerie);
+        $stmt->execute();
         $result = $stmt->fetchAll();
         if (count($result) > 0) {
             return true;
@@ -25,7 +29,9 @@ class SerieVisionne
             $query = "INSERT INTO SerieVisionne (IDUser,IDSerie) VALUES (?,?)";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$IDUser, $IDSerie]);
+            $stmt->bindParam(1,$IDUser);
+            $stmt->bindParam(2,$IDSerie);
+            $stmt->execute();
         }
     }
 }

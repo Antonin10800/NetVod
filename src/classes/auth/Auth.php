@@ -4,6 +4,7 @@ namespace netvod\Auth;
 
 use netvod\action\Favoris;
 use netvod\db\ConnectionFactory;
+use netvod\video\Etat\EnCours;
 use PDO;
 use netvod\user\Utilisateur;
 
@@ -45,6 +46,7 @@ class Auth
             }
             $user = new Utilisateur($id,$email,$hash,$nom,$prenom,$role,$sexe);
             Favoris::remplirFavoris($user);
+            EnCours::remplirEnCours($user);
             return $user;
     }
 
@@ -61,7 +63,7 @@ class Auth
     public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe): int
     {
         // on verifie que le mot de passe est assez long
-        if (strlen($pass) < 10) return -1;
+        if (strlen($pass) < 10 || strlen($pass) > 40) return -1;
 
         // on encode le mot de passe
         $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);
@@ -80,7 +82,9 @@ class Auth
             // si l'email n'est pas utilisé on ajoute l'utilisateur dans la base de données
             if($result[0] == 0)
             {
-                $sql = "insert into Utilisateur values (NEXT VALUE FOR seqUser, ?, ?, 1, ?, ?, ?);";
+                $time = date('Y-m-d H:i:s',time());
+
+                $sql = "insert into Utilisateur values (NEXT VALUE FOR seqUser, ?, ?, 1, ?, ?, ?, 0, '', 0);";
                 $query = $db->prepare($sql);
                 $query->bindParam(1, $email);
                 $query->bindParam(2, $hash);
@@ -101,6 +105,10 @@ class Auth
 
     }
 
+    /**
+     * methode verification permet de verifier si un utilisateur est dans la session
+     * @return bool true si l'utilisateur est dans la session, false sinon
+     */
     public static function verification():bool
     {
         if(isset($_SESSION['user'])) return true;
@@ -187,5 +195,43 @@ class Auth
         $query->closeCursor();
         // on retourne true si le token est encore valide, false sinon
         return $row['expireToken'] >= date('Y-m-d H:i:s',time());
+    }
+
+    /**
+     * methode activerCompte qui permet d'activer le compte d'un utilisateur
+     * @param string $token le token que l'utilisateur a entré
+     */
+    public static function activerCompte(string $token) : void{
+        $db = ConnectionFactory::makeConnection();
+        $validite = $db->prepare("select expireToken from Utilisateur where token = ?;");
+        $validite->bindParam(1, $token);
+        $validite->execute();
+        $row = $validite->fetch(PDO::FETCH_ASSOC);
+        $validite->closeCursor();
+        if($row['expireToken'] >= date('Y-m-d H:i:s',time())){
+            $sql = "update Utilisateur set activer = 1 where token = ?;";
+            $query = $db->prepare($sql);
+            $query->bindParam(1, $token);
+            $query->execute();
+            $query->closeCursor();
+        }else{
+            header("Location: ?action=connexion");
+        }
+    }
+
+    /**
+     * methode etreActiverCompte qui permet de savoir si un compte est activer
+     * @param string $email l'email que l'utilisateur a entré
+     * @return bool true si le compte est activer, false sinon
+     */
+    public static function etreActiverCompte(string $email) : bool {
+        $db = ConnectionFactory::makeConnection();
+        $sql = "select activer from Utilisateur where email = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $email);
+        $query->execute();
+        $row = $query->fetch();
+        $query->closeCursor();
+        return $row['activer'] == 1;
     }
 }

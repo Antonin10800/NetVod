@@ -2,6 +2,7 @@
 
 namespace netvod\action;
 
+use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 use netvod\db\ConnectionFactory;
 
@@ -9,13 +10,88 @@ use netvod\db\ConnectionFactory;
  * class Commentaire
  * qui permet de gerer les commentaires
  */
-class Commentaire implements Action {
+class Commentaire implements Action
+{
+
 
     /**
      * fonction execute qui permet d'executer l'action
      */
-    public function execute(): string {
+    public function execute(): string
+    {
+        $res = self::header();
 
+        $listeSerie = ListeSerie::getInstance();
+        $tabSeries = $listeSerie->getSeries();
+
+        $serie = Serie::trouverSerie($tabSeries, $_GET['idSerie']);
+        $utilisateur = unserialize($_SESSION['user']);
+        $idUser = $utilisateur->IDuser;
+
+
+        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            if(!$this->commentaireExiste($serie, $idUser))
+            {
+                $res .= self::lorsGet($_GET['idSerie']);
+            }
+
+            $res .= self::afficherComm($serie);
+
+        } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+
+
+            $note = filter_var($_POST['note'], FILTER_SANITIZE_NUMBER_FLOAT);
+            $commentaire = filter_var($_POST['commentaire'], FILTER_SANITIZE_STRING);
+
+
+
+            if(!$this->commentaireExiste($serie, $idUser))
+            {
+                $this->insererCommentaire($serie, $idUser, $commentaire, $note);
+            }
+            $res .= $this->afficherComm($serie);
+        }
+
+        return $res;
+    }
+
+
+    /**
+     * Méthode utilisé lorsque la request-method est à get afin de factoriser le code.
+     * @param $idSerie
+     * @return string
+     */
+    public function lorsGet($idSerie): string
+    {
+        $res = '';
+        $res .= <<<END
+                    <div class="note">
+                        <form method="post" action="?action=commentaires&idSerie=$idSerie">
+                            <div class="valeur-note">
+                                <a onclick="star1()"><i id="star1" class="fa-solid fa-star"></i></a>
+                                <a onclick="star2()"><i id="star2" class="fa-solid fa-star"></i></a>
+                                <a onclick="star3()"><i id="star3" class="fa-solid fa-star"></i></a>
+                                <a onclick="star4()"><i id="star4" class="fa-solid fa-star"></i></a>
+                                <a onclick="star5()"><i id="star5" class="fa-solid fa-star"></i></a>
+                                
+                                <input id="valeurnote" type="hidden" name="note" id="note" value="0">
+                            </div>
+                            <div class="commentaire">
+                                <input type="commentaire" name="commentaire">
+                                <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
+                            </div>
+                        </form>
+            END;
+        return $res;
+    }
+
+    /**
+     * Methode header afin d'avoir un header HTML pour la page.
+     * @return string
+     */
+    public function header(): string
+    {
         $res = '<!DOCTYPE html>';
         $res .= '<html lang="fr"> <head>';
         $res .= '<meta charset="UTF-8">';
@@ -36,70 +112,107 @@ class Commentaire implements Action {
             </header>
         END;
 
-
-        $idSerie = $_GET['idSerie'];
-        $moy = 0;
-    
         $res .= <<<END
             <div class="bottom-main">
                 <div class="title-main">
                     <h1>Commentaire</h1>
                 </div>
         END;
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $res .= <<<END
-                    <div class="note">
-                        <form method="post" action="?action=commentaires&idSerie=$idSerie">
-                            <div class="valeur-note">
-                                <a onclick="star1()"><i id="star1" class="fa-solid fa-star"></i></a>
-                                <a onclick="star2()"><i id="star2" class="fa-solid fa-star"></i></a>
-                                <a onclick="star3()"><i id="star3" class="fa-solid fa-star"></i></a>
-                                <a onclick="star4()"><i id="star4" class="fa-solid fa-star"></i></a>
-                                <a onclick="star5()"><i id="star5" class="fa-solid fa-star"></i></a>
-                                
-                                <input id="valeurnote" type="hidden" name="note" id="note" value="0">
-                            </div>
-                            <div class="commentaire">
-                                <input type="commentaire" name="commentaire">
-                                <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
-                            </div>
-                        </form>
-            END;
-        } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
-            $db = ConnectionFactory::makeConnection();
+        return $res;
+    }
 
-            $utilisateur = unserialize($_SESSION['user'])->IDuser;
-            $note = filter_var($_POST['note'],FILTER_SANITIZE_NUMBER_FLOAT);
-            $commentaire = filter_var($_POST['commentaire'],FILTER_SANITIZE_STRING);
+    /**
+     * Fonction insererCommentaire vérifiant s'il peut insérer le commentaire puis appelle la méthode inserer..
+     * @param Serie $serie
+     * @param $idUser
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
+    public function insererCommentaire(Serie $serie, $idUser, $commentaire, $note)
+    {
 
-            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
-            $req->execute([$idSerie]);
-            $count = $req->rowCount();
+        $avis = $serie->getAvis();
 
-            if($count == 0){
-                $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
-                $req->bindParam(1, $utilisateur);
-                $req->bindParam(2, $idSerie);
-                $req->bindParam(3, $commentaire);
-                $req->bindParam(4, $note);
-                $req->execute();
-            }else{
-                $res .= "Vous avez déjà commenté cette série";
+
+        $present = false;
+        foreach ($avis as $a) {
+            if ($a->idSerie == $serie->IDserie) {
+                $present = true;
+                if (!($a->idUser == $idUser)) {
+                    $this->inserer($idUser, $a->idSerie, $commentaire, $note);
+                    break;
+                }
             }
         }
 
-        $listeSerie = ListeSerie::getInstance();
-        $series = $listeSerie->getSeries();
-        $serieEnCour = $series[$idSerie-1];
-        $avis = $serieEnCour->avis;
-        $res .= "<div class=\"espaces-com\">";
-        if(count($avis) == 0 ){
-            $res .= 'Aucun commentaire';
-        }else{
-            $moy = $moy / count($avis);
-            $res .= "Moyenne : " . $moy;
+        if(!$present)
+        {
+            $this->inserer($idUser, $serie->IDserie, $commentaire, $note);
         }
-        foreach ($avis as $avi){
+        $listeSerie = ListeSerie::getInstance();
+        $listeSerie->actualiserAvis();
+    }
+
+    /**
+     * Methode vérifiant l'existance d'un commentaire
+     * @param Serie $serie
+     * @param $idUser
+     * @return bool
+     */
+    public function commentaireExiste(Serie $serie, $idUser):bool
+    {
+        $avis = $serie->getAvis();
+        foreach($avis as $a)
+        {
+            if($a->idSerie == $serie->IDserie)
+            {
+                if($a->idUser == $idUser)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Metode permmettant d'inserer le commentaire dans la base.
+     * @param $idUser
+     * @param $a
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
+    public function inserer($idUser, $a, $commentaire, $note)
+    {
+        $db = ConnectionFactory::makeConnection();
+
+        $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
+        $req->bindParam(1, $idUser);
+        $req->bindParam(2, $a);
+        $req->bindParam(3, $commentaire);
+        $req->bindParam(4, $note);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
+     * Methode faisant l'affichage des commentaires.
+     * @param $serie
+     * @return string
+     */
+    public function afficherComm($serie):string
+    {
+
+        $res = "<div class=\"espaces-com\">";
+
+        if ($serie->noteMoyenne == 0) {
+            $res .= "<h1>Cette série n'a pas encore été notée</h1>";
+        } else {
+            $res .= "<h1>Moyenne de la série : {$serie->noteMoyenne} <i id=\"star\" class=\"fa-solid fa-star\"></i></h1>";
+        }
+        foreach ($serie->getAvis() as $avi) {
             $res .= <<<END
                 <div class="com">
                     <div class="leftCom">
@@ -111,7 +224,6 @@ class Commentaire implements Action {
                     <h1 id="note"> Note : {$avi->note}</p>
                 </div>
             END;
-            $moy += $avi->note;
         }
         $res .= "</div>";
 

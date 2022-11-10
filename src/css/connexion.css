@@ -100,6 +100,16 @@ form p {
     align-items: center;
 }
 
+.error a {
+    border: solid 3px red;
+    background-color: rgb(185, 0, 0);
+    width: 90%;
+    height: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 #disable {
     background-color: grey;
 }

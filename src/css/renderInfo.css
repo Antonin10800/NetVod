@@ -141,37 +141,34 @@ header {
 
 .episodes {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-    margin: 1em 6em;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    margin: 1em 4em;
 }
 
 .episodes-serie {
-    background-color: green;
-    height: 10em;
-    width: 20em;
     display: flex;
+    border-radius: 6px;
+    background-color: rgba(51, 51, 51, 0.432);
     align-items: center;
 }
 
 .img {
     height: 8em;
     display: flex;
-    background-color: red;
-    width: auto;
+    position: relative;
 }
 
 
 .img-episode {
     height: 8em;
-    width: auto;
 }
 
 .duree {
-    position: relative;
-    bottom: 0%;
+    position: absolute;
+    background-color: rgba(128, 128, 128, 0.622);
     left: 0;
+    bottom: 0;
 }
 
 .titre-episode {

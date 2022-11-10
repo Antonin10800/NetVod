@@ -24,7 +24,9 @@ class EpVisionne
             $query = "INSERT INTO EpVisionne (IDUser,iDEpisode) VALUES (?,?)";
             $db = ConnectionFactory::makeConnection();
             $stmt = $db->prepare($query);
-            $stmt->execute([$IDUser,$IDEpisode]);
+            $stmt->bindParam(1,$IDUser);
+            $stmt->bindParam(2,$IDEpisode);
+            $stmt->execute();
         }
     }
 

@@ -56,6 +56,10 @@ class Favoris implements Action
         return $html;
     }
 
+    /**
+     * méthode qui vérifie si la série n'est pas en favoris
+     * @return bool  true ou false
+     */
     public static function pasDeFavoris():bool
     {
         //on récupere l'utilisateur
@@ -83,6 +87,11 @@ class Favoris implements Action
         return false;
     }
 
+    /**
+     * méthode qui permet d'ajouter les favoris dans la liste de favoris de l'utilisateur
+     * @param Utilisateur $user l'utilisateur
+     * @return Utilisateur on retourne cette utilisateur apres la mise a jours
+     */
     public static function remplirFavoris(Utilisateur $user): Utilisateur
     {
         //on récupere l'id User
