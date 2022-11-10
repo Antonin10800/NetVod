@@ -90,7 +90,7 @@ header {
     display: flex;
     padding: 0 2em;
     overflow-x: scroll;
-    overflow-y: visible;
+    overflow-x: hidden;
 }
 
 .genre-serie {
