@@ -65,6 +65,7 @@ header {
 }
 
 .commentaire input {
+    padding-left: 1em;
     width: 60%;
     background-color: #333;
     height: 4em;
@@ -148,4 +149,8 @@ header {
 
 #star1, #star2, #star3, #star4, #star5 {
     color: grey;
+}
+
+#star {
+    color: yellow;
 }

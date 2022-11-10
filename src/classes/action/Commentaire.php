@@ -2,7 +2,6 @@
 
 namespace netvod\action;
 
-use netvod\user\Utilisateur;
 use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 use netvod\db\ConnectionFactory;
@@ -51,17 +50,18 @@ class Commentaire implements Action
             {
                 $this->insererCommentaire($serie, $idUser, $commentaire, $note);
             }
-
             $res .= $this->afficherComm($serie);
-
-
-
         }
 
         return $res;
     }
 
 
+    /**
+     * Méthode utilisé lorsque la request-method est à get afin de factoriser le code.
+     * @param $idSerie
+     * @return string
+     */
     public function lorsGet($idSerie): string
     {
         $res = '';
@@ -86,6 +86,10 @@ class Commentaire implements Action
         return $res;
     }
 
+    /**
+     * Methode header afin d'avoir un header HTML pour la page.
+     * @return string
+     */
     public function header(): string
     {
         $res = '<!DOCTYPE html>';
@@ -117,30 +121,45 @@ class Commentaire implements Action
         return $res;
     }
 
+    /**
+     * Fonction insererCommentaire vérifiant s'il peut insérer le commentaire puis appelle la méthode inserer..
+     * @param Serie $serie
+     * @param $idUser
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
     public function insererCommentaire(Serie $serie, $idUser, $commentaire, $note)
     {
 
         $avis = $serie->getAvis();
+
+
+        $present = false;
         foreach ($avis as $a) {
             if ($a->idSerie == $serie->IDserie) {
+                $present = true;
                 if (!($a->idUser == $idUser)) {
-                    $db = ConnectionFactory::makeConnection();
-
-                    $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
-                    $req->bindParam(1, $idUser);
-                    $req->bindParam(2, $a->idSerie);
-                    $req->bindParam(3, $commentaire);
-                    $req->bindParam(4, $note);
-                    $req->execute();
-                    $req->closeCursor();
+                    $this->inserer($idUser, $a->idSerie, $commentaire, $note);
                     break;
                 }
             }
+        }
+
+        if(!$present)
+        {
+            $this->inserer($idUser, $serie->IDserie, $commentaire, $note);
         }
         $listeSerie = ListeSerie::getInstance();
         $listeSerie->actualiserAvis();
     }
 
+    /**
+     * Methode vérifiant l'existance d'un commentaire
+     * @param Serie $serie
+     * @param $idUser
+     * @return bool
+     */
     public function commentaireExiste(Serie $serie, $idUser):bool
     {
         $avis = $serie->getAvis();
@@ -157,12 +176,42 @@ class Commentaire implements Action
         return false;
     }
 
+    /**
+     * Metode permmettant d'inserer le commentaire dans la base.
+     * @param $idUser
+     * @param $a
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
+    public function inserer($idUser, $a, $commentaire, $note)
+    {
+        $db = ConnectionFactory::makeConnection();
+
+        $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
+        $req->bindParam(1, $idUser);
+        $req->bindParam(2, $a);
+        $req->bindParam(3, $commentaire);
+        $req->bindParam(4, $note);
+        $req->execute();
+        $req->closeCursor();
+    }
+
+    /**
+     * Methode faisant l'affichage des commentaires.
+     * @param $serie
+     * @return string
+     */
     public function afficherComm($serie):string
     {
 
         $res = "<div class=\"espaces-com\">";
 
-        $moy = 0;
+        if ($serie->noteMoyenne == 0) {
+            $res .= "<h1>Cette série n'a pas encore été notée</h1>";
+        } else {
+            $res .= "<h1>Moyenne de la série : {$serie->noteMoyenne} <i id=\"star\" class=\"fa-solid fa-star\"></i></h1>";
+        }
         foreach ($serie->getAvis() as $avi) {
             $res .= <<<END
                 <div class="com">
@@ -175,7 +224,6 @@ class Commentaire implements Action
                     <h1 id="note"> Note : {$avi->note}</p>
                 </div>
             END;
-            $moy += $avi->note;
         }
         $res .= "</div>";
 
