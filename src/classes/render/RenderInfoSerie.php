@@ -78,6 +78,14 @@ class RenderInfoSerie implements Render
                             <h1>{$this->serie->nbEpisode} épisodes</h1>
                             <h1>{$this->serie->public}</h1>
                         </div>
+            END;
+
+        if($this->serie->noteMoyenne != 0) {
+            $res .= '<div class="moyenne"><h1>'. $this->serie->noteMoyenne.'<i id="star" class="fa-solid fa-star"></i></h1></div>';
+        }
+
+        $res .= <<<END
+                        
                     </div>
                 </div>
                 <div class="headerBot">

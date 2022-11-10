@@ -221,3 +221,8 @@ header {
 .commentaire a:hover {
     background-color: rgb(70, 70, 70);
 }
+
+#star {
+    font-size: 1em;
+    color: yellow;
+}
