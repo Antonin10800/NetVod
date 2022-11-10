@@ -74,7 +74,7 @@ class SeConnecter implements Action
                     $html .= '<input type="email" name="email">';
                     $html .= '<p>Password :</p>';
                     $html .= '<input type="password" name="password" >';
-                    $html .= "<div class=\"error\"><a href=\"?action=activation&token=$token\">Votre compte n\'a pas été activé, cliquez pour activer le compte</a></div>";
+                    $html .= "<div class=\"error\"><a href=\"?action=activation&token=$token\">Votre compte n'a pas été activé, cliquez pour activer le compte</a></div>";
                     $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
                     $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
                     $html .= '<button id="disable" type="submit">Connexion</button></form>';
