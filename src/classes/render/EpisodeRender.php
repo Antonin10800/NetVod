@@ -16,14 +16,14 @@ class EpisodeRender implements Render
 
 
     public function render() : string {
-<<<<<<< HEAD
+
         return "<div class=\"idEpisode\"> {$this->episode->titre}<br>"
              . "{$this->episode->duree}<br>"
              . "{$this->episode->image}<br>"
              . "<video controls autoplay><source src=\"src/images/video/video.mp4\" type=\"video/mp4\"></video>"
              . "{$this->episode->numeroEp}<br><br> </div>";
 
-=======
+
         $res = "";
         $res = '<!DOCTYPE html>';
         $res .= '<html lang="fr"> <head>';
@@ -57,7 +57,7 @@ class EpisodeRender implements Render
         $res .= '</body></html>';
 
         return $res;
->>>>>>> 384780075705dd8c203de2c13931876973516353
+
     }
 
 }

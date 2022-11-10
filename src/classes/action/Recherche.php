@@ -9,8 +9,14 @@ class Recherche implements Action
 {
     public function execute(): string
     {
-        $html =
-            <<<END
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            header("Location: ?action=recherche&recherche=" . $_POST['inputRecherche']);
+            $html = "";
+        } else {
+
+
+            $html =
+                <<<END
             <!DOCTYPE html>
             <html lang="fr"> <head>
             <meta charset="UTF-8">
@@ -24,8 +30,15 @@ class Recherche implements Action
             </head><body>
 
             <header>
+                
                 <div class="headerLeft">
-                    <a>NETVOD</a>
+                    <a href="?action=lobby">NETVOD</a>
+                </div>
+            <div class="headerMid">
+               <form method="post" action="?action=connexion">
+                    <input type="search" name="inputRecherche" class="inputRecherche" required>
+                    <button type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
+                </form>
                 </div>
                
                 <div class="headerRight">
@@ -34,31 +47,31 @@ class Recherche implements Action
             </header>
             END;
 
-        $listeSerie = new ListeSerie();
-        $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
+            $listeSerie = new ListeSerie();
+            $listeSerieRender = new ListeSerieRender($listeSerie->getSeries());
 
-        //$html .= $listeSerieRender->render();
-        $html .= "<div class=\"content\">";
-       // $html .= $listeSerieRender->renderRecherche($_GET['recherche']);
-        $html .= "</div>";
+            //$html .= $listeSerieRender->render();
+            $html .= "<div class=\"content\">";
+            $html .= $listeSerieRender->renderRecherche($_GET['recherche']);
+            $html .= "</div>";
 
-        $html .= "<div class=\"content-profile\">";
-        $html .= '<div class="profile">';
-        $html .= '<a onclick="hideProfilePage()"><i class="fa-solid fa-xmark"></i></a>';
-        $html .= '<a>Email : ' . unserialize($_SESSION['user'])->email . '</a><br>';
-        $html .= '<a>Nom : ' . unserialize($_SESSION['user'])->nom . '</a><br>';
-        $html .= '<a>Prenom : ' . unserialize($_SESSION['user'])->prenom . '</a><br>';
-        $html .= '<a>Sexe : ' . unserialize($_SESSION['user'])->sexe . '</a><br>';
+            $html .= "<div class=\"content-profile\">";
+            $html .= '<div class="profile">';
+            $html .= '<a onclick="hideProfilePage()"><i class="fa-solid fa-xmark"></i></a>';
+            $html .= '<a>Email : ' . unserialize($_SESSION['user'])->email . '</a><br>';
+            $html .= '<a>Nom : ' . unserialize($_SESSION['user'])->nom . '</a><br>';
+            $html .= '<a>Prenom : ' . unserialize($_SESSION['user'])->prenom . '</a><br>';
+            $html .= '<a>Sexe : ' . unserialize($_SESSION['user'])->sexe . '</a><br>';
 
-        // bouton de déconnexion
-        $html .= '<a class="btn-deconnexion" href="?action=deconnexion"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Déconnexion</a>';
-        $html .= '</div></div>';
+            // bouton de déconnexion
+            $html .= '<a class="btn-deconnexion" href="?action=deconnexion"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Déconnexion</a>';
+            $html .= '</div></div>';
 
-        $html .= '</body></html>';
+            $html .= '</body></html>';
+
+        }
+
         return $html;
     }
 
-
-
-
-    }
+}

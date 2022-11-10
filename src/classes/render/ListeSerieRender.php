@@ -111,18 +111,20 @@ class ListeSerieRender implements Render {
     }
 
 
-    public function renderRecherche(string $recherche) : string {
+    public function renderRecherche(string $recherche) : string
+    {
         $res = "<div class=\"genre-serie\">";
         $res .= "<h2>Résultat de la recherche</h2>";
         $res .= "<div class=\"liste-series\">";
         foreach ($this->listeSerie as $series) {
-            if($series->nom == $recherche) {
+            if (str_contains(strtolower($series->titre) ,strtolower($recherche)  )) {
                 $serie = new SerieRender($series);
                 $res .= $serie->render();
             }
         }
         $res .= "</div></div>";
-
+        return $res;
+    }
     public function renderEncours():string
     {
         $utilisateur = unserialize($_SESSION['user']);
