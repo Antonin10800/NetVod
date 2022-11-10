@@ -109,7 +109,7 @@ class RenderInfoSerie implements Render
         }
         $res .= '</div>';
         $res .= '<div class="commentaire">'
-                    . '<h1>Voir les commentaire</h1>';
+                    . '<h1>Voir les commentaires</h1>';
                 $res .= "<a href=\"?action=commentaires&idSerie={$this->serie->IDserie}\">Commentaire</a>";
         $res .= '</div>';
         $res .= '</body></html>';
