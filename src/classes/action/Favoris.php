@@ -6,6 +6,7 @@ use netvod\Auth\Auth;
 use netvod\db\ConnectionFactory;
 use netvod\user\Utilisateur;
 use netvod\video\episode\Serie;
+use netvod\video\lists\ListeSerie;
 
 class Favoris implements Action
 {
@@ -18,7 +19,17 @@ class Favoris implements Action
         //on récupere l'id User et l'id Serie
         $idUser = $utilisateur->IDuser;
         $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
-        $serie = Serie::getSerie($idSerie);
+
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
+
+        foreach ($series as $a) {
+            if($a->IDserie == $idSerie){
+                $serie = $a;
+                break;
+            }
+        }
+
         //on vérifie si la série est deja en favoris
         if(self::pasDeFavoris())
         {
