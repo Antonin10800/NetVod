@@ -15,7 +15,7 @@ class SeConnecter implements Action
         $html .= '<meta charset="UTF-8">';
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        $html .= '<title>Inscription</title>';
+        $html .= '<title>Connexion</title>';
         $html .= '<link rel="stylesheet" href="src/css/connexion.css">';
         $html .= '</head><body background="src/images/css/netfix_background.jpeg">';
 
@@ -35,7 +35,7 @@ class SeConnecter implements Action
 
             if(empty($_POST['email']) || empty($_POST['password'])) {
                 $html .= '<form method="post" action="?action=connexion">';
-                $html .=  '<div class="title"><h1>Inscription</h1></div>';
+                $html .=  '<div class="title"><h1>Connexion</h1></div>';
                 $html .=    '<p>Email :</p>';
                 $html .= '<input type="email" name="email">';
                 $html .= '<p>Password :</p>';
@@ -55,12 +55,12 @@ class SeConnecter implements Action
                     return '';
                 }else{
                     $html .= '<form method="post" action="?action=connexion">';
-                    $html .=  '<div class="title"><h1>Inscription</h1></div>';
+                    $html .=  '<div class="title"><h1>Connexion</h1></div>';
                     $html .=    '<p>Email :</p>';
                     $html .= '<input type="email" name="email">';
                     $html .= '<p>Password :</p>';
                     $html .= '<input type="password" name="password" >';
-                    $html .= '<div class="error"><p>Email ou mot de passe incorect !</p></div>';
+                    $html .= '<div class="error"><p>Email ou mot de passe incorrect !</p></div>';
                     $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
                     $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
                     $html .= '<button id="disable" type="submit">Connexion</button></form>';

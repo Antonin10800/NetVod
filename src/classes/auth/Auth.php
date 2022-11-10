@@ -133,14 +133,16 @@ class Auth
     public static function genererToken(string $email): string
     {
         // on génère un token
-        echo $token = bin2hex(random_bytes(32));
+        $token = bin2hex(random_bytes(32));
+        $expire = date('Y-m-d H:i:s',time() + 120);
 
         // on ajoute le token dans la base de données
         $db = ConnectionFactory::makeConnection();
-        $sql = "update Utilisateur set token = ? where email = ?;";
+        $sql = "update Utilisateur set token = ?, expireToken = ? where email = ?;";
         $query = $db->prepare($sql);
         $query->bindParam(1, $token);
-        $query->bindParam(2, $email);
+        $query->bindParam(2, $expire);
+        $query->bindParam(3, $email);
         $query->execute();
         $query->closeCursor();
 
@@ -167,5 +169,18 @@ class Auth
         $query->execute();
         $query->closeCursor();
 
+    }
+
+    public static function verifierToken(string $token): bool
+    {
+        // on récupere l'utilisateur dans la base de données grace a son token
+        $db = ConnectionFactory::makeConnection();
+        $query = $db->prepare("select expireToken from Utilisateur where token = ?;");
+        $query->bindParam(1, $token);
+        $query->execute();
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        $query->closeCursor();
+        // on retourne true si le token est encore valide, false sinon
+        return $row['expireToken'] >= date('Y-m-d H:i:s',time());
     }
 }
