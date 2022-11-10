@@ -2,7 +2,6 @@
 
 namespace netvod\action;
 
-use netvod\user\Utilisateur;
 use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 use netvod\db\ConnectionFactory;
@@ -58,6 +57,11 @@ class Commentaire implements Action
     }
 
 
+    /**
+     * Méthode utilisé lorsque la request-method est à get afin de factoriser le code.
+     * @param $idSerie
+     * @return string
+     */
     public function lorsGet($idSerie): string
     {
         $res = '';
@@ -82,6 +86,10 @@ class Commentaire implements Action
         return $res;
     }
 
+    /**
+     * Methode header afin d'avoir un header HTML pour la page.
+     * @return string
+     */
     public function header(): string
     {
         $res = '<!DOCTYPE html>';
@@ -113,6 +121,14 @@ class Commentaire implements Action
         return $res;
     }
 
+    /**
+     * Fonction insererCommentaire vérifiant s'il peut insérer le commentaire puis appelle la méthode inserer..
+     * @param Serie $serie
+     * @param $idUser
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
     public function insererCommentaire(Serie $serie, $idUser, $commentaire, $note)
     {
 
@@ -138,6 +154,12 @@ class Commentaire implements Action
         $listeSerie->actualiserAvis();
     }
 
+    /**
+     * Methode vérifiant l'existance d'un commentaire
+     * @param Serie $serie
+     * @param $idUser
+     * @return bool
+     */
     public function commentaireExiste(Serie $serie, $idUser):bool
     {
         $avis = $serie->getAvis();
@@ -154,6 +176,14 @@ class Commentaire implements Action
         return false;
     }
 
+    /**
+     * Metode permmettant d'inserer le commentaire dans la base.
+     * @param $idUser
+     * @param $a
+     * @param $commentaire
+     * @param $note
+     * @return void
+     */
     public function inserer($idUser, $a, $commentaire, $note)
     {
         $db = ConnectionFactory::makeConnection();
@@ -167,6 +197,11 @@ class Commentaire implements Action
         $req->closeCursor();
     }
 
+    /**
+     * Methode faisant l'affichage des commentaires.
+     * @param $serie
+     * @return string
+     */
     public function afficherComm($serie):string
     {
 
