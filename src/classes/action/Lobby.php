@@ -43,7 +43,6 @@ class Lobby implements Action
         $html .= $listeSerieRender->renderFavoris();
         $html .= $listeSerieRender->renderGenre("Comédie");
         $html .= $listeSerieRender->renderGenre("Horreur");
-        $html .= $listeSerieRender->renderGenre("Thriller");
         $html .= $listeSerieRender->renderGenre("Divertissement");
         $html .= $listeSerieRender->renderParClassement();
         $html .= "</div>";
