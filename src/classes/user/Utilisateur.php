@@ -1,6 +1,7 @@
 <?php
 
 namespace netvod\user;
+use netvod\db\ConnectionFactory;
 use netvod\video\episode\Serie;
 
 class Utilisateur 
@@ -28,13 +29,14 @@ class Utilisateur
         $this->prenom = $prenom;
         $this->role = $role;
         $this->sexe = $sexe;
+        //$this->remplirFavoris();
     }
 
     /**
      * méthode ajouterFavoris
      * @param Serie $serie
      */
-    public function ajouterFavoris(Serie $serie)
+    public function ajouterFavoris(Serie $serie):void
     {
         // pour ajouter en fin d'un tableau on met crochet vide :-)
         $this->favoris[] = $serie;
@@ -52,6 +54,7 @@ class Utilisateur
         // on supprime l'élément du tableau
         unset($this->favoris[$index]);
     }
+
 
     /**
      * @param Serie $serie

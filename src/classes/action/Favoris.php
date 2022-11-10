@@ -4,9 +4,8 @@ namespace netvod\action;
 
 use netvod\Auth\Auth;
 use netvod\db\ConnectionFactory;
-use netvod\render\ListeSerieRender;
+use netvod\user\Utilisateur;
 use netvod\video\episode\Serie;
-use netvod\video\lists\ListeSerie;
 
 class Favoris implements Action
 {
@@ -19,45 +18,31 @@ class Favoris implements Action
         //on récupere l'id User et l'id Serie
         $idUser = $utilisateur->IDuser;
         $idSerie = filter_var($_GET['idSerie'],FILTER_SANITIZE_NUMBER_INT);
-
-        $db = ConnectionFactory::makeConnection();
-
+        $serie = Serie::getSerie($idSerie);
         //on vérifie si la série est deja en favoris
         if(self::pasDeFavoris())
         {
             $query = "INSERT INTO Favoris VALUES(?,?)";
-            //on execute la query
-            $statement = $db->prepare($query);
-            $statement->bindParam(1,$idUser);
-            $statement->bindParam(2,$idSerie);
-            $statement->execute();
 
-            $instance = ListeSerie::getInstance();
-            $serie = $instance->getSeries();
-
-
-            foreach ($serie as $item) {
-                if($item->IDserie == $idSerie)
-                {
-                    $serieCourante = $item;
-                }
-            }
-
-            $utilisateur->ajouterFavoris($serieCourante);
+            $utilisateur->ajouterFavoris($serie);
             $_SESSION['user'] = serialize($utilisateur);
         }
         else
         {
             $query = "DELETE FROM Favoris WHERE IDUser = ? AND IDSerie= ?";
-            //on execute la query
-            $statement = $db->prepare($query);
-            $statement->bindParam(1,$idUser);
-            $statement->bindParam(2,$idSerie);
-            $statement->execute();
+            $utilisateur->supprimerFavoris($serie);
+            $_SESSION['user'] = serialize($utilisateur);
         }
+        echo "<pre>";
+        var_dump($utilisateur);
         //on redirige vers notre série:
-
-        header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
+        //on execute la query
+        $db = ConnectionFactory::makeConnection();
+        $statement = $db->prepare($query);
+        $statement->bindParam(1,$idUser);
+        $statement->bindParam(2,$idSerie);
+        $statement->execute();
+        //header('Location: ?action=afficher-serie&idSerie=' . $idSerie);
         return $html;
     }
 
@@ -86,5 +71,22 @@ class Favoris implements Action
         }
         //sinon retourne false
         return false;
+    }
+
+    public static function remplirFavoris(Utilisateur $user): Utilisateur
+    {
+        $idUser = $user->IDuser;
+        $query = "SELECT * FROM Favoris WHERE IDUser = ?";
+        $db = ConnectionFactory::makeConnection();
+        $statement = $db->prepare($query);
+        $statement->bindParam(1,$idUser);
+        $statement->execute();
+        $row = $statement->fetchAll();
+        foreach ($row as $item)
+        {
+            $serie = Serie::getSerie($item['IDSerie']);
+            $user->ajouterFavoris($serie);
+        }
+        return $user;
     }
 }

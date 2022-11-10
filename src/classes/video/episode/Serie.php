@@ -40,7 +40,7 @@ class Serie
     private float $noteMoyenne;
 
     /**
-     * constructeur de la class Serie qui prends en paramètre 
+     * constructeur de la class Serie qui prends en paramètre
      * tout les attributs de la class
      * @param int $IDserie l'id de la serie
      * @param string $titre le titre de la serie
@@ -80,7 +80,7 @@ class Serie
      * Methode vidant les avis.
      * @return void
      */
-    public function viderAvis():void
+    public function viderAvis(): void
     {
         $this->avis = array();
     }
@@ -89,19 +89,20 @@ class Serie
      * Methode qui permet de retourner l'id de la serie
      * @return array
      */
-    public function getAvis():array
+    public function getAvis(): array
     {
         return $this->avis;
     }
 
-    public function calculerMoyenne():void
+    public function calculerMoyenne(): void
     {
         $moyenne = 0;
-        foreach($this->avis as $avis)
-        {
-            $moyenne += $avis->getNote();
+        if (count($this->avis)) {
+            foreach ($this->avis as $avis) {
+                $moyenne += $avis->note;
+            }
+            $this->noteMoyenne = $moyenne / count($this->avis);
         }
-        $this->noteMoyenne = $moyenne / count($this->avis);
     }
 
     /**
