@@ -37,7 +37,7 @@ class Inscription implements Action
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {     
             if (empty($_POST['email']) || empty($_POST['password']) || empty($_POST['password2']) || empty($_POST['nom'])
-            || empty($_POST['prenom'])) {
+            || empty($_POST['prenom']) || empty($_POST['genre'])) {
                 $html .= '<form class="form" method="post" action="?action=inscription">';
                 $html .= '<div class="title"><h1>Inscription</h1></div>';
                 $html .= '<p>Email</p><input class="input" type="email" name="email" >';
