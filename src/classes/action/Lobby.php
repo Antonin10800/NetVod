@@ -20,6 +20,7 @@ class Lobby implements Action
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>NetVod</title>
             <script src="src/js/profile.js"></script>
+            <link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>
             <link rel="stylesheet" href="src/css/loby.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
             </head><body>
@@ -39,6 +40,7 @@ class Lobby implements Action
 
         //$html .= $listeSerieRender->render();
         $html .= "<div class=\"content\">";
+        $html .= $listeSerieRender->renderFavoris();
         $html .= $listeSerieRender->renderGenre("Horreur");
         $html .= $listeSerieRender->renderGenre("Comédie");
         $html .= $listeSerieRender->renderGenre("Thriller");
