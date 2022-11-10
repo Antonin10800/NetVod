@@ -121,7 +121,7 @@ class ListeSerieRender implements Render {
             die();*/
             $res = "<div class=\"genre-serie\">";
             $res .= '<h2>Reprendre</h2>';
-            $res .= '<div class="liste-series">';
+            $res .= '<div id="encour" class="liste-series">';
             foreach ($encours as $cours)
             {
                 $serie = new SerieRender($cours);
