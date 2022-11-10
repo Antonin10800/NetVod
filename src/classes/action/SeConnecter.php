@@ -16,6 +16,7 @@ class SeConnecter implements Action
         $html .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Connexion</title>';
+        $html .= '<link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>';
         $html .= '<link rel="stylesheet" href="src/css/connexion.css">';
         $html .= '</head><body background="src/images/css/netfix_background.jpeg">';
 

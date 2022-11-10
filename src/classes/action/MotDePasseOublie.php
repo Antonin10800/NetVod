@@ -23,8 +23,9 @@ class MotDePasseOublie implements Action {
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Mot de passe oublie</title>
+            <link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>
             <link rel="stylesheet" href="src/css/connexion.css">
-            </head><body background="src/classes/images/css/netfix_background.jpeg">
+            </head><body background="src/images/css/netfix_background.jpeg">
             END;
 
         // si la méthode est GET
