@@ -171,6 +171,11 @@ class Auth
 
     }
 
+    /**
+     * fonction verifToken qui permet de verifier si le token est encore valide
+     * @param string $token le token que l'utilisateur a entré
+     * @return bool true si le token est valide, false sinon
+     */
     public static function verifierToken(string $token): bool
     {
         // on récupere l'utilisateur dans la base de données grace a son token
