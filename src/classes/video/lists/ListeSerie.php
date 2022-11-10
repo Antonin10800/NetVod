@@ -73,6 +73,7 @@ class ListeSerie
             $this->listeSeries[] = $serie;
         }
         $req->closeCursor();
+        $this->actualiserAvis();
     }
 
     public function actualiserAvis():void
@@ -91,7 +92,7 @@ class ListeSerie
             $avis = new Avis($item['note'], $item['commentaire'], $item['nom'] , $item['IDUser']);
             foreach ($this->listeSeries as $serie)
             {
-                if($serie->getId() == $item['IDSerie'])
+                if($serie->IDserie == $item['IDSerie'])
                 {
                     $serie->ajouterAvis($avis);
                 }

@@ -14,7 +14,7 @@ class Serie
 {
 
     /**
-     * @var int $IDepisode l'id de la serie
+     * @var int $IDserie l'id de la serie
      * @var string $titre le titre de la serie
      * @var string $resume le resume de la serie
      * @var string $genre le genre de la serie
