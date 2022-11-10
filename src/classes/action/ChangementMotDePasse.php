@@ -26,7 +26,7 @@ class ChangementMotDePasse implements Action {
             <title>Inscription</title>
             <link rel="stylesheet" href="src/css/connexion.css">
             <link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>
-            </head><body background="src/classes/images/css/netfix_background.jpeg">
+            </head><body background="src/images/css/netfix_background.jpeg">
             END;
 
         // token de sécurité

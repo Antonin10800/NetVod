@@ -25,7 +25,7 @@ class MotDePasseOublie implements Action {
             <title>Mot de passe oublie</title>
             <link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>
             <link rel="stylesheet" href="src/css/connexion.css">
-            </head><body background="src/classes/images/css/netfix_background.jpeg">
+            </head><body background="src/images/css/netfix_background.jpeg">
             END;
 
         // si la méthode est GET
