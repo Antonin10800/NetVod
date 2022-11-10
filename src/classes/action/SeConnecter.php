@@ -31,7 +31,7 @@ class SeConnecter implements Action
                 <p>Password :</p>
                 <input type="password" name="password" >
                 <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
-                <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>
+                <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d'aide ?</a></p>
                 <button type="submit">Connexion</button>
                 </form>
                 END;
@@ -48,7 +48,7 @@ class SeConnecter implements Action
                     <input type="password" name="password" >
                     <div class="error"><p>Veuillez remplir tous les champs !</p></div>
                     <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
-                    <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>
+                    <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d'aide ?</a></p>
                     <button id="disable" type="submit">Connexion</button></form>
                     END;
             }else{
@@ -70,7 +70,7 @@ class SeConnecter implements Action
                         <input type="password" name="password" >
                         <div class="error"><p>Email ou mot de passe incorrect !</p></div>
                         <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
-                        <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>
+                        <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d'aide ?</a></p>
                         <button id="disable" type="submit">Connexion</button></form>
                         END;
                 }else if(1 != Auth::etreActiverCompte($_POST['email'])){
@@ -85,7 +85,7 @@ class SeConnecter implements Action
                         <input type="password" name="password" >
                         <div class="error"><a href="?action=activation&token=$token">Cliquez ici pour activer votre compte !</a></div>
                         <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
-                        <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>
+                        <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d'aide ?</a></p>
                         <button id="disable" type="submit">Connexion</button></form>
                         END;
                 }
