@@ -65,8 +65,8 @@ function star3() {
     star1.style.color = 'orange';
     star2.style.color = 'orange';
     star3.style.color = 'orange';
-    star4.style.color = 'black';
-    star5.style.color = 'black';
+    star4.style.color = 'grey';
+    star5.style.color = 'grey';
     note.value = 3;
 }
 
