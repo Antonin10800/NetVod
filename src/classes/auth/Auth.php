@@ -105,6 +105,10 @@ class Auth
 
     }
 
+    /**
+     * methode verification permet de verifier si un utilisateur est dans la session
+     * @return bool true si l'utilisateur est dans la session, false sinon
+     */
     public static function verification():bool
     {
         if(isset($_SESSION['user'])) return true;
@@ -193,7 +197,11 @@ class Auth
         return $row['expireToken'] >= date('Y-m-d H:i:s',time());
     }
 
-    public static function activerCompte(string $token){
+    /**
+     * methode activerCompte qui permet d'activer le compte d'un utilisateur
+     * @param string $token le token que l'utilisateur a entré
+     */
+    public static function activerCompte(string $token) : void{
         $db = ConnectionFactory::makeConnection();
         $sql = "update Utilisateur set activer = 1 where token = ?;";
         $query = $db->prepare($sql);
@@ -202,6 +210,11 @@ class Auth
         $query->closeCursor();
     }
 
+    /**
+     * methode etreActiverCompte qui permet de savoir si un compte est activer
+     * @param string $email l'email que l'utilisateur a entré
+     * @return bool true si le compte est activer, false sinon
+     */
     public static function etreActiverCompte(string $email) : bool {
         $db = ConnectionFactory::makeConnection();
         $sql = "select activer from Utilisateur where email = ?;";
