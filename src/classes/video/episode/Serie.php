@@ -7,9 +7,26 @@ use netvod\utilitaire\Date;
 use netvod\video\lists\ListeSerie;
 use netvod\utilitaire\Avis;
 
+/**
+ * class Serie
+ */
 class Serie
 {
-    private int $IDserie;
+
+    /**
+     * @var int $IDepisode l'id de la serie
+     * @var string $titre le titre de la serie
+     * @var string $resume le resume de la serie
+     * @var string $genre le genre de la serie
+     * @var string $public le public de la serie
+     * @var Date $dateAjout la date d'ajout de la serie sur le site
+     * @var int $nbEpisode le nombre d'episode de la serie
+     * @var Date $dateSortie la date de sortie de la serie
+     * @var string $image la position de l'image de la serie
+     * @var array $avis la liste des avis de la serie
+     * @var array $listeEpisode la liste des episodes de la serie
+     */
+    private int $IDepisode;
     private string $titre;
     private string $resume;
     private string $genre;
@@ -24,7 +41,14 @@ class Serie
     /**
      * constructeur de la class Serie qui prends en paramètre 
      * tout les attributs de la class
-     * @param int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie
+     * @param int $IDserie l'id de la serie
+     * @param string $titre le titre de la serie
+     * @param string $resume le resume de la serie
+     * @param string $genre le genre de la serie
+     * @param string $public le public de la serie
+     * @param Date $dateAjout la date d'ajout de la serie sur le site
+     * @param int $nbEpisode le nombre d'episode de la serie
+     * @param Date $dateSortie la date de sortie de la serie
      */
     public function __construct(int $IDserie, string $titre, string $resume, string $genre, string $public, Date $dateAjout, int $nbEpisode, Date $dateSortie, string $image)
     {
@@ -41,38 +65,46 @@ class Serie
     }
 
     /**
-     * méthode ajouterAvis
-     * @param avis $avis
+     * méthode ajouterAvis qui permet d'ajouter un avis à la série
+     * @param avis $avis l'avis à ajouter
      */
     public function ajouterAvis(Avis $avis)
     {
-        // pour ajouter en fin d'un tableau on met crochet vide :-)
         $this->avis[] = $avis;
     }
 
     /**
      * getter Magique
-     * @param string $attribut
      */
     public function __get($name)
     {
         return $this->$name;
     }
 
+    /**
+     * setter Magique
+     */
     public function __set($name, $value)
     {
         $this->$name = $value;
     }
 
+    /**
+     * methode getEpisodes qui permet de recuperer la liste des episodes de la serie
+     * @return array la liste des episodes de la serie
+     */
     public function getEpisodes(): array
     {
         return $this->listeEpisode;
     }
 
+    /**
+     * methode setEpisodes qui permet de charger les épisodes depuis la base de données et les ajouters
+     * à la liste des épisodes de la série
+     * @return void
+     */
     public function setEpisodes(): void
     {
-
-
         if ($this->listeEpisode == null) //si la série a une liste null:
         {
             //on récupére la liste des épisodes de la série:
@@ -89,4 +121,35 @@ class Serie
             }
         }
     }
+
+    public static function getSerie(int $idSerie):Serie
+    {
+        $serie = null;
+        $db = ConnectionFactory::makeConnection();
+        $req = $db->prepare("SELECT * FROM Serie WHERE IDserie = ?");
+        $req->bindParam(1, $idSerie);
+        $req->execute();
+        $result = $req->fetchAll();
+        foreach ($result as $item) {
+            //on ajoute toute les variables
+            $dateAjout = new Date($item['dateAjout']);
+            $dateSortie = new Date($item['dateSortie']);
+            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
+
+            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
+            $req->execute([$idSerie]);
+            $res = $req->fetchAll();
+
+            foreach ($res as $item) {
+                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
+                $req2->execute([$item['IDUser']]);
+
+                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
+                $serie->ajouterAvis($avis);
+
+            }
+        }
+        return $serie;
+    }
+
 }

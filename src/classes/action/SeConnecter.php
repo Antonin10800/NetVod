@@ -27,6 +27,7 @@ class SeConnecter implements Action
             $html .= '<p>Password :</p>';
             $html .= '<input type="password" name="password" >';
             $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
+            $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
             $html .= '<button type="submit">Connexion</button>';
             $html .= '</form>';
 
@@ -41,8 +42,8 @@ class SeConnecter implements Action
                 $html .= '<input type="password" name="password" >';
                 $html .= '<div class="error"><p>Veuillez remplir tous les champs !</p></div>';
                 $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
-                $html .= '<button id="disable" type="submit">Connexion</button>';
-                $html .= '</form>';
+                $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
+                $html .= '<button id="disable" type="submit">Connexion</button></form>';
             }else{
                 $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
                 $pass = filter_var($_POST['password'],FILTER_SANITIZE_STRING);
@@ -52,6 +53,17 @@ class SeConnecter implements Action
                     $_SESSION['user'] = serialize($user);
                     header("Location: ?action=lobby");
                     return '';
+                }else{
+                    $html .= '<form method="post" action="?action=connexion">';
+                    $html .=  '<div class="title"><h1>Inscription</h1></div>';
+                    $html .=    '<p>Email :</p>';
+                    $html .= '<input type="email" name="email">';
+                    $html .= '<p>Password :</p>';
+                    $html .= '<input type="password" name="password" >';
+                    $html .= '<div class="error"><p>Email ou mot de passe incorect !</p></div>';
+                    $html .= '<p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>';
+                    $html .= '<p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>';
+                    $html .= '<button id="disable" type="submit">Connexion</button></form>';
                 }
             }
         }

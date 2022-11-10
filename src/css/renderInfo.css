@@ -1,0 +1,251 @@
+html {
+    margin: 0%;
+    padding: 0%;
+}
+
+body {
+    margin: 0%;
+    padding: 0%;
+    padding: 0%;
+}
+
+a, h1, h2, h3, p, ul, li, ol, dl, dt, dd, blockquote, pre, form, fieldset, input, textarea, th, td {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #f3f3f3;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+
+html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+    background-color: black;
+}
+
+.headerInfo {
+    background: rgb(97,97,97);
+    background: linear-gradient(180deg, rgba(97,97,97,1) 0%, rgba(97,97,97,0) 40%);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 25em;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}
+
+.headerTop {
+    display: flex;
+}
+
+.image-serie {
+    height: 20em;
+}
+
+.headerLeft {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerRight {
+    padding: 2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.titre {
+    height: 25%;
+    margin-bottom: 4em;
+}
+
+.titre hr {
+    width: 100%;
+    height: 1px;
+    background-color: #f3f3f3;
+    border: none;
+}
+
+.titre h1 {
+    font-size: 5em;
+}
+
+.resume {
+    height: 40%;
+}
+
+.resume p {
+    font-size: 1.5em;
+}
+
+.genre {
+    display: flex;
+    height: 25%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerBot {
+    display: flex;
+    margin-bottom: 1em;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.headerBot h1 {
+    margin-left: 5em;
+}
+
+.headerBot a {
+    margin-right: 5em;
+}
+
+.headerBot a i {
+    font-size: 2em;
+}
+
+#Fav {
+    color: gold;
+}
+
+.episodes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+    margin: 1em 6em;
+}
+
+.episodes-serie {
+    height: 10em;
+    width: 20em;
+    display: flex;
+    align-items: center;
+}
+
+.img {
+    height: 8em;
+}
+
+
+.img-episode {
+    height: 8em;
+}
+
+.duree {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.titre-episode {
+    margin-left: 2em;
+}
+
+.titre-episode h1 {
+    font-size: 1.5em;
+}
+
+.title-main {
+    margin-left: 3em;
+    margin-bottom: 3em;
+}
+
+.note {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.valeur-note {
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.commentaire {
+    display: flex;
+    width: 80%;
+    margin-left: 10%;
+}
+
+.commentaire input {
+    width: 60%;
+    background-color: #333;
+    height: 4em;
+    border: none;
+    border-radius: 5px;
+}
+
+.commentaire input:focus {
+    background-color: rgb(70, 69, 69);
+    border: 0px;
+    box-shadow: none;
+    outline: none;
+}
+
+.commentaire button {
+    width: 4em;
+    height: 4em;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    margin-left: 3px;
+}
+
+.commentaire button i {
+    color: grey;
+}
+
+.espaces-com {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin-top: 3em;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.com {
+    width: 100%;
+    background-color: rgb(24, 24, 24);
+    border-radius: 5px;
+    display: flex;
+    padding: 1em;
+    align-items: center;
+}
+
+.leftCom {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.leftCom h1 {
+    font-size: 1em;
+}
+
+.hr {
+    width: 100%;
+    height: 1px;
+    background: rgb(255,255,255);
+    background: linear-gradient(150deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 40%);
+}
+
+#note {
+    height: 100%;
+}

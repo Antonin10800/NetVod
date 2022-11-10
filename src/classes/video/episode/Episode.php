@@ -2,8 +2,18 @@
 
 namespace netvod\video\episode;
 
+/**
+ * class Episode
+ */
 class Episode
 {
+    /**
+     * @var int $IDepisode l'identifiant de l'episode
+     * @var int $duree la duree de l'episode
+     * @var string $nom le titre de l'episode
+     * @var string $image la position de l'image de l'episode
+     * @var int $numeroEp le numero de l'episode
+     */
     private int $IDepisode;
     private int $duree;
     private string $titre;
@@ -12,8 +22,12 @@ class Episode
 
     /**
      * constructeur de la class Episode qui prends en paramètre 
-     * tout les attributs de la class
-     * @param int $IDepisode, int $duree, string $titre, string $image, int $numeroEp
+     * tout les attributs de la class et les initialises
+     * @param int $IDepisode l'identifiant de l'episode
+     * @param int $duree la duree de l'episode
+     * @param string $titre le titre de l'episode
+     * @param string $image la position de l'image de l'episode
+     * @param int $numeroEp le numero de l'episode
      */
     public function __construct(int $IDepisode, int $duree, string $titre, string $image, int $numeroEp)
     {
@@ -23,7 +37,6 @@ class Episode
         $this->image = 'src/classes/images/episodes/testEpisode.jpg';
         $this->numeroEp = $numeroEp;
     }
-
 
     /**
      * getter Magique

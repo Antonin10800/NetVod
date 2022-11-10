@@ -124,3 +124,19 @@ header {
 .profile i:hover {
     color: gold;
 }
+
+.btn-deconnexion {
+    font-size: 1em;
+    text-align: center;
+}
+
+.btn-deconnexion i {
+    font-size: 1.5em;
+}
+
+.btn-deconnexion:hover {
+    color: gold;
+}
+
+
+

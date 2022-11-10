@@ -38,7 +38,6 @@ body {
     display: flex;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.79);
-    height: 70%;
     padding: 1em 0;
 } 
 
@@ -49,7 +48,8 @@ body {
 
 input {
     margin: 0.5em 1em;
-    height: 15%;
+    font-size: 1em;
+    height: 4em;
     background-color: #333;
     color: #f3f3f3;
     border: none;
@@ -66,7 +66,7 @@ input:focus {
 
 .form button {
     margin: 0.5em 1em;
-    height: 15%;
+    height: 3em;
     background-color: red;
     border: none;
     color: #f3f3f3;

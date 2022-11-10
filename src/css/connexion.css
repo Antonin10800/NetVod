@@ -28,7 +28,6 @@ form {
     display: flex;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.79);
-    height: 60%;
     width: 30%;
     padding: 1em 0;
 }
@@ -44,7 +43,8 @@ form {
 
 input {
     margin: 0.5em 1em;
-    height: 18%;
+    height: 4em;
+    font-size: 1em;
     background-color: #333;
     color: #f3f3f3;
     border: none;
@@ -61,7 +61,7 @@ input:focus {
 
 form button {
     margin: 0.5em 1em;
-    height: 18%;
+    height: 3em;
     background-color: red;
     border: none;
     color: #f3f3f3;
