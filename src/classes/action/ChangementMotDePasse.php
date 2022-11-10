@@ -73,9 +73,25 @@ class ChangementMotDePasse implements Action {
                     </form>
                     END;
             }else{
-                // si les données sont correctes on change le mot de passe et on retourne a la page de connexion
-                Auth::changerMotDePasse($mdp1, $token);
-                header("Location: ?action=connexion");
+                // on verifie que le token n'a pas expiré
+                if(Auth::verifierToken($token)) {
+                    // si il n'a pas expiré et que les données sont correctes on change le mot de passe et on retourne
+                    // a la page de connexion
+                    Auth::changerMotDePasse($mdp1, $token);
+                    header("Location: ?action=connexion");
+                }else{
+                    // sinon on affiche un message d'erreur
+                    $html .= <<<END
+                            <form method="post" action="?action=motDePasseOublie">
+                            <div class="title"><h1>Mot de passe oublié</h1></div>
+                            <p>Email :</p>
+                            <input type="email" name="email">
+                            <div class="error"><p>Le token a expiré !</p></div>
+                            <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
+                            <button type="submit">Changer de mot de passe</button>
+                            </form>
+                            END;
+                }
             }
         }
 
