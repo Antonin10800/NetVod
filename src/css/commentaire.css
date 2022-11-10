@@ -55,6 +55,9 @@ header {
 }
 
 
+.bottom-main {
+}
+
 .commentaire {
     display: flex;
     width: 80%;
@@ -74,6 +77,20 @@ header {
     border: 0px;
     box-shadow: none;
     outline: none;
+}
+
+.title-main {
+    width: 80%;
+    margin-left: 10%;
+}
+
+.note {
+}
+
+.valeur-note {
+    width: 80%;
+    margin-left: 10%;
+    margin-bottom: 1em;
 }
 
 .commentaire button {
@@ -100,8 +117,9 @@ header {
 
 .com {
     width: 100%;
-    background-color: rgb(24, 24, 24);
-    border-radius: 5px;
+    border-left: solid 1px rgb(66, 66, 66);
+    border-right: solid 1px rgb(66, 66, 66);
+    background-color: rgba(128, 128, 128, 0.142);
     display: flex;
     padding: 1em;
     align-items: center;
@@ -126,4 +144,8 @@ header {
 
 #note {
     height: 100%;
+}
+
+#star1, #star2, #star3, #star4, #star5 {
+    color: grey;
 }

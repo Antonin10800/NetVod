@@ -70,6 +70,7 @@ class RenderInfoSerie implements Render
                         </div>
                         <div class="resume">
                             <p>{$this->serie->resume}</p>
+                            <hr>
                         </div>
                         <div class="genre">
                             <h1>{$this->serie->genre}</h1>

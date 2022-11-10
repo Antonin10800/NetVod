@@ -22,6 +22,7 @@ class Commentaire implements Action {
         $res .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $res .= '<title>NetVod</title>';
+        $res .= '<script src="src/js/profile.js"></script>';
         $res .= '<link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>';
         $res .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />';
         $res .= '<link rel="stylesheet" href="src/css/commentaire.css">';
@@ -38,28 +39,31 @@ class Commentaire implements Action {
 
         $idSerie = $_GET['idSerie'];
         $moy = 0;
-
+    
+        $res .= <<<END
+            <div class="bottom-main">
+                <div class="title-main">
+                    <h1>Commentaire</h1>
+                </div>
+        END;
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $res .= <<<END
-                <div class="bottom-main">
-                    <div class="title-main">
-                        <h1>Commentaire</h1>
-                    </div>
                     <div class="note">
                         <form method="post" action="?action=commentaires&idSerie=$idSerie">
-                            <dive class="valeur-note">
-                                <input type="radio" name="note" value=1>1
-                                <input type="radio" name="note" value=2>2
-                                <input type="radio" name="note" value=3>3
-                                <input type="radio" name="note" value=4>4
-                                <input type="radio" name="note" value=5>5
+                            <div class="valeur-note">
+                                <a onclick="star1()"><i id="star1" class="fa-solid fa-star"></i></a>
+                                <a onclick="star2()"><i id="star2" class="fa-solid fa-star"></i></a>
+                                <a onclick="star3()"><i id="star3" class="fa-solid fa-star"></i></a>
+                                <a onclick="star4()"><i id="star4" class="fa-solid fa-star"></i></a>
+                                <a onclick="star5()"><i id="star5" class="fa-solid fa-star"></i></a>
+                                
+                                <input id="valeurnote" type="hidden" name="note" id="note" value="0">
                             </div>
                             <div class="commentaire">
                                 <input type="commentaire" name="commentaire">
                                 <button type="submit"><i class="fa-solid fa-arrow-right"></i></button>
                             </div>
                         </form>
-                    </div>
             END;
         } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $db = ConnectionFactory::makeConnection();
@@ -89,6 +93,12 @@ class Commentaire implements Action {
         $serieEnCour = $series[$idSerie-1];
         $avis = $serieEnCour->avis;
         $res .= "<div class=\"espaces-com\">";
+        if(count($avis) == 0 ){
+            $res .= 'Aucun commentaire';
+        }else{
+            $moy = $moy / count($avis);
+            $res .= "Moyenne : " . $moy;
+        }
         foreach ($avis as $avi){
             $res .= <<<END
                 <div class="com">
@@ -104,13 +114,6 @@ class Commentaire implements Action {
             $moy += $avi->note;
         }
         $res .= "</div>";
-
-        if(count($avis) == 0 ){
-            $res .= 'Aucun commentaire';
-        }else{
-            $moy = $moy / count($avis);
-            $res .= "Moyenne : " . $moy;
-        }
 
         $res .= '</div></body></html>';
         return $res;

@@ -14,16 +14,13 @@ class EpisodeRender implements Render
         $this->episode = $episode;
     }
 
-    public function render(): string
-    {
-        return <<<HTML
-                <div class=\"idEpisode\"> {$this->episode->titre}<br>
-                {$this->episode->duree}<br>
-                {$this->episode->image}<br>
-                {$this->episode->numeroEp}<br><br> </div>
-                <video width=\"320\" height=\"240\" controls>
-                <source src="src/classes/video/episode/Video.mp4" type="video/mp4">
-HTML;
+
+    public function render() : string {
+        return "<div class=\"idEpisode\"> {$this->episode->titre}<br>"
+             . "{$this->episode->duree}<br>"
+             . "{$this->episode->image}<br>"
+             . "<video controls autoplay><source src=\"src/images/video/video.mp4\" type=\"video/mp4\"></video>"
+             . "{$this->episode->numeroEp}<br><br> </div>";
 
     }
 
