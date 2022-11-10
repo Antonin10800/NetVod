@@ -151,7 +151,7 @@ class Serie
             $stmt->execute([$this->IDserie]);
             $result = $stmt->fetchAll();
             foreach ($result as $row) {
-                $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $row['image'], $row['numEp']);
+                $episode = new Episode($row['idEpisode'], $row['duree'], $row['titre'], $this->image, $row['numEp']);
                 $this->listeEpisode[] = $episode;
             }
         }
