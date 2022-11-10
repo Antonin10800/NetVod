@@ -4,11 +4,18 @@ namespace netvod\action;
 
 use netvod\Auth\Auth;
 
-class MotDePasseOublie implements Action
-{
-    public function execute(): string
-    {
+/**
+ * class MotDePasseOublie
+ * permet de gérer la page de mot de passe oublié
+ */
+class MotDePasseOublie implements Action {
 
+    /**
+     * methode execute qui permet de gérer la page de mot de passe oublié
+     * @return string le html de la page de mot de passe oublié
+     */
+    public function execute(): string {
+        // header de la page
         $html = <<<END
             <!DOCTYPE html>
             <html lang="fr"> <head>
@@ -20,7 +27,9 @@ class MotDePasseOublie implements Action
             </head><body background="src/classes/images/css/netfix_background.jpeg">
             END;
 
+        // si la méthode est GET
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+            // formulaire pour choisir sur quel compte on veut changer le mot de passe
             $html .= <<<END
                 <form method="post" action="?action=motDePasseOublie">
                 <div class="title"><h1>Mot de passe oublié</h1></div>
@@ -31,8 +40,12 @@ class MotDePasseOublie implements Action
                 </form>
                 END;
 
-        } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-            if(empty($_POST['email'])) {
+        } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) { // si la méthode est POST
+            // nettoyage des données
+            $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+
+            // permet de gerer le cas ou l'email n'est pas renseigné
+            if(empty($email)) {
                 $html .= <<<END
                     <form method="post" action="?action=motDePasseOublie">
                     <div class="title"><h1>Mot de passe oublié</h1></div>
@@ -44,8 +57,10 @@ class MotDePasseOublie implements Action
                     </form>
                     END;
             }else{
-                $email = filter_var($_POST['email'],FILTER_SANITIZE_EMAIL);
+                // on vérifie que l'email existe dans la base de données
                 $possedeCompte = Auth::possedeCompte($email);
+
+                // si l'email n'existe pas dans la base de données on affiche un message d'erreur
                 if(!$possedeCompte){
                     $html .= <<<END
                         <form method="post" action="?action=motDePasseOublie">
@@ -58,6 +73,7 @@ class MotDePasseOublie implements Action
                         </form>
                         END;
                 }else{
+                    // sinon on genere un token et on lui redirige vers la page de changement de mot de passe
                     $token = Auth::genererToken($email);
                     header("Location: ?action=changementMotDePasse&token=$token");
                 }
