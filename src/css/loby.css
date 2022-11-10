@@ -43,7 +43,10 @@ header {
     margin-bottom: 2em;
     box-shadow: 0 0 14em #1f1f1f ;
 }
+header{
+    color : black;
 
+}
 .headerLeft {
     margin-left: 2em;
    

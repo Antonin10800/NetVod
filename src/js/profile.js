@@ -99,3 +99,12 @@ function star5() {
     star5.style.color = 'orange';
     note.value = 5;
 }
+
+ // function qui va sur la page avec commme href le contenue du input
+function recherche() {
+    var input = document.querySelector(".inputRecherche");
+    var url = "?action=recherche&recherche=input.valueOf()";
+    // mettre l'url dans le href de l'input
+    input.href = url;
+
+}

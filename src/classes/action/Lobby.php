@@ -12,6 +12,11 @@ class Lobby implements Action
 {
     public function execute(): string
     {
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            header("Location: ?action=recherche&recherche=". $_POST['inputRecherche']);
+            $html = "";
+        }
+        else{
         $html = <<<END
             <!DOCTYPE html>
             <html lang="fr"> <head>
@@ -28,6 +33,12 @@ class Lobby implements Action
             <header>
                 <div class="headerLeft">
                     <a>NETVOD</a>
+                </div>
+               <div class="headerMid">
+               <form method="post" action="?action=connexion">
+                    <input type="search" name="inputRecherche" class="inputRecherche" required>
+                    <button type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
+                </form>
                 </div>
                 <div class="headerRight">
                     <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
@@ -61,6 +72,8 @@ class Lobby implements Action
         $html .= '</div></div>';
 
         $html .= '</body></html>';
+
+    }
         return $html;
     }
 }

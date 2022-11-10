@@ -76,6 +76,9 @@ class ListeSerie
         $this->actualiserAvis();
     }
 
+    /**
+     * methode actualiserAvis qui permet d'actualiser les avis des series
+     */
     public function actualiserAvis():void
     {
         $db = ConnectionFactory::makeConnection();
@@ -106,7 +109,18 @@ class ListeSerie
 
     }
 
+        public function rechercherSerie(string $recherche): array
+        {
+            foreach ($this->listeSeries as $serie)
+            {
+                if(str_contains($serie->titre,$recherche))
+                {
+                    $res[] = $serie;
+                }
 
+            }
+            return $res;
+        }
 
 
 }

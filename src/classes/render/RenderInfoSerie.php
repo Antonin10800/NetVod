@@ -41,18 +41,19 @@ class RenderInfoSerie implements Render
      */
     public function render(): string
     {
-        $res = '<!DOCTYPE html>';
-        $res .= '<html lang="fr"> <head>';
-        $res .= '<meta charset="UTF-8">';
-        $res .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
-        $res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
-        $res .= '<title>NetVod</title>';
-        $res .= '<link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>';
-        $res .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />';
-        $res .= '<link rel="stylesheet" href="src/css/renderInfo.css">';
-        $res .= '</head><body>';
+        // header et affichage des informations de la série
+        $res = <<<END
+            <!DOCTYPE html>
+            <html lang="fr"> <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>NetVod</title>
+            <link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <link rel="stylesheet" href="src/css/renderInfo.css">
+            </head><body>
 
-        $res .= <<<END
             <header>
                 <div class="headerLeft">
                     <a href="?action=lobby">NETVOD</a>
@@ -82,6 +83,8 @@ class RenderInfoSerie implements Render
                 <div class="headerBot">
                     <h1>{$this->serie->dateAjout->toString()}</h1>
             END;
+
+        // si l'utilisateur a des favoris on les affiche sinon on les enleves
         if(Favoris::pasDeFavoris()) {
             $res .= <<<END
                 <a onclick="ajouterFav()" href="?action=favoris&idSerie={$this->serie->IDserie}"><i id="notFav" class="fa-regular fa-bookmark"></i></a>
@@ -91,8 +94,9 @@ class RenderInfoSerie implements Render
                 <a onclick="enleverFav()" href="?action=favoris&idSerie={$this->serie->IDserie}"><i id="Fav" class="fa-solid fa-bookmark"></i></a>
             END;
         }
-        $res .= "</div>";
 
+        // affichage de ses episodes
+        $res .= "</div>";
         $res .= '</div></div>';
         $res .= '<div class="episodes">';
         foreach ($this->episodes as $episode) {
@@ -109,9 +113,9 @@ class RenderInfoSerie implements Render
                 END;
         }
         $res .= '</div>';
-        $res .= '<div class="commentaire">'
-                    . '<h1>Voir les commentaires</h1>';
-                $res .= "<a href=\"?action=commentaires&idSerie={$this->serie->IDserie}\">Commentaire</a>";
+        $res .= '<div class="commentaire">';
+        $res .= '<h1>Voir les commentaires</h1>';
+        $res .= "<a href=\"?action=commentaires&idSerie={$this->serie->IDserie}\">Commentaire</a>";
         $res .= '</div>';
         $res .= '</body></html>';
         return $res;
