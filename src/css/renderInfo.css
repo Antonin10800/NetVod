@@ -148,6 +148,7 @@ header {
 }
 
 .episodes-serie {
+    background-color: green;
     height: 10em;
     width: 20em;
     display: flex;
@@ -156,17 +157,21 @@ header {
 
 .img {
     height: 8em;
+    display: flex;
+    background-color: red;
+    width: auto;
 }
 
 
 .img-episode {
     height: 8em;
+    width: auto;
 }
 
 .duree {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    position: relative;
+    bottom: 0%;
+    left: 0;
 }
 
 .titre-episode {
