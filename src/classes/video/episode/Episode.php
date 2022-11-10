@@ -34,7 +34,7 @@ class Episode
         $this->IDepisode = $IDepisode;
         $this->duree = $duree;
         $this->titre = $titre;
-        $this->image = 'src/classes/images/episodes/testEpisode.jpg';
+        $this->image = $image;
         $this->numeroEp = $numeroEp;
     }
 
