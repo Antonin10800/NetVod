@@ -70,22 +70,34 @@ class ListeSerie
             $idSerie = intval($item['IDserie']);
             $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
 
-            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
-            $req->execute([$idSerie]);
-            $res = $req->fetchAll();
-
-            foreach ($res as $item)
-            {
-                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
-                $req2->execute([$item['IDUser']]);
-
-                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
-                $serie->ajouterAvis($avis);
-
-            }
-
             $this->listeSeries[] = $serie;
         }
+        $req->closeCursor();
+    }
+
+    public function actualiserAvis():void
+    {
+        $db = ConnectionFactory::makeConnection();
+
+        $req = $db->prepare("SELECT note, commentaire, nom, U.IDUser, IDSerie FROM Avis inner join Utilisateur U on Avis.IDUser = U.IDUser");
+        $req->execute();
+        $result = $req->fetchAll();
+        foreach ($this->listeSeries as $serie)
+        {
+            $serie->viderAvis();
+        }
+        foreach ($result as $item)
+        {
+            $avis = new Avis($item['note'], $item['commentaire'], $item['nom'] , $item['IDUser']);
+            foreach ($this->listeSeries as $serie)
+            {
+                if($serie->getId() == $item['IDSerie'])
+                {
+                    $serie->ajouterAvis($avis);
+                }
+            }
+        }
+
     }
 
 
