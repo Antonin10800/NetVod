@@ -59,6 +59,10 @@ class ListeSerieRender implements Render {
     }
 
 
+    /**
+     * méthode qui permet d'afficher par classement
+     * @return string classement
+     */
     public function renderParClassement(){
         $res = "<div class=\"genre-serie\">";
         $res .= "<h2>Classement des meilleurs série</h2>";
@@ -72,6 +76,10 @@ class ListeSerieRender implements Render {
         return $res;
     }
 
+    /**
+     * méthode qui permet d'afficher la liste des favoris
+     * @return string liste des favoris
+     */
     public function renderFavoris(): string
     {
         $utilisateur = unserialize($_SESSION['user']);
@@ -87,6 +95,32 @@ class ListeSerieRender implements Render {
             foreach ($favoris as $fav)
             {
                 $serie = new SerieRender($fav);
+                $res .= $serie->render();
+            }
+            $res .= "</div></div>";
+        }
+        else
+        {
+            $res = "";
+        }
+        return $res;
+    }
+
+    public function renderEncours():string
+    {
+        $utilisateur = unserialize($_SESSION['user']);
+        $encours = $utilisateur->enCours;
+        if(count($encours)>0)
+        {
+            /**echo "<pre>";
+            var_dump($favoris);
+            die();*/
+            $res = "<div class=\"genre-serie\">";
+            $res .= '<h2>Reprendre</h2>';
+            $res .= '<div class="liste-series">';
+            foreach ($encours as $cours)
+            {
+                $serie = new SerieRender($cours);
                 $res .= $serie->render();
             }
             $res .= "</div></div>";

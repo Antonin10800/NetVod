@@ -15,38 +15,46 @@ class AffichageEpisode
 {
     public function execute(int $numEpisode, int $idSerie): string
     {
+        //on récupere l'user
         $user = unserialize($_SESSION['user']);
+        //on récupere l'id de l'user
         $userId = $user->IDuser;
+        //on récupere les série
         $listeSerie = ListeSerie::getInstance();
         $series = $listeSerie->getSeries();
 
+        //on parcours les séries :
         foreach ($series as $serie) {
+            //si la série est la même
             if ($serie->IDserie == $idSerie) {
-                $Idserie = $serie->__get('IDserie');
+                $serieActuelle = $serie;
+                //on récupere les épisodes de la série :
                 $episodes = $serie->getEpisodes();
-                if (SerieVisionne::Visionne($userId, $Idserie) == false) {
-                    $user->ajouterEnCours($serie, $Idserie);
-                    $IDepisode = $episodes[$numEpisode - 1]->__get('IDepisode');
-                    EpVisionne::ajouterVisionne($userId, $IDepisode);
+                //on vérifie si la série a deja été visonne
+                if (!SerieVisionne::Visionne($userId, $idSerie)) {
+                    if(EnCours::enCours($idSerie,$userId))
+                    {
+                        //si elle n'est pas dans visionne on peut l'ajouter dans en Cours
+                        $user->ajouterEnCours($serieActuelle);
+                        EnCours::ajouterEnCours($idSerie,$userId);
+                    }
+
                 }
-                echo sizeof($episodes);
                 break;
             }
         }
         foreach ($episodes as $episode) {
-            if ($episode->__get('numeroEp') == $numEpisode) {
+            //si le numero d'épisode est le meme que celui demande
+            if ($episode->numeroEp == $numEpisode) {
                 $episodeAffiche = $episode;
-
-                if ($episode->__get('numeroEp') == sizeof($episodes)) {
-                    EnCours::supprimerEnCours($Idserie);
-
-
-                    SerieVisionne::ajouterVisionne($userId, $Idserie);
+                if ($episodeAffiche->numeroEp == $serieActuelle->nbEpisode) {
+                    $user->supprimerEnCours($serieActuelle);
+                    SerieVisionne::ajouterVisionne($userId, $idSerie);
                 }
                 break;
             }
         }
-
+        $_SESSION['user'] = serialize($user);
         $render = new EpisodeRender($episodeAffiche);
         return $render->render();
     }

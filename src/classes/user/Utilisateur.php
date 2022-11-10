@@ -30,7 +30,6 @@ class Utilisateur
         $this->prenom = $prenom;
         $this->role = $role;
         $this->sexe = $sexe;
-        //$this->remplirFavoris();
     }
 
     /**
@@ -60,21 +59,23 @@ class Utilisateur
     /**
      * @param Serie $serie
      */
-    public function ajouterEnCours(Serie $serie, int $idSerie)
+    public function ajouterEnCours(Serie $serie)
     {
         // pour ajouter en fin d'un tableau on met crochet vide :-)
         $this->enCours[] = $serie;
-        EnCours::ajouterEnCours($idSerie, $this->IDuser);
     }
+
     /**
      * @param Serie $serie
      */
     public function supprimerEnCours(Serie $serie)
     {
+        $idSerie = $serie->IDserie;
         // on cherche l'index de la série dans le tableau
         $index = array_search($serie, $this->enCours);
         // on supprime l'élément du tableau
         unset($this->enCours[$index]);
+        EnCours::supprimerEnCours($idSerie);
     }
 
     /**

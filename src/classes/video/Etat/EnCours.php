@@ -3,59 +3,95 @@
 namespace netvod\video\Etat;
 
 use netvod\db\ConnectionFactory;
+use netvod\user\Utilisateur;
+use netvod\video\lists\ListeSerie;
 
 class EnCours
 {
     /**
-     * Serie en cours de visionnage
+     * fonction qui vérifie si une série est en cours pour un utilisateur
+     * @param int $IDserie
+     * @param int $IDuser
+     * @return bool
      */
+    public static function enCours(int $IDserie, int $IDuser): bool
+    {
+        //connexion a la bd
+        $db = ConnectionFactory::makeConnection();
+        $query = "SELECT * FROM enCours WHERE IDUser = ? AND IDserie =?";
+        $statement = $db->prepare($query);
+        $statement->bindParam(1,$IDuser);
+        $statement->bindParam(2,$IDserie);
+        $statement->execute();
+        $data = $statement->fetch(\PDO::FETCH_ASSOC);
 
+        if($data ===false)
+        {
+            return true;
+        }
+        return false;
+    }
 
-    public static function enCours(int $IDserie, int $user): bool
+    /**
+     * méthode qui permet d'ajouter dans la table enCours
+     * @param $IDserie série
+     * @return void
+     */
+    public static function ajouterEnCours(int $IDserie, int $idUser):void
     {
         $db = ConnectionFactory::makeConnection();
-
-        $stmt = $db->prepare("SELECT * FROM enCours WHERE IDserie = $IDserie and IDuser = $user");
+        $query = "INSERT INTO enCours VALUES (?,?)";
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(1, $idUser);
+        $stmt->bindParam(2, $IDserie);
         $stmt->execute();
-
-        $result = $stmt->fetchAll();
-        echo "resultat: " . sizeof($result);
-
-        echo $IDserie;
-        echo $user;
-        echo sizeof($result);
-        if (sizeof($result) > 0) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
-    public static function ajouterEnCours($IDserie):void
+    /**
+     * fonction qui supprime une série
+     * @param $IDserie série
+     * @return void
+     */
+    public static function supprimerEnCours(int $IDserie)
     {
-
-        $user = unserialize($_SESSION['user']);
-        $userId = $user->IDuser;
-        if (!self::enCours($IDserie, $userId)) {
-            $query = "INSERT INTO enCours  VALUES (?,?)";
-            $db = ConnectionFactory::makeConnection();
-            $stmt = $db->prepare($query);
-            $stmt->execute([$userId, $IDserie]);
-        }
-    }
-
-
-    public static function supprimerEnCours($IDserie)
-    {
-
-        $user = unserialize($_SESSION['user']);
-        $userId = $user->IDuser;
-        if (self::enCours($IDserie, $userId)) {
+        $utilisateur = unserialize($_SESSION['user']);
+        $idUser = $utilisateur->IDuser;
+        $db = ConnectionFactory::makeConnection();
+        if (!self::enCours($IDserie, $idUser)) {
             $query = "DELETE FROM enCours WHERE IDserie = ?";
-            $db = ConnectionFactory::makeConnection();
+
             $stmt = $db->prepare($query);
-            $stmt->execute([$IDserie]);
+            $stmt->bindParam(1,$IDserie);
+            $stmt->execute();
         }
+    }
+
+    public static function remplirEnCours(Utilisateur $user): Utilisateur
+    {
+        //on récupere l'id User
+        $idUser = $user->IDuser;
+        //on recupere les favoris de l'utilisateur
+        $query = "SELECT * FROM enCours WHERE IDUser = ?";
+        $db = ConnectionFactory::makeConnection();
+        $statement = $db->prepare($query);
+        $statement->bindParam(1,$idUser);
+        $statement->execute();
+        //on recupere les séries :
+        $listeSerie = ListeSerie::getInstance();
+        $series = $listeSerie->getSeries();
+        //on fetch les favoris
+        $row = $statement->fetchAll();
+        foreach ($row as $item)
+        {
+            foreach ($series as $a) {
+                if($a->IDserie == $item['IDserie']){
+                    $serie = $a;
+                    break;
+                }
+            }
+            $user->ajouterEnCours($serie);
+        }
+        return $user;
     }
 
 }

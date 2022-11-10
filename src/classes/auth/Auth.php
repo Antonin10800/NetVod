@@ -4,6 +4,7 @@ namespace netvod\Auth;
 
 use netvod\action\Favoris;
 use netvod\db\ConnectionFactory;
+use netvod\video\Etat\EnCours;
 use PDO;
 use netvod\user\Utilisateur;
 
@@ -45,6 +46,7 @@ class Auth
             }
             $user = new Utilisateur($id,$email,$hash,$nom,$prenom,$role,$sexe);
             Favoris::remplirFavoris($user);
+            EnCours::remplirEnCours($user);
             return $user;
     }
 
