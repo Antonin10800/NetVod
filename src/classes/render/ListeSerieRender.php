@@ -3,6 +3,7 @@
 
 namespace netvod\render;
 use netvod\Trie\NoteMoyenne;
+use netvod\video\episode\Serie;
 use netvod\video\lists\ListeSerie;
 
 /**
@@ -151,4 +152,46 @@ class ListeSerieRender implements Render {
         $res .= "</div></div>";
         return $res;
     }
+
+    public function renderPlusLongPlusPlusCourt(): string
+    {
+        $listeSerie = ListeSerie::getInstance();
+        $tabSerie = $listeSerie->getSeries();
+
+        $res = "<div class=\"genre-serie\">";
+        $res .= '<h2>Filtre par nombre d épisode, du plus grand au plus court</h2>';
+        $res .= '<div class="liste-series">';
+        $tabTrie = $tabSerie;
+        usort($tabTrie,[Serie::class, "comparerTaille"]);
+
+        foreach ($tabTrie as $t)
+        {
+            $render = new SerieRender($t);
+            $res .= $render->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
+
+    public function renderDateSortie(): string
+    {
+        $listeSerie = ListeSerie::getInstance();
+        $tabSerie = $listeSerie->getSeries();
+
+        $res = "<div class=\"genre-serie\">";
+        $res .= '<h2>Filtre date de sortie</h2>';
+        $res .= '<div class="liste-series">';
+        $tabTrie = $tabSerie;
+        usort($tabTrie,[Serie::class, "comparerDateSortie"]);
+
+        foreach ($tabTrie as $t)
+        {
+            $render = new SerieRender($t);
+            $res .= $render->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
+
+
 }

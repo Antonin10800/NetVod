@@ -57,6 +57,8 @@ class Lobby implements Action
         $html .= $listeSerieRender->renderGenre("Horreur");
         $html .= $listeSerieRender->renderGenre("Thriller");
         $html .= $listeSerieRender->renderParClassement();
+        $html .= $listeSerieRender->renderPlusLongPlusPlusCourt();
+        $html .= $listeSerieRender->renderDateSortie();
         $html .= "</div>";
 
         $html .= "<div class=\"content-profile\">";
