@@ -37,6 +37,7 @@ class Serie
     private string $image;
     private array $avis = array();
     private array $listeEpisode = array();
+    private float $noteMoyenne;
 
     /**
      * constructeur de la class Serie qui prends en paramètre 
@@ -89,6 +90,16 @@ class Serie
     public function getAvis():array
     {
         return $this->avis;
+    }
+
+    public function calculerMoyenne():void
+    {
+        $moyenne = 0;
+        foreach($this->avis as $avis)
+        {
+            $moyenne += $avis->getNote();
+        }
+        $this->noteMoyenne = $moyenne / count($this->avis);
     }
 
     /**
