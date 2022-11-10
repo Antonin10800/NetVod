@@ -27,7 +27,7 @@ class Lobby implements Action
 
             <header>
                 <div class="headerLeft">
-                    <h1>NETVOD</h1>
+                    <a>NETVOD</a>
                 </div>
                 <div class="headerRight">
                     <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
