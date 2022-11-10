@@ -21,22 +21,28 @@ use netvod\action\ActivationCompte;
 use netvod\Auth\Auth;
 use netvod\user\Utilisateur;
 
-
-
+/**
+ * Class Dispatcher
+ * qui permet de dispatcher les requetes vers les actions correspondantes
+ */
 class Dispatcher
 {
-    public function __construct()
-    {
 
-    }
+    /**
+     * constructeur vide de la classe Dispatcher
+     */
+    public function __construct(){}
 
+    /**
+     * fonction dispatch qui permet de dispatcher les requetes vers les actions correspondantes
+     * @return string le rendu de la page
+     */
     public function dispatch(): string
     {
+        // on récupère les données dans la requetes
         $action = (isset($_GET['action'])) ? $_GET['action'] : null;
-        $IDepisode = (isset($_GET['IDepisode'])) ? $_GET['IDepisode'] : null;
         $idSerie = (isset($_GET['idSerie'])) ? $_GET['idSerie'] : null;
         $numEp = (isset($_GET['numEp'])) ? $_GET['numEp'] : null;
-
 
 
         $html = '';
@@ -52,7 +58,7 @@ class Dispatcher
                     $html = $lobby->execute();
                 }
                 break;
-            case 'connexion':
+
             case 'lobby':
                 if(!Auth::verification()) {
                     $connexion = new SeConnecter();
@@ -91,12 +97,8 @@ class Dispatcher
                     $connexion = new SeConnecter();
                     $html = $connexion->execute();
                 }
-                else
-                {
-                    $profil = new Profil();
-                    $html = $profil->execute();
-                }
                 break;
+
             case 'favoris':
                 if(!Auth::verification())
                 {
