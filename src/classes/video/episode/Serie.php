@@ -14,7 +14,7 @@ class Serie
 {
 
     /**
-     * @var int $IDepisode l'id de la serie
+     * @var int $IDserie l'id de la serie
      * @var string $titre le titre de la serie
      * @var string $resume le resume de la serie
      * @var string $genre le genre de la serie
@@ -26,7 +26,7 @@ class Serie
      * @var array $avis la liste des avis de la serie
      * @var array $listeEpisode la liste des episodes de la serie
      */
-    private int $IDepisode;
+    private int $IDserie;
     private string $titre;
     private string $resume;
     private string $genre;
@@ -71,6 +71,24 @@ class Serie
     public function ajouterAvis(Avis $avis)
     {
         $this->avis[] = $avis;
+    }
+
+    /**
+     * Methode vidant les avis.
+     * @return void
+     */
+    public function viderAvis():void
+    {
+        $this->avis = array();
+    }
+
+    /**
+     * Methode qui permet de retourner l'id de la serie
+     * @return array
+     */
+    public function getAvis():array
+    {
+        return $this->avis;
     }
 
     /**
@@ -122,34 +140,5 @@ class Serie
         }
     }
 
-    public static function getSerie(int $idSerie):Serie
-    {
-        $serie = null;
-        $db = ConnectionFactory::makeConnection();
-        $req = $db->prepare("SELECT * FROM Serie WHERE IDserie = ?");
-        $req->bindParam(1, $idSerie);
-        $req->execute();
-        $result = $req->fetchAll();
-        foreach ($result as $item) {
-            //on ajoute toute les variables
-            $dateAjout = new Date($item['dateAjout']);
-            $dateSortie = new Date($item['dateSortie']);
-            $serie = new Serie($idSerie, $item['titre'], $item['resume'], $item['genre'], $item['publicVise'], $dateAjout, $item['nbEpisode'], $dateSortie, $item['image']);
-
-            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
-            $req->execute([$idSerie]);
-            $res = $req->fetchAll();
-
-            foreach ($res as $item) {
-                $req2 = $db->prepare("SELECT nom FROM Utilisateur where IDUser = ?");
-                $req2->execute([$item['IDUser']]);
-
-                $avis = new Avis($item['note'], $item['commentaire'], $req2->fetch()['nom']);
-                $serie->ajouterAvis($avis);
-
-            }
-        }
-        return $serie;
-    }
 
 }

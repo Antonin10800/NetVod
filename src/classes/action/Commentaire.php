@@ -34,29 +34,41 @@ class Commentaire implements Action {
             END;
         } else if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
-            $db = ConnectionFactory::makeConnection();
+            $listeSerie = ListeSerie::getInstance();
 
             $utilisateur = unserialize($_SESSION['user'])->IDuser;
             $note = filter_var($_POST['note'],FILTER_SANITIZE_NUMBER_FLOAT);
             $commentaire = filter_var($_POST['commentaire'],FILTER_SANITIZE_STRING);
 
-            $req = $db->prepare("SELECT * FROM Avis where IDserie = ?");
-            $req->execute([$idSerie]);
-            $count = $req->rowCount();
+            foreach ($listeSerie->getSeries() as $serie) {
+                if($serie->IDserie == $idSerie){
+                    $avis = $serie->getAvis();
+                    break;
+                }
+            }
+            $dejaCommente = false;
+            foreach ($avis as $a) {
+                if($a->idUser == $utilisateur->IDuser){
+                    $dejaCommente = true;
+                    break;
+                }
+            }
 
-            if($count == 0){
+            if(!$dejaCommente){
+                $db = ConnectionFactory::makeConnection();
                 $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
                 $req->bindParam(1, $utilisateur);
                 $req->bindParam(2, $idSerie);
                 $req->bindParam(3, $commentaire);
                 $req->bindParam(4, $note);
                 $req->execute();
+                $req->closeCursor();
+                $listeSerie->actualiserAvis();
             }else{
                 $html .= "Vous avez déjà commenté cette série";
             }
         }
 
-        $listeSerie = ListeSerie::getInstance();
         $series = $listeSerie->getSeries();
         $serieEnCour = $series[$idSerie-1];
         $avis = $serieEnCour->avis;
