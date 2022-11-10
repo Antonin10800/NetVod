@@ -48,8 +48,12 @@ class AffichageEpisode
             if ($episode->numeroEp == $numEpisode) {
                 $episodeAffiche = $episode;
                 if ($episodeAffiche->numeroEp == $serieActuelle->nbEpisode) {
-                    $user->supprimerEnCours($serieActuelle);
-                    SerieVisionne::ajouterVisionne($userId, $idSerie);
+                    if(!EnCours::enCours($idSerie,$userId))
+                    {
+                        $user->supprimerEnCours($serieActuelle);
+                        EnCours::supprimerEnCours($serieActuelle->IDserie);
+                        SerieVisionne::ajouterVisionne($userId, $idSerie);
+                    }
                 }
                 break;
             }
