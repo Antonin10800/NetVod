@@ -34,11 +34,11 @@ class Lobby implements Action
                 <div class="headerLeft">
                     <a>NETVOD</a>
                 </div>
-               <div class="headerMid">
-               <form method="post" action="?action=connexion">
-                    <input type="search" name="inputRecherche" class="inputRecherche" required>
-                    <button type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
-                </form>
+                <div class="headerMid">
+                    <form method="post" action="?action=connexion">
+                        <input type="search" name="inputRecherche" class="inputRecherche" required>
+                        <button class="btnRecherche" type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
+                    </form>
                 </div>
                 <div class="headerRight">
                     <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
