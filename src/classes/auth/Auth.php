@@ -2,6 +2,7 @@
 
 namespace netvod\Auth;
 
+use netvod\action\Favoris;
 use netvod\db\ConnectionFactory;
 use PDO;
 use netvod\user\Utilisateur;
@@ -36,13 +37,15 @@ class Auth
             }else {
                 $id = $row['IDUser'];
                 $hash = $row['motDePasse'];
-                $role = $row['role'];
+                $role = (int)$row['role'];
                 $nom = $row['nom'];
                 $prenom = $row['prenom'];
                 $sexe = $row['sexe'];
                 if (!password_verify($passwd2check, $hash)) return null;
             }
-            return new Utilisateur($id, $email, $hash, $nom, $prenom, $role, $sexe);
+            $user = new Utilisateur($id,$email,$hash,$nom,$prenom,$role,$sexe);
+            Favoris::remplirFavoris($user);
+            return $user;
     }
 
     /**
