@@ -102,4 +102,33 @@ class Auth
         if(isset($_SESSION['user'])) return true;
         return false;
     }
+
+    public static function possedeCompte(string $email): bool
+    {
+        // on récupere l'utilisateur dans la base de données grace a son email
+        $db = ConnectionFactory::makeConnection();
+        $query = $db->prepare("select * from Utilisateur where email = ?;");
+        $query->bindParam(1, $email);
+        $query->execute();
+        $row = $query->fetch(PDO::FETCH_ASSOC);
+        // on retourne true si l'utilisateur existe, false sinon
+        return $row != false;
+    }
+
+    public static function genererToken(string $email): string
+    {
+        // on génère un token
+        echo $token = bin2hex(random_bytes(32));
+
+        // on ajoute le token dans la base de données
+        $db = ConnectionFactory::makeConnection();
+        $sql = "update Utilisateur set token = ? where email = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $token);
+        $query->bindParam(2, $email);
+        $query->execute();
+        $query->closeCursor();
+
+        return $token;
+    }
 }
