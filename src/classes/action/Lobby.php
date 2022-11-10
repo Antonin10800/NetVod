@@ -46,6 +46,7 @@ class Lobby implements Action
         $html .= $listeSerieRender->renderParClassement();
         $html .= "</div>";
 
+        $html .= "<div class=\"content-profile\">";
         $html .= '<div class="profile">';
         $html .= '<a onclick="hideProfilePage()"><i class="fa-solid fa-xmark"></i></a>';
         $html .= '<a>Email : ' . unserialize($_SESSION['user'])->email . '</a><br>';
@@ -55,7 +56,7 @@ class Lobby implements Action
 
         // bouton de déconnexion
         $html .= '<a class="btn-deconnexion" href="?action=deconnexion"><i class="fa-solid fa-arrow-right-from-bracket"></i>  Déconnexion</a>';
-        $html .= '</div>';
+        $html .= '</div></div>';
 
         $html .= '</body></html>';
         return $html;

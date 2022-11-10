@@ -61,8 +61,10 @@ class Serie
         $this->dateAjout = $dateAjout;
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
+
         $this->image = 'src/images/series/TheWitcher.jpg';
         $this->noteMoyenne = 0;
+
 
 
         $this->setEpisodes();
