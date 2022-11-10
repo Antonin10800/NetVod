@@ -76,6 +76,9 @@ class ListeSerie
         $this->actualiserAvis();
     }
 
+    /**
+     * methode actualiserAvis qui permet d'actualiser les avis des series
+     */
     public function actualiserAvis():void
     {
         $db = ConnectionFactory::makeConnection();
