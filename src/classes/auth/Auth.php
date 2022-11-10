@@ -63,7 +63,7 @@ class Auth
     public static function register(string $email, string $pass, string $nom, string $prenom, string $sexe): int
     {
         // on verifie que le mot de passe est assez long
-        if (strlen($pass) < 10) return -1;
+        if (strlen($pass) < 10 || strlen($pass) > 40) return -1;
 
         // on encode le mot de passe
         $hash = password_hash($pass, PASSWORD_DEFAULT, ['cost' => 12]);

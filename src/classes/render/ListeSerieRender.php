@@ -73,6 +73,10 @@ class ListeSerieRender implements Render {
             $res .= $serie->render();
         }
         $res .= "</div></div>";
+        if(sizeof($listetemp)==0)
+        {
+            return '';
+        }
         return $res;
     }
 
