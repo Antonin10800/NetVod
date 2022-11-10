@@ -4,6 +4,7 @@ namespace netvod\action;
 
 use netvod\db\ConnectionFactory;
 use netvod\render\EpisodeRender;
+use netvod\user\Utilisateur;
 use netvod\video\episode\Episode;
 use netvod\video\Etat\EpVisionne;
 use netvod\video\Etat\SerieVisionne;
@@ -25,6 +26,7 @@ class AffichageEpisode
                 $episodes = $serie->getEpisodes();
                 if (SerieVisionne::Visionne($userId, $Idserie) == false) {
                     EnCours::ajouterEnCours($Idserie);
+                    Utilisateur::ajouterEnCours($serie);
                     $IDepisode = $episodes[$numEpisode - 1]->__get('IDepisode');
                     EpVisionne::ajouterVisionne($userId, $IDepisode);
                 }
@@ -38,6 +40,7 @@ class AffichageEpisode
 
                 if ($episode->__get('numeroEp') == sizeof($episodes)) {
                     EnCours::supprimerEnCours($Idserie);
+
 
                     SerieVisionne::ajouterVisionne($userId, $Idserie);
                 }

@@ -2,6 +2,7 @@
 
 
 namespace netvod\render;
+use netvod\Trie\NoteMoyenne;
 use netvod\video\lists\ListeSerie;
 
 /**
@@ -56,4 +57,19 @@ class ListeSerieRender implements Render {
         $res .= "</div></div>";
         return $res;
     }
+
+
+    public function renderParClassement(){
+        $res = "<div class=\"genre-serie\">";
+        $res .= "<h2>Classement des meilleurs série</h2>";
+        $res .= "<div class=\"liste-series\">";
+        $listetemp = NoteMoyenne::trieNoteMoyenne($this->listeSerie);
+        foreach ($listetemp as $series) {
+            $serie = new SerieRender($series);
+            $res .= $serie->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
+
 }

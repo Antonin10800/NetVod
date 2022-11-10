@@ -12,6 +12,7 @@ class Utilisateur
     private int $role;
     private string $sexe;
     private array $favoris = array();
+    private array $enCours = array();
 
     /**
      * constructeur de la class Utilisateur qui prends en paramètre 
@@ -49,6 +50,25 @@ class Utilisateur
         $index = array_search($serie, $this->favoris);
         // on supprime l'élément du tableau
         unset($this->favoris[$index]);
+    }
+
+    /**
+     * @param Serie $serie
+     */
+    public function ajouterEnCours(Serie $serie)
+    {
+        // pour ajouter en fin d'un tableau on met crochet vide :-)
+        $this->enCours[] = $serie;
+    }
+    /**
+     * @param Serie $serie
+     */
+    public function supprimerEnCours(Serie $serie)
+    {
+        // on cherche l'index de la série dans le tableau
+        $index = array_search($serie, $this->enCours);
+        // on supprime l'élément du tableau
+        unset($this->enCours[$index]);
     }
 
     /**
