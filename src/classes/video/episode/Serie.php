@@ -175,5 +175,27 @@ class Serie
         return $res;
     }
 
+    public static function comparerTaille(Serie $objet1, Serie $objet2): int
+    {
+        if($objet1->nbEpisode == $objet2->nbEpisode)
+        {
+            return 0;
+        }
+        if($objet1->nbEpisode < $objet2->nbEpisode)
+        {
+            return 1;
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
+
+    public static function comparerDateSortie(Serie $objet1, Serie $objet2): int
+    {
+        return Date::comparerDate($objet1->dateSortie, $objet2->dateSortie);
+    }
+
 
 }

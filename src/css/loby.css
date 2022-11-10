@@ -72,6 +72,44 @@ header{
     font-size: 2.1em;
 }
 
+.headerMid {
+    width: 40%;
+}
+
+.headerMid form {
+    width: 100%;
+    display: flex;
+    position: relative;
+}
+
+.inputRecherche {
+    width: 100%;
+    height: 2em;
+    border: none;
+    font-size: 1.5em;
+    padding-left: 1em;
+    background-color: rgb(51, 51, 51);
+    border-radius: 50px;
+}
+
+.inputRecherche:focus {
+    background-color: rgb(70, 69, 69);
+    border: 0px;
+    box-shadow: none;
+    outline: none;
+}
+
+.btnRecherche {
+    position: absolute;
+    right: 0;
+    width: 10%;
+    height: 3.6em;
+    border: none;
+    background-color: rgb(51, 51, 51);
+    border-radius: 50px;
+    cursor: pointer;
+}
+
 
 .content {
     width: 100%;
@@ -97,6 +135,33 @@ header{
     padding: 0 2em;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+#encour .image{
+    position: relative;
+}
+
+#encour .image::before {
+    position: absolute;
+    content: " ";
+    width: 40%;
+    height: 7%;
+    background: red;
+    bottom: 2px;
+    left: 3px;
+    z-index: 12;
+}
+
+
+#encour .image::after {
+    position: absolute;
+    content: " ";
+    width: 60%;
+    height: 7%;
+    background: grey;
+    bottom: 2px;
+    right: 3px;
+    z-index: 12;
 }
 
 .liste-series::-webkit-scrollbar {
