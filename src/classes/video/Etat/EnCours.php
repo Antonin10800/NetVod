@@ -66,6 +66,11 @@ class EnCours
         }
     }
 
+    /**
+     * méthode qui permet d'ajouter les séries qui sont en cours
+     * @param Utilisateur $user
+     * @return Utilisateur
+     */
     public static function remplirEnCours(Utilisateur $user): Utilisateur
     {
         //on récupere l'id User

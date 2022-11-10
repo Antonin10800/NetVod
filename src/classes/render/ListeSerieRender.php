@@ -113,7 +113,6 @@ class ListeSerieRender implements Render {
      * méthode qui permet d'afficher la liste des séries en cours
      * @return string liste des séries
      */
-
     public function renderEncours():string
     {
         $utilisateur = unserialize($_SESSION['user']);
@@ -137,6 +136,35 @@ class ListeSerieRender implements Render {
 
         return $res;
     }
+
+    /**
+     * fonction qui ecris les série deja visionné
+     * @return string
+     */
+    public function renderVisionne():string
+    {
+        $utilisateur = unserialize($_SESSION['user']);
+        $vision = $utilisateur->vision;
+        if(count($vision)>0)
+        {
+            $res = "<div class=\"genre-serie\">";
+            $res .= '<h2>À revoir</h2>';
+            $res .= '<div class="liste-series">';
+            foreach ($vision as $vis)
+            {
+                $serie = new SerieRender($vis);
+                $res .= $serie->render();
+            }
+            $res .= "</div></div>";
+        }
+        else
+        {
+            $res = "";
+        }
+
+        return $res;
+    }
+
 
     public function renderRecherche(string $recherche) : string
     {
