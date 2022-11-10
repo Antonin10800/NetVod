@@ -61,7 +61,7 @@ class Serie
         $this->dateAjout = $dateAjout;
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
-        $this->image = 'src/images/series/image.jpeg';
+        $this->image = $image;
         $this->setEpisodes();
     }
 
