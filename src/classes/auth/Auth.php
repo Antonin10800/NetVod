@@ -203,11 +203,20 @@ class Auth
      */
     public static function activerCompte(string $token) : void{
         $db = ConnectionFactory::makeConnection();
-        $sql = "update Utilisateur set activer = 1 where token = ?;";
-        $query = $db->prepare($sql);
-        $query->bindParam(1, $token);
-        $query->execute();
-        $query->closeCursor();
+        $validite = $db->prepare("select expireToken from Utilisateur where token = ?;");
+        $validite->bindParam(1, $token);
+        $validite->execute();
+        $row = $validite->fetch(PDO::FETCH_ASSOC);
+        $validite->closeCursor();
+        if($row['expireToken'] >= date('Y-m-d H:i:s',time())){
+            $sql = "update Utilisateur set activer = 1 where token = ?;";
+            $query = $db->prepare($sql);
+            $query->bindParam(1, $token);
+            $query->execute();
+            $query->closeCursor();
+        }else{
+            header("Location: ?action=connexion");
+        }
     }
 
     /**

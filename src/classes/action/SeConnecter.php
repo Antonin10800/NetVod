@@ -83,7 +83,7 @@ class SeConnecter implements Action
                         <input type="email" name="email">
                         <p>Password :</p>
                         <input type="password" name="password" >
-                        <div class=\"error\"><a href=\"?action=activation&token=$token\">Cliquez ici pour activer votre compte !</a></div>
+                        <div class="error"><a href="?action=activation&token=$token">Cliquez ici pour activer votre compte !</a></div>
                         <p>Vous ne possédez pas de compte <a id="createCompte" href="?action=inscription">Créer un compte</a></p>
                         <p>Mot de passe oublié <a id="createCompte" href="?action=motDePasseOublie">Besoin d\'aide ?</a></p>
                         <button id="disable" type="submit">Connexion</button></form>
