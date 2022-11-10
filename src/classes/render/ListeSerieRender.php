@@ -97,4 +97,18 @@ class ListeSerieRender implements Render {
         }
         return $res;
     }
+
+    public function renderRecherche(string $recherche) : string {
+        $res = "<div class=\"genre-serie\">";
+        $res .= "<h2>Résultat de la recherche</h2>";
+        $res .= "<div class=\"liste-series\">";
+        foreach ($this->listeSerie as $series) {
+            if($series->nom == $recherche) {
+                $serie = new SerieRender($series);
+                $res .= $serie->render();
+            }
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
 }

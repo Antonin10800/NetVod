@@ -2,22 +2,15 @@
 
 namespace netvod\action;
 
-
-
 use netvod\render\ListeSerieRender;
-use netvod\render\SerieRender;
 use netvod\video\lists\ListeSerie;
 
-class Lobby implements Action
+class Recherche implements Action
 {
     public function execute(): string
     {
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
-            header("Location: ?action=recherche&recherche=". $_POST['inputRecherche']);
-            $html = "";
-        }
-        else{
-        $html = <<<END
+        $html =
+            <<<END
             <!DOCTYPE html>
             <html lang="fr"> <head>
             <meta charset="UTF-8">
@@ -34,10 +27,7 @@ class Lobby implements Action
                 <div class="headerLeft">
                     <a>NETVOD</a>
                 </div>
-               <div class="headerMid">
-                    <input type="search" name="inputRecherche" class="inputRecherche" required>
-                    <button type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
-                </div>
+               
                 <div class="headerRight">
                     <a onclick="profilePage()"><i  class="fa-solid fa-user"></i></a>
                 </div>
@@ -49,11 +39,7 @@ class Lobby implements Action
 
         //$html .= $listeSerieRender->render();
         $html .= "<div class=\"content\">";
-        $html .= $listeSerieRender->renderFavoris();
-        $html .= $listeSerieRender->renderGenre("Comédie");
-        $html .= $listeSerieRender->renderGenre("Horreur");
-        $html .= $listeSerieRender->renderGenre("Thriller");
-        $html .= $listeSerieRender->renderParClassement();
+       // $html .= $listeSerieRender->renderRecherche($_GET['recherche']);
         $html .= "</div>";
 
         $html .= "<div class=\"content-profile\">";
@@ -69,8 +55,10 @@ class Lobby implements Action
         $html .= '</div></div>';
 
         $html .= '</body></html>';
-
-    }
         return $html;
     }
-}
+
+
+
+
+    }

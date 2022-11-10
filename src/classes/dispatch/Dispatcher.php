@@ -12,6 +12,7 @@ use netvod\action\SeConnecter;
 use netvod\action\Inscription;
 use netvod\action\MotDePasseOublie;
 use netvod\action\ChangementMotDePasse;
+use netvod\action\Recherche;
 
 use netvod\Auth\Auth;
 use netvod\user\Utilisateur;
@@ -113,6 +114,11 @@ class Dispatcher
             case 'changementMotDePasse':
                 $mdp = new ChangementMotDePasse();
                 $html = $mdp->execute();
+                break;
+
+            case 'recherche':
+                $recherche = new Recherche();
+                $html = $recherche->execute();
                 break;
 
             default:

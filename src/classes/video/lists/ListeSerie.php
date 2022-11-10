@@ -106,7 +106,18 @@ class ListeSerie
 
     }
 
+        public function rechercherSerie(string $recherche): array
+        {
+            foreach ($this->listeSeries as $serie)
+            {
+                if(str_contains($serie->titre,$recherche))
+                {
+                    $res[] = $serie;
+                }
 
+            }
+            return $res;
+        }
 
 
 }
