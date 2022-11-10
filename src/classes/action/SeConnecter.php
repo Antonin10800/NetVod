@@ -17,7 +17,7 @@ class SeConnecter implements Action
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
         $html .= '<link rel="stylesheet" href="src/css/connexion.css">';
-        $html .= '</head><body background="src/classes/images/css/netfix_background.jpeg">';
+        $html .= '</head><body background="src/images/css/netfix_background.jpeg">';
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= '<form method="post" action="?action=connexion">';
