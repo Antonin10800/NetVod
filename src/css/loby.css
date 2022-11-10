@@ -1,6 +1,7 @@
 html {
     margin: 0%;
     padding: 0%;
+    overflow-x: hidden;
 }
 
 body {
@@ -44,6 +45,12 @@ header {
 
 .headerLeft {
     margin-left: 2em;
+   
+}
+
+.headerLeft h1 { 
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: red;
 }
 
 .headerRight {
@@ -67,7 +74,7 @@ header {
 
 .image-serie {
     height: 90%;
-    margin: 0.5em;
+    margin: 0.2em;
 }
 
 .image-serie:hover {
@@ -80,6 +87,8 @@ header {
     height: 10em;
     display: flex;
     padding: 0 2em;
+    overflow-x: scroll;
+    overflow-y: visible;
 }
 
 .genre-serie {
