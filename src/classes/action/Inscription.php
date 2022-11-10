@@ -18,6 +18,7 @@ class Inscription implements Action
         $html .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $html .= '<title>Inscription</title>';
         $html .= '<link rel="stylesheet" href="src/css/Inscription.css">';
+        $html .= '<link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>';
         $html .= '</head><body background="src/images/css/netfix_background.jpeg">';
 
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
