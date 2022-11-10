@@ -90,9 +90,6 @@ class ListeSerieRender implements Render {
         $favoris = $utilisateur->favoris;
         if(count($favoris)>0)
         {
-            /**echo "<pre>";
-            var_dump($favoris);
-            die();*/
             $res = "<div class=\"genre-serie\">";
             $res .= '<h2>Vos préférences</h2>';
             $res .= '<div class="liste-series">';
@@ -110,15 +107,16 @@ class ListeSerieRender implements Render {
         return $res;
     }
 
+    /**
+     * méthode qui permet d'afficher la liste des séries en cours
+     * @return string liste des séries
+     */
     public function renderEncours():string
     {
         $utilisateur = unserialize($_SESSION['user']);
         $encours = $utilisateur->enCours;
         if(count($encours)>0)
         {
-            /**echo "<pre>";
-            var_dump($favoris);
-            die();*/
             $res = "<div class=\"genre-serie\">";
             $res .= '<h2>Reprendre</h2>';
             $res .= '<div class="liste-series">';
