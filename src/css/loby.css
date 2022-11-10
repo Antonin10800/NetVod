@@ -30,17 +30,18 @@ html {
 body {
     height: 100%;
     width: 100%;
-    background-color: rgb(31, 31, 31);
+    background-color: black;
 }
 
 header {
     height: 6em;
-    background-color: black;
+    background: rgb(57,57,57);
+    background: linear-gradient(180deg, rgba(57,57,57,1) 0%, rgb(9, 9, 9) 52%);
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 2em;
-    box-shadow: 0 0 5em black ;
+    box-shadow: 0 0 14em #1f1f1f ;
 }
 
 .headerLeft {
@@ -63,6 +64,7 @@ header {
 
 .headerRight i:hover {
     color: gold;
+    font-size: 2.1em;
 }
 
 
