@@ -117,21 +117,22 @@ class Commentaire implements Action
     {
 
         $avis = $serie->getAvis();
+
+
+        $present = false;
         foreach ($avis as $a) {
             if ($a->idSerie == $serie->IDserie) {
+                $present = true;
                 if (!($a->idUser == $idUser)) {
-                    $db = ConnectionFactory::makeConnection();
-
-                    $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
-                    $req->bindParam(1, $idUser);
-                    $req->bindParam(2, $a->idSerie);
-                    $req->bindParam(3, $commentaire);
-                    $req->bindParam(4, $note);
-                    $req->execute();
-                    $req->closeCursor();
+                    $this->inserer($idUser, $a->idSerie, $commentaire, $note);
                     break;
                 }
             }
+        }
+
+        if(!$present)
+        {
+            $this->inserer($idUser, $serie->IDserie, $commentaire, $note);
         }
         $listeSerie = ListeSerie::getInstance();
         $listeSerie->actualiserAvis();
@@ -153,12 +154,29 @@ class Commentaire implements Action
         return false;
     }
 
+    public function inserer($idUser, $a, $commentaire, $note)
+    {
+        $db = ConnectionFactory::makeConnection();
+
+        $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
+        $req->bindParam(1, $idUser);
+        $req->bindParam(2, $a);
+        $req->bindParam(3, $commentaire);
+        $req->bindParam(4, $note);
+        $req->execute();
+        $req->closeCursor();
+    }
+
     public function afficherComm($serie):string
     {
 
         $res = "<div class=\"espaces-com\">";
 
-        $moy = 0;
+        if ($serie->noteMoyenne == 0) {
+            $res .= "<h1>Cette série n'a pas encore été notée</h1>";
+        } else {
+            $res .= "<h1>Moyenne de la série : {$serie->noteMoyenne} <i id=\"star\" class=\"fa-solid fa-star\"></i></h1>";
+        }
         foreach ($serie->getAvis() as $avi) {
             $res .= <<<END
                 <div class="com">
@@ -171,7 +189,6 @@ class Commentaire implements Action
                     <h1 id="note"> Note : {$avi->note}</p>
                 </div>
             END;
-            $moy += $avi->note;
         }
         $res .= "</div>";
 

@@ -150,3 +150,7 @@ header {
 #star1, #star2, #star3, #star4, #star5 {
     color: grey;
 }
+
+#star {
+    color: yellow;
+}
