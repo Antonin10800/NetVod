@@ -59,7 +59,6 @@ header {
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 25em;
     justify-content: center;
     align-items: center;
     margin-bottom: 1em;
@@ -69,11 +68,11 @@ header {
 
 .headerTop {
     display: flex;
-    height: 80%;
+    width: 100%;
 }
 
 .image-serie {
-    height: 100%;
+    height: 20em;
 }
 
 .headerLeft {
@@ -87,17 +86,14 @@ header {
     padding: 2em;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
 }
 
 .titre {
-    height: 25%;
-    margin-bottom: 4em;
 }
 
-.titre hr {
+.headerRight hr {
     width: 100%;
-    height: 1px;
+    height: 2px;
     background-color: #f3f3f3;
     border: none;
 }
@@ -107,7 +103,6 @@ header {
 }
 
 .resume {
-    height: 40%;
 }
 
 .resume p {
@@ -116,7 +111,6 @@ header {
 
 .genre {
     display: flex;
-    height: 25%;
     justify-content: space-between;
     align-items: center;
 }
@@ -147,21 +141,22 @@ header {
 
 .episodes {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    grid-auto-rows: minmax(100px, auto);
-    margin: 1em 6em;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1em;
+    margin: 1em 4em;
 }
 
 .episodes-serie {
-    height: 10em;
-    width: 20em;
     display: flex;
+    border-radius: 6px;
+    background-color: rgba(51, 51, 51, 0.432);
     align-items: center;
 }
 
 .img {
     height: 8em;
+    display: flex;
+    position: relative;
 }
 
 
@@ -171,8 +166,9 @@ header {
 
 .duree {
     position: absolute;
+    background-color: rgba(128, 128, 128, 0.622);
+    left: 0;
     bottom: 0;
-    right: 0;
 }
 
 .titre-episode {

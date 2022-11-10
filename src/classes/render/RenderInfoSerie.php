@@ -70,6 +70,7 @@ class RenderInfoSerie implements Render
                         </div>
                         <div class="resume">
                             <p>{$this->serie->resume}</p>
+                            <hr>
                         </div>
                         <div class="genre">
                             <h1>{$this->serie->genre}</h1>
@@ -102,7 +103,7 @@ class RenderInfoSerie implements Render
                         <p class="duree"> {$episode->duree} </p>
                     </div>
                     <div class="titre-episode">
-                        <h1>{$episode->numeroEp} - {$episode->titre}</h1>
+                        <h1>épisode : {$episode->numeroEp} - {$episode->titre}</h1>
                     </div>
                 </div>
                 END;
