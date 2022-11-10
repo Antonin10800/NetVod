@@ -70,12 +70,11 @@ class Utilisateur
      */
     public function supprimerEnCours(Serie $serie)
     {
-        $idSerie = $serie->IDserie;
         // on cherche l'index de la série dans le tableau
         $index = array_search($serie, $this->enCours);
         // on supprime l'élément du tableau
         unset($this->enCours[$index]);
-        EnCours::supprimerEnCours($idSerie);
+        //EnCours::supprimerEnCours($idSerie);
     }
 
     /**
