@@ -80,7 +80,9 @@ class Auth
             // si l'email n'est pas utilisé on ajoute l'utilisateur dans la base de données
             if($result[0] == 0)
             {
-                $sql = "insert into Utilisateur values (NEXT VALUE FOR seqUser, ?, ?, 1, ?, ?, ?);";
+                $time = date('Y-m-d H:i:s',time());
+
+                $sql = "insert into Utilisateur values (NEXT VALUE FOR seqUser, ?, ?, 1, ?, ?, ?, 0, '', 0);";
                 $query = $db->prepare($sql);
                 $query->bindParam(1, $email);
                 $query->bindParam(2, $hash);
@@ -187,5 +189,14 @@ class Auth
         $query->closeCursor();
         // on retourne true si le token est encore valide, false sinon
         return $row['expireToken'] >= date('Y-m-d H:i:s',time());
+    }
+
+    public static function activerCompte(string $token){
+        $db = ConnectionFactory::makeConnection();
+        $sql = "update Utilisateur set activer = 1 where token = ?;";
+        $query = $db->prepare($sql);
+        $query->bindParam(1, $token);
+        $query->execute();
+        $query->closeCursor();
     }
 }

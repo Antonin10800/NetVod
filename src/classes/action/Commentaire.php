@@ -51,11 +51,7 @@ class Commentaire implements Action
             {
                 $this->insererCommentaire($serie, $idUser, $commentaire, $note);
             }
-
             $res .= $this->afficherComm($serie);
-
-
-
         }
 
         return $res;
