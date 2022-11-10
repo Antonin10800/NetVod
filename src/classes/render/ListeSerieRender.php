@@ -72,4 +72,19 @@ class ListeSerieRender implements Render {
         return $res;
     }
 
+    public function renderFavoris(): string
+    {
+        $utilisateur = unserialize($_SESSION['user']);
+        $favoris = $utilisateur->favoris;
+        $res = "<div class=\"genre-serie\">";
+        $res .= '<h2>Vos préférences</h2>';
+        $res .= '<div class="liste-series">';
+        foreach ($favoris as $fav)
+        {
+            $serie = new SerieRender($fav);
+            $res .= $serie->render();
+        }
+        $res .= "</div></div>";
+        return $res;
+    }
 }
