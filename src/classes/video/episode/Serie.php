@@ -157,6 +157,12 @@ class Serie
         }
     }
 
+    /**
+     * methode trouverSerie qui permet de trouver une serie dans la base de données
+     * @param array $s la liste des series
+     * @param int $id l'id de la serie à trouver
+     * @return Serie la serie trouvée
+     */
     public static function trouverSerie(array $s, int $id): Serie
     {
         $res = null;
