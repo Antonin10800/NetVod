@@ -91,7 +91,11 @@ header {
     display: flex;
     padding: 0 2em;
     overflow-x: scroll;
-    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+.liste-series::-webkit-scrollbar {
+    display: none; /* for Chrome, Safari, and Opera */
 }
 
 .genre-serie {
