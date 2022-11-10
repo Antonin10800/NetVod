@@ -14,7 +14,7 @@ class Serie
 {
 
     /**
-     * @var int $IDepisode l'id de la serie
+     * @var int $IDserie l'id de la serie
      * @var string $titre le titre de la serie
      * @var string $resume le resume de la serie
      * @var string $genre le genre de la serie
@@ -37,6 +37,7 @@ class Serie
     private string $image;
     private array $avis = array();
     private array $listeEpisode = array();
+    private float $noteMoyenne;
 
     /**
      * constructeur de la class Serie qui prends en paramètre 
@@ -61,6 +62,8 @@ class Serie
         $this->nbEpisode = $nbEpisode;
         $this->dateSortie = $dateSortie;
         $this->image = 'src/classes/images/series/TheWitcher.jpg';
+
+
         $this->setEpisodes();
     }
 
@@ -89,6 +92,16 @@ class Serie
     public function getAvis():array
     {
         return $this->avis;
+    }
+
+    public function calculerMoyenne():void
+    {
+        $moyenne = 0;
+        foreach($this->avis as $avis)
+        {
+            $moyenne += $avis->getNote();
+        }
+        $this->noteMoyenne = $moyenne / count($this->avis);
     }
 
     /**
