@@ -37,7 +37,7 @@ class Recherche implements Action
             <div class="headerMid">
                <form method="post" action="?action=connexion">
                     <input type="search" name="inputRecherche" class="inputRecherche" required>
-                    <button type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
+                    <button class="btnRecherche" type="submit" name="submit" value="recherche"><i class="fa-solid fa-search"></i></button>
                 </form>
                 </div>
                
