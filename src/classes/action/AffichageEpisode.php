@@ -25,8 +25,7 @@ class AffichageEpisode
                 $Idserie = $serie->__get('IDserie');
                 $episodes = $serie->getEpisodes();
                 if (SerieVisionne::Visionne($userId, $Idserie) == false) {
-                    EnCours::ajouterEnCours($Idserie);
-                    Utilisateur::ajouterEnCours($serie);
+                    $user->ajouterEnCours($serie, $Idserie);
                     $IDepisode = $episodes[$numEpisode - 1]->__get('IDepisode');
                     EpVisionne::ajouterVisionne($userId, $IDepisode);
                 }

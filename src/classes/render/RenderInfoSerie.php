@@ -47,6 +47,7 @@ class RenderInfoSerie implements Render
         $res .= '<meta http-equiv="X-UA-Compatible" content="IE=edge">';
         $res .= '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         $res .= '<title>NetVod</title>';
+        $res .= '<link rel="shortcut icon" type="image/jpg" href="src/images/logo/logo-Netflix.jpg"/>';
         $res .= '<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />';
         $res .= '<link rel="stylesheet" href="src/css/renderInfo.css">';
         $res .= '</head><body>';

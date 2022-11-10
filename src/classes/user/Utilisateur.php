@@ -3,6 +3,7 @@
 namespace netvod\user;
 use netvod\db\ConnectionFactory;
 use netvod\video\episode\Serie;
+use netvod\video\Etat\EnCours;
 
 class Utilisateur 
 {
@@ -59,10 +60,11 @@ class Utilisateur
     /**
      * @param Serie $serie
      */
-    public function ajouterEnCours(Serie $serie)
+    public function ajouterEnCours(Serie $serie, int $idSerie)
     {
         // pour ajouter en fin d'un tableau on met crochet vide :-)
         $this->enCours[] = $serie;
+        EnCours::ajouterEnCours($idSerie, $this->IDuser);
     }
     /**
      * @param Serie $serie
