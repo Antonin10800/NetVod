@@ -95,7 +95,7 @@ class Inscription implements Action
                     $html .= '<p>Email</p><input class="input" type="email" name="email" >';
                     $html .= '<p>Password</p><input type="password" name="password" >';
                     $html .= '<p>Password confirmation</p><input class="input" type="password" name="password2" >';
-                    $html .= '<div class="error"><p>ÇA NE MARCHE PAS</p></div>';
+                    $html .= '<div class="error"><p>Une erreur vient de se produire</p></div>';
                     $html .= '<div class="name"><div class="part"><p>Nom</p><input type="text" name="nom"></div>';
                     $html .= '<div class="part"><p>Prenom</p><input class="input" type="text" name="prenom"></div></div>';
                     $html .= '<div class="gender"><input class="input" type="radio" name="genre" value="Femme">Femme';
