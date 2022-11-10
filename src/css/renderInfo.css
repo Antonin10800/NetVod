@@ -43,14 +43,17 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 1em;
+    border-bottom: 1px solid #f3f3f347;
+    box-shadow: 0 0 3empx #f3f3f350;
 }
 
 .headerTop {
     display: flex;
+    height: 80%;
 }
 
 .image-serie {
-    height: 20em;
+    height: 100%;
 }
 
 .headerLeft {
