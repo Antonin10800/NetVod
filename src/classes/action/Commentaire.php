@@ -121,21 +121,22 @@ class Commentaire implements Action
     {
 
         $avis = $serie->getAvis();
+
+
+        $present = false;
         foreach ($avis as $a) {
             if ($a->idSerie == $serie->IDserie) {
+                $present = true;
                 if (!($a->idUser == $idUser)) {
-                    $db = ConnectionFactory::makeConnection();
-
-                    $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
-                    $req->bindParam(1, $idUser);
-                    $req->bindParam(2, $a->idSerie);
-                    $req->bindParam(3, $commentaire);
-                    $req->bindParam(4, $note);
-                    $req->execute();
-                    $req->closeCursor();
+                    $this->inserer($idUser, $a->idSerie, $commentaire, $note);
                     break;
                 }
             }
+        }
+
+        if(!$present)
+        {
+            $this->inserer($idUser, $serie->IDserie, $commentaire, $note);
         }
         $listeSerie = ListeSerie::getInstance();
         $listeSerie->actualiserAvis();
@@ -155,6 +156,19 @@ class Commentaire implements Action
             }
         }
         return false;
+    }
+
+    public function inserer($idUser, $a, $commentaire, $note)
+    {
+        $db = ConnectionFactory::makeConnection();
+
+        $req = $db->prepare("INSERT INTO `Avis` (`IDUser`, `IDSerie`, `commentaire`, `note`) VALUES (?, ?, ?, ?);");
+        $req->bindParam(1, $idUser);
+        $req->bindParam(2, $a);
+        $req->bindParam(3, $commentaire);
+        $req->bindParam(4, $note);
+        $req->execute();
+        $req->closeCursor();
     }
 
     public function afficherComm($serie):string
