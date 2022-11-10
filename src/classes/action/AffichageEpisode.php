@@ -53,6 +53,7 @@ class AffichageEpisode
                         $user->supprimerEnCours($serieActuelle);
                         EnCours::supprimerEnCours($serieActuelle->IDserie);
                         SerieVisionne::ajouterVisionne($userId, $idSerie);
+                        $user->ajouterVisionne($serieActuelle);
                     }
                 }
                 break;

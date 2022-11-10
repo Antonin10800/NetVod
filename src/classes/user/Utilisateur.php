@@ -16,6 +16,7 @@ class Utilisateur
     private string $sexe;
     private array $favoris = array();
     private array $enCours = array();
+    private array $vision = array();
 
     /**
      * constructeur de la class Utilisateur qui prends en paramètre 
@@ -75,6 +76,17 @@ class Utilisateur
         // on supprime l'élément du tableau
         unset($this->enCours[$index]);
         //EnCours::supprimerEnCours($idSerie);
+    }
+
+    /**
+     * fonction qui ajoute une série en visionne
+     * @param Serie $serie
+     * @return void
+     */
+    public function ajouterVisionne(Serie $serie)
+    {
+        // pour ajouter en fin d'un tableau on met crochet vide :-)
+        $this->vision[] = $serie;
     }
 
     /**
