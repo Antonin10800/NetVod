@@ -80,7 +80,7 @@ class Commentaire implements Action {
 
         return $html;
     }
-    
+
 }
 
 
