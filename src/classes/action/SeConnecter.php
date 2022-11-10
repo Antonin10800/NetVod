@@ -5,11 +5,19 @@ namespace netvod\action;
 
 use netvod\Auth\Auth;
 
+/**
+ * class SeConnecter
+ * qui permet de se connecter au site
+ */
 class SeConnecter implements Action
 {
+    /**
+     * methode execute qui permet de se connecter au site
+     * @return string le rendu de la page
+     */
     public function execute(): string
     {
-
+        // header du site
         $html = <<<END
             <!DOCTYPE html>
             <html lang="fr"> <head>
@@ -22,6 +30,7 @@ class SeConnecter implements Action
             </head><body background="src/images/css/netfix_background.jpeg">
             END;
 
+        // si la méthode est GET on affiche le formulaire de connexion
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $html .= <<<END
                 <form method="post" action="?action=connexion">
@@ -37,7 +46,7 @@ class SeConnecter implements Action
                 END;
 
         } else if (($_SERVER['REQUEST_METHOD'] == 'POST')) {
-
+            // sinon on verifie les reponses et on se connecte si tout est bon
             if(empty($_POST['email']) || empty($_POST['password'])) {
                 $html .= <<<END
                     <form method="post" action="?action=connexion">
