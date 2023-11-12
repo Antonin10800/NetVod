@@ -50,6 +50,7 @@ class Auth
             Favoris::remplirFavoris($user);
             EnCours::remplirEnCours($user);
             SerieVisionne::remplirVisionner($user);
+            //change
             return $user;
     }
 
